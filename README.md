@@ -48,11 +48,11 @@ Each team member must think of and choose a project idea then work with their te
 
 | Project Ideas                            | Description |
 | ---------------------------------------- | ----------- |
-| Team Member’s name and Project Idea 1:   |             |
-| Team Member’s name and Project Idea 2:   |             |
-| Team Member’s name and Project Idea 3:   |             |
-| Team Member’s name and Project Idea 4:   |             |
-| Selected Project Ideas and why:          |             |
+| Team Member’s name and Project Idea 1:   | Mark Moutter -> Gambling Probability Calculator |
+| Team Member’s name and Project Idea 2:   | Iles Belkessam -> Encrypted Discord Clone (for study and work) |
+| Team Member’s name and Project Idea 3:   | Ares Gabrielyan -> Ragdoll Sandbox Simulator |
+| Team Member’s name and Project Idea 4:   | Micheal Lulic -> Billiards Simulator |
+| Selected Project Ideas and why:          | Mark Moutter -> Gambling Probability Calculator |
 
 The following description should be given in the PowerPoint:
 
