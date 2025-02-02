@@ -52,7 +52,7 @@ Each team member must think of and choose a project idea then work with their te
 | Team Member’s name and Project Idea 2:   | Iles Belkessam -> Encrypted Discord Clone (for study and work) |
 | Team Member’s name and Project Idea 3:   | Ares Gabrielyan -> Ragdoll Sandbox Simulator |
 | Team Member’s name and Project Idea 4:   | Micheal Lulic -> Billiards Simulator |
-| Selected Project Ideas and why:          | Mark Moutter -> Gambling Probability Calculator |
+| Selected Project Ideas and why:          | Mark Moutter -> Gambling Probability Calculator; Interest in gambling, related to current semester's subject of discrete mathematics, potential to make beautiful UI and card animations, to avoid networking in Iles's idea, in order to raise awareness about the reality of gambling and to help players understand their odds and how to play optimally for themselves. |
 
 The following description should be given in the PowerPoint:
 
