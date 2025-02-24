@@ -1,11 +1,11 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" version="26.0.14">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2713" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2501" dy="738" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
-        <mxCell id="tToA4wUiExiqptiXw_F4-0" value="&lt;div&gt;Poker&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ Deck playerDeck&lt;/div&gt;&lt;div&gt;+ ArrayList&amp;lt;Player&amp;gt; players&lt;/div&gt;&lt;div&gt;+ int playerNumber&lt;/div&gt;&lt;div&gt;+ int maxBet&lt;/div&gt;&lt;div&gt;+ int burnCards&lt;/div&gt;&lt;div&gt;+ ArrayList&amp;lt;Integer&amp;gt; bets&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="-10" y="450" width="210" height="130" as="geometry" />
+        <mxCell id="tToA4wUiExiqptiXw_F4-0" value="&lt;div&gt;Poker&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ Deck playerDeck&lt;/div&gt;&lt;div&gt;+ ArrayList&amp;lt;Player&amp;gt; players&lt;/div&gt;&lt;div&gt;+ int playerNumber&lt;/div&gt;&lt;div&gt;+ int maxBet&lt;/div&gt;&lt;div&gt;+ int burnCards&lt;/div&gt;&lt;div&gt;+ ArrayList&amp;lt;Integer&amp;gt; bets&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ raise()&lt;/div&gt;&lt;div&gt;+ check()&lt;/div&gt;&lt;div&gt;+ fold()&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-10" y="280" width="210" height="180" as="geometry" />
         </mxCell>
         <mxCell id="tToA4wUiExiqptiXw_F4-1" value="&lt;div&gt;Blackjack&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ Player dealer&lt;/div&gt;&lt;div&gt;+ Player player&lt;/div&gt;&lt;div&gt;+ DeckFactory deck&lt;/div&gt;&lt;div&gt;+&amp;nbsp; hit()&lt;/div&gt;&lt;div&gt;+ stand()&lt;/div&gt;&lt;div&gt;+ int currentBet&lt;/div&gt;&lt;div&gt;+ doubleDown()&lt;/div&gt;&lt;div&gt;+ split()&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="210" y="450" width="230" height="190" as="geometry" />
@@ -22,7 +22,7 @@
             <mxPoint x="694.5" y="750.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="V54zFg8hvjgudQwe-slX-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="tToA4wUiExiqptiXw_F4-5" target="V54zFg8hvjgudQwe-slX-3">
+        <mxCell id="V54zFg8hvjgudQwe-slX-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="tToA4wUiExiqptiXw_F4-5" target="V54zFg8hvjgudQwe-slX-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="tToA4wUiExiqptiXw_F4-5" value="&lt;div&gt;Dice and Mines:&lt;/div&gt;&lt;div&gt;&lt;div&gt;class: Mines&lt;/div&gt;&lt;div&gt;functions:&lt;/div&gt;&lt;div&gt;-IsMine(int x, int y)&lt;/div&gt;&lt;div&gt;-OnCaseClicked(int x, int y);&lt;/div&gt;&lt;div&gt;-Cashout()&lt;/div&gt;&lt;div&gt;-ApplyGameProperties()&lt;/div&gt;&lt;div&gt;-SerializeGameProperties()&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
@@ -67,7 +67,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="jq3g5ppvfEtibvaRHfFG-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.217;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="tToA4wUiExiqptiXw_F4-11" edge="1" target="tToA4wUiExiqptiXw_F4-1">
+        <mxCell id="jq3g5ppvfEtibvaRHfFG-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.217;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="tToA4wUiExiqptiXw_F4-11" target="tToA4wUiExiqptiXw_F4-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="260" y="660" as="targetPoint" />
           </mxGeometry>
@@ -179,13 +179,13 @@
         <mxCell id="jq3g5ppvfEtibvaRHfFG-7" value="Contains" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="285" y="398" width="70" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="V54zFg8hvjgudQwe-slX-2" value="&lt;div&gt;GameUI (multiple)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="V54zFg8hvjgudQwe-slX-2" value="&lt;div&gt;GameUI (multiple)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="310" y="170" width="116" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="V54zFg8hvjgudQwe-slX-3" value="&lt;div&gt;class: Dice&lt;/div&gt;&lt;div&gt;functions:&lt;/div&gt;&lt;div&gt;-SelectTarget(int value);&lt;/div&gt;&lt;div&gt;-SelectUnderOrOver(bool isUnder);&lt;/div&gt;&lt;div&gt;-ApplyGameProperties()&lt;/div&gt;&lt;div&gt;-SerializeGameProperties()&lt;/div&gt;&lt;div&gt;-Bet()&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="V54zFg8hvjgudQwe-slX-3" value="&lt;div&gt;class: Dice&lt;/div&gt;&lt;div&gt;functions:&lt;/div&gt;&lt;div&gt;-SelectTarget(int value);&lt;/div&gt;&lt;div&gt;-SelectUnderOrOver(bool isUnder);&lt;/div&gt;&lt;div&gt;-ApplyGameProperties()&lt;/div&gt;&lt;div&gt;-SerializeGameProperties()&lt;/div&gt;&lt;div&gt;-Bet()&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="660" y="970" width="150" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="V54zFg8hvjgudQwe-slX-6" value="etc." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="V54zFg8hvjgudQwe-slX-6" value="etc." style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="160" y="220" width="110" height="30" as="geometry" />
         </mxCell>
       </root>
