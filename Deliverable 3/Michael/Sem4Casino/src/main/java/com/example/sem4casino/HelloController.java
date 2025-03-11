@@ -85,6 +85,7 @@ public class HelloController {
             }
         });
         setPlayers();
+        setPlayerCards();
     }
 
     private void setImage(ImageView imageView, String filePath){
@@ -144,9 +145,50 @@ public class HelloController {
     }
 
     private void setPlayerCards(){
-        ImageView[] cards = {playerCard1,playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2,bot4Card1, bot4Card2, bot5Card1, bot5Card2};
-        cards[0].setLayoutX();
-        cards[0].setLayoutY();
+        ImageView[] cards = {playerCard1,playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2,
+                bot3Card1, bot3Card2,bot4Card1, bot4Card2, bot5Card1, bot5Card2};
+        Circle[] circles = {playerCircle,botCircle1,botCircle2, botCircle3, botCircle4, botCircle5};
+        double displaceY = 135;
+        for(int i=0;i<4;i++)
+        {
+            if(i%2==0) {
+                cards[i].setLayoutX(circles[0].getLayoutX() - 50);
+            }
+            else{
+                cards[i].setLayoutX(circles[0].getLayoutX() + 5);
+            }
+            cards[i].setLayoutY(circles[0].getLayoutY()-displaceY);
+            if(i==1)
+            {
+                displaceY = 415;
+            }
+        }
+
+        double displaceX = 170;
+        displaceY = 0;
+        int count =0;
+        for(int i=4;i<cards.length;i++)
+        {
+            if(i%2==0)
+            {
+                cards[i].setLayoutX(605+displaceX);
+            }
+            else {
+                cards[i].setLayoutX(660+displaceX);
+            }
+            cards[i].setLayoutY(145+displaceY);
+            if(count==1) {
+                displaceY = 195;
+                count=0;
+            }
+            count++;
+            if(i==7){
+                displaceX = -(displaceX+60);
+                displaceY = 0;
+                count=0;
+            }
+        }
+
     }
 
     @FXML
