@@ -95,9 +95,9 @@
                                 <Label alignment="CENTER" text="Starting Chips:" />
                                 <TextField prefHeight="26.0" prefWidth="90.0" />
                                 <Label prefHeight="22.0" prefWidth="76.0" text="Bots:" />
-                                <Spinner fx:id="Spinner_Bots" prefHeight="26.0" prefWidth="48.0">
+                                <Spinner fx:id="SpinnerBots" prefHeight="26.0" prefWidth="48.0">
                                     <valueFactory>
-                                        <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="6" min="1" />
+                                        <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="5" min="1" />
                                     </valueFactory>
                                 </Spinner>
                                 <Label prefHeight="22.0" prefWidth="76.0" text="Burn Cards:" />

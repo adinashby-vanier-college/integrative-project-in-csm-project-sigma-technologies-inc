@@ -64,9 +64,6 @@ public class HelloController {
     @FXML private Circle botCircle5;
 
 
-
-
-
     @FXML
     public void initialize(){
         ImageView[] imageViews = {best_H1_1,best_H1_2,best_H1_3,best_H1_4,best_H1_5,best_H2_1,best_H2_2
@@ -82,10 +79,30 @@ public class HelloController {
                 ,"PNG-cards-1.3/9_of_spades.png","PNG-cards-1.3/10_of_clubs.png","PNG-cards-1.3/jack_of_diamonds.png","PNG-cards-1.3/2_of_clubs.png"
                 ,"PNG-cards-1.3/3_of_diamonds.png","PNG-cards-1.3/4_of_hearts.png","PNG-cards-1.3/5_of_spades.png","PNG-cards-1.3/6_of_clubs.png"};
 
+        //Hides turn circles
+        Circle[] botTurns = {bot1Turn,bot2Turn,bot3Turn,bot4Turn,bot5Turn};
+        for(int i=0;i<botTurns.length;i++)
+        {
+            botTurns[i].setVisible(false);
+        }
+        playerTurn.setVisible(true);
+
+        //Hides extra bots
+        onBotNumberChange();
+
+        //Sets burnt cards value
+        ChoiceBoxBruntCards.setValue("No Card");
+
+        //Presets images (remove later)
         for(int i=0;i< imageViews.length;i++)
         {
             setImage(imageViews[i],files[i]);
         }
+
+        //Add and remove bots
+        SpinnerBots.valueProperty().addListener((obs, oldValue, newValue) -> {
+            onBotNumberChange();
+        });
     }
 
     private void setImage(ImageView imageView, String filePath){
@@ -93,4 +110,27 @@ public class HelloController {
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
     }
+
+    @FXML
+    protected void onBotNumberChange() {
+        int bots = (int) SpinnerBots.getValue();
+        Circle[] circles = {botCircle1,botCircle2,botCircle3,botCircle4,botCircle5};
+        ImageView[] card1 = {bot1Card1,bot2Card1,bot3Card1,bot4Card1,bot5Card1};
+        ImageView[] card2 = {bot1Card2,bot2Card2,bot3Card2,bot4Card2,bot5Card2};
+
+        for(int i=0;i<bots;i++) {
+            circles[i].setVisible(true);
+            card1[i].setVisible(true);
+            card2[i].setVisible(true);
+        }
+
+        for(int i=bots;i<circles.length;i++)
+        {
+            circles[i].setVisible(false);
+            card1[i].setVisible(false);
+            card2[i].setVisible(false);
+        }
+
+    }
+
 }

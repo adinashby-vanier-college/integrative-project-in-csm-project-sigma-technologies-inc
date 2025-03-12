@@ -82,13 +82,14 @@
                                 <Label prefHeight="22.0" prefWidth="76.0" text="Bots:" />
                                 <Spinner fx:id="SpinnerBots" prefHeight="26.0" prefWidth="71.0">
                                     <valueFactory>
-                                        <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="6" min="1" />
+                                        <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="5" min="1"/>
                                     </valueFactory>
                                 </Spinner>
                                 <Label prefHeight="22.0" prefWidth="76.0" text="Burn Cards:" />
-                                <ChoiceBox fx:id="ChoiceBoxBruntCards" prefHeight="26.0" prefWidth="90.0" >
+                                <ChoiceBox fx:id="ChoiceBoxBruntCards" prefHeight="26.0" prefWidth="90.0">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="No Card"/>
                                             <String fx:value="1 Card"/>
                                             <String fx:value="2 Cards"/>
                                         </FXCollections>
