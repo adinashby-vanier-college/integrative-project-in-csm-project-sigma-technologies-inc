@@ -2,7 +2,9 @@ package com.example.sem4casino;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -12,8 +14,15 @@ import javafx.scene.shape.Ellipse;
 import java.io.File;
 
 public class HelloController {
-    @FXML
-    private Label welcomeText;
+    public Spinner SpinnerBots;
+    public ChoiceBox ChoiceBoxBruntCards;
+    public Circle bot2Turn;
+    public Circle bot1Turn;
+    public Circle bot4Turn;
+    public Circle bot5Turn;
+    public Circle playerTurn;
+    public Circle bot3Turn;
+
 
     @FXML private BorderPane borderPane;
 
@@ -45,9 +54,6 @@ public class HelloController {
     @FXML private ImageView bot5Card1;
     @FXML private ImageView bot5Card2;
 
-
-
-
     @FXML private Ellipse brownEllipse;
     @FXML private Ellipse greenEllipse;
     @FXML private Circle playerCircle;
@@ -56,6 +62,9 @@ public class HelloController {
     @FXML private Circle botCircle3;
     @FXML private Circle botCircle4;
     @FXML private Circle botCircle5;
+
+
+
 
 
     @FXML
@@ -77,122 +86,11 @@ public class HelloController {
         {
             setImage(imageViews[i],files[i]);
         }
-
-        borderPane.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (newScene != null) {
-                newScene.widthProperty().addListener((obsW, oldW, newW) -> setTable(newScene));
-                newScene.heightProperty().addListener((obsH, oldH, newH) -> setTable(newScene));
-            }
-        });
-        setPlayers();
-        setPlayerCards();
     }
 
     private void setImage(ImageView imageView, String filePath){
         File file = new File(filePath);
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
-    }
-
-    private void setTable(Scene scene){
-        brownEllipse.setLayoutX((scene.getWidth()/2)-(borderPane.getLeft().getBoundsInParent().getWidth()));
-        brownEllipse.setLayoutY(scene.getHeight()/3);
-        greenEllipse.setLayoutX((scene.getWidth()/2)-(borderPane.getLeft().getBoundsInParent().getWidth()));
-        greenEllipse.setLayoutY(scene.getHeight()/3);
-
-        ImageView[] imageViews = {riverCard1,riverCard2,riverCard3,riverCard4,riverCard5};
-        double displaceX = 0;
-
-        for(int i=0;i<imageViews.length;i++) {
-            imageViews[i].setLayoutX((scene.getWidth()/2)-(borderPane.getLeft().getBoundsInParent().getWidth())-135+displaceX);
-            imageViews[i].setLayoutY((scene.getHeight()/3)-35);
-            displaceX = displaceX+55;
-        }
-
-    }
-
-    private void setPlayers(){
-        double centerX = (greenEllipse.getLayoutX()*2)-33;
-        double centerY = (greenEllipse.getLayoutY()*3)+65;
-        double displaceX = greenEllipse.getRadiusX()-70;
-        double displaceY = (greenEllipse.getLayoutY()/2)-15;;
-        Circle[] botCircles = {botCircle2, botCircle3, botCircle4, botCircle5};
-
-        playerCircle.setLayoutX(centerX);
-        playerCircle.setLayoutY(centerY);
-
-        centerY = (greenEllipse.getLayoutY()/2)-30;
-
-        botCircle1.setLayoutX(centerX);
-        botCircle1.setLayoutY(centerY);
-
-        for(int i=0;i<4;i++){
-            if(i<botCircles.length/2) {
-                botCircles[i].setLayoutX(centerX+displaceX);
-                botCircles[i].setLayoutY(centerY+displaceY);
-                displaceY=displaceY+(greenEllipse.getLayoutY()+195);
-                if(i == 1)
-                {
-                    displaceY=(greenEllipse.getLayoutY()/2)-15;
-                }
-            }
-            else{
-                botCircles[i].setLayoutX(centerX-displaceX);
-                botCircles[i].setLayoutY(centerY+displaceY);
-                displaceY=displaceY+(greenEllipse.getLayoutY()+195);
-            }
-        }
-    }
-
-    private void setPlayerCards(){
-        ImageView[] cards = {playerCard1,playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2,
-                bot3Card1, bot3Card2,bot4Card1, bot4Card2, bot5Card1, bot5Card2};
-        Circle[] circles = {playerCircle,botCircle1,botCircle2, botCircle3, botCircle4, botCircle5};
-        double displaceY = 135;
-        for(int i=0;i<4;i++)
-        {
-            if(i%2==0) {
-                cards[i].setLayoutX(circles[0].getLayoutX() - 50);
-            }
-            else{
-                cards[i].setLayoutX(circles[0].getLayoutX() + 5);
-            }
-            cards[i].setLayoutY(circles[0].getLayoutY()-displaceY);
-            if(i==1)
-            {
-                displaceY = 415;
-            }
-        }
-
-        double displaceX = 170;
-        displaceY = 0;
-        int count =0;
-        for(int i=4;i<cards.length;i++)
-        {
-            if(i%2==0)
-            {
-                cards[i].setLayoutX(605+displaceX);
-            }
-            else {
-                cards[i].setLayoutX(660+displaceX);
-            }
-            cards[i].setLayoutY(145+displaceY);
-            if(count==1) {
-                displaceY = 195;
-                count=0;
-            }
-            count++;
-            if(i==7){
-                displaceX = -(displaceX+60);
-                displaceY = 0;
-                count=0;
-            }
-        }
-
-    }
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
     }
 }

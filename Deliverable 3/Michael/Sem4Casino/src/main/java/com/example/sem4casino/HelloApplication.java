@@ -12,9 +12,9 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         stage.setMaximized(true);
         stage.setResizable(false);
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("poker-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("pokerNewOptimizedCopy.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Poker!");
         stage.setScene(scene);
         stage.show();
         System.out.println(scene.getWidth());

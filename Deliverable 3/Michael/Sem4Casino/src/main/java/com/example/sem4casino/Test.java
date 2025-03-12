@@ -13,33 +13,22 @@ public class Test {
     static int playerAmount = 4;
 
     public static void main(String[] args) {
-        for(int i=1;i<=5;i++) {
-            System.out.print("bot" + i + "Card1, bot" + i + "Card2, ");
+
+
+        ArrayList<Player> players = new ArrayList<>();
+        for(int i=0;i<playerAmount;i++)
+        {
+            players.add(new Player("Bot"+(i+1)));
         }
-
-
-
-
-
-
-
-
-
-
-//        ArrayList<Player> players = new ArrayList<>();
-//        for(int i=0;i<playerAmount;i++)
-//        {
-//            players.add(new Player("Bot"+(i+1)));
-//        }
-//        Deck deck = new Deck();
-//        deck.shuffle();
-//        for(int j=0;j<playerAmount;j++) {
-//            for (int i = 0; i < 2; i++) {
-//                players.get(j).addCard(deck.deal());
-//            }
-//        }
-//        for(int i=0;i<playerAmount;i++) {
-//            System.out.println(players.get(i).getHand());
-//        }
+        Deck deck = new Deck();
+        deck.shuffle();
+        for(int j=0;j<playerAmount;j++) {
+            for (int i = 0; i < 2; i++) {
+                players.get(j).addCard(deck.deal());
+            }
+        }
+        for(int i=0;i<playerAmount;i++) {
+            System.out.println(players.get(i).getHand());
+        }
     }
 }
