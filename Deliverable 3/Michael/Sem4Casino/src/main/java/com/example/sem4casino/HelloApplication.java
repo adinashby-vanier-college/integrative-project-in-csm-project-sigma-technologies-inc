@@ -2,6 +2,7 @@ package com.example.sem4casino;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -12,8 +13,8 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         stage.setMaximized(true);
         stage.setResizable(false);
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("pokerNewOptimizedCopy.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Parent root =FXMLLoader.load(getClass().getResource("pokerNewOptimizedCopy.fxml"));
+        Scene scene = new Scene(root);
         stage.setTitle("Poker!");
         stage.setScene(scene);
         stage.show();
