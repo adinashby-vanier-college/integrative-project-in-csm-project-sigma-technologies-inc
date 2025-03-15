@@ -15,6 +15,8 @@ public class Test {
     static int playerAmount = 4;
 
     public static void main(String[] args) {
+        long startTime = System.nanoTime();
+
         Deck deck = new Deck();
         deck.shuffle();
         ArrayList<Card> cards = new ArrayList<Card>();
@@ -24,6 +26,10 @@ public class Test {
         }
         System.out.println(cards);
         System.out.println(bestHand(cards));
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+        System.out.println("Execution time: " + duration / 1_000_000.0 + " ms");
 //        ArrayList<Player> players = new ArrayList<>();
 //        for(int i=0;i<playerAmount;i++)
 //        {
@@ -41,9 +47,9 @@ public class Test {
 //        }
     }
 
-   public static HandRanks bestHand(ArrayList<Card> allCards){
+   public static float bestHand(ArrayList<Card> allCards){
         Card[] hand = new Card[5];
-        HandRanks bestRank = HandRanks.HIGH_CARD;
+        float bestRank = HandRanks.HIGH_CARD.getValue();
 
         //length of total Cards (7)
         int n = 7;
@@ -59,8 +65,8 @@ public class Test {
                             hand[2]=allCards.get(k);
                             hand[3]=allCards.get(l);
                             hand[4]=allCards.get(m);
-                            HandRanks calRank = HandRanks.calculateRank(hand);
-                            if(calRank.getValue() > bestRank.ordinal()){
+                            float calRank = HandRanks.calculateRank(hand);
+                            if(calRank > bestRank){
                                 bestRank = calRank;
                             }
                         }

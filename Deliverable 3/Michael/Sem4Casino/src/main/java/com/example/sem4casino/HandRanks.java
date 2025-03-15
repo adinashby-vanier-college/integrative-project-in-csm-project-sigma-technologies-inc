@@ -29,7 +29,7 @@ public enum HandRanks{
         return this.value;
     }
 
-    public static HandRanks calculateRank(Card[] hand){
+    public static float calculateRank(Card[] hand){
         ArrayList<Rank> cardNames = new ArrayList<>(Arrays.asList(
                 Rank.ACE, Rank.KING, Rank.QUEEN, Rank.JACK, Rank.TEN,
                 Rank.NINE, Rank.EIGHT, Rank.SEVEN, Rank.SIX, Rank.FIVE,
@@ -38,31 +38,136 @@ public enum HandRanks{
         int[] cardNamesCount = new int[13];
         ArrayList<Suit> suits = new ArrayList<>(Arrays.asList(Suit.CLUBS, Suit.DIAMONDS, Suit.HEARTS, Suit.SPADES));
         int[] suitsCount = new int[4];
-        HandRanks rank = HIGH_CARD;
+        float rank = HIGH_CARD.getValue();
         int pairs =0;
         int threeOfAKind = 0;
+        ArrayList<Rank> pairedCards = new ArrayList<>();
+        ArrayList<Integer> pairedCardValue = new ArrayList<>();
+        Arrays.sort(hand);
+
+        Suit suit = hand[0].getSuit();
+        if(isRoyalFlush(hand,suit))
+        {
+            return ROYAL_FLUSH.getValue();
+        }
 
         //Sorts Cards
-        for(int i=0;i<hand.length;i++) {
-            cardNamesCount[cardNames.indexOf(hand[i].getRank())]++;
+        for (Card card : hand) {
+            cardNamesCount[cardNames.indexOf(card.getRank())]++;
         }
-
-        for(int i=0;i<cardNamesCount.length;i++){
-            switch (cardNamesCount[i]){
-                case 2: pairs++;break;
-                case 3: threeOfAKind++;break;
-                case 4: rank = FOUR_OF_A_KIND;break;
+        for (int i=0;i<cardNamesCount.length;i++) {
+            switch (cardNamesCount[i]) {
+                case 2:
+                    pairedCards.add(cardNames.get(i));
+                    pairedCardValue.add(2);
+                    pairs++;
+                    break;
+                case 3:
+                    threeOfAKind++;
+                    pairedCards.add(cardNames.get(i));
+                    pairedCardValue.add(3);
+                    break;
+                case 4:
+                    rank = FOUR_OF_A_KIND.getValue() + subCardRanking(pairedCards, pairedCardValue, 4);
+                    pairedCards.add(cardNames.get(i));
+                    pairedCardValue.add(4);
+                    break;
             }
         }
-        if(pairs==1){
-            rank = ONE_PAIR;
-        } else if (pairs==2 && threeOfAKind==1) {
-            rank = FULL_HOUSE;
+        if(rank==HIGH_CARD.getValue())
+        {
+            int[] subRankValues = {13,12,11,10,9,8,7,6,5,4,3,2,1};
+            int max=subRankValues[cardNames.indexOf(hand[0].getRank())];
+            for(int i=0;i<hand.length;i++)
+            {
+                if(max<subRankValues[cardNames.indexOf(hand[i].getRank())])
+                {
+                    max=subRankValues[cardNames.indexOf(hand[i].getRank())];
+                }
+            }
+            rank = rank + (max*0.01f);
+        }
+        if (pairs==1 && threeOfAKind==1) {
+            rank = (FULL_HOUSE.getValue() + subCardRanking(pairedCards,pairedCardValue,3) + (0.01f * subCardRanking(pairedCards,pairedCardValue,2)));
+            rank = Math.round(rank * 10000.0f) * 0.0001f;
+        } else if(pairs==1){
+            rank = ONE_PAIR.getValue() + subCardRanking(pairedCards,pairedCardValue,2);
         } else if(pairs==2){
-            rank = TWO_PAIR;
+            rank = TWO_PAIR.getValue()+ subCardRanking(pairedCards,pairedCardValue,2);
         } else if (threeOfAKind==1) {
-            rank = THREE_OF_A_KIND;
+            rank = THREE_OF_A_KIND.getValue()+ subCardRanking(pairedCards,pairedCardValue,3);
         }
         return rank;
+    }
+
+    private static float subCardRanking(ArrayList<Rank> pairedCards, ArrayList<Integer> pairedCardValue, int lookFor){
+        float multiplier = 1.0f;
+        float bonusValue = 0.0f;
+        for(int i=0;i<pairedCards.size();i++){
+            if(pairedCardValue.get(i)==lookFor) {
+                switch (pairedCards.get(i)) {
+                    case TWO -> {
+                        bonusValue += (0.01f * multiplier);
+                        break;
+                    }
+                    case THREE -> {
+                        bonusValue += (0.02f * multiplier);
+                        break;
+                    }
+                    case FOUR -> {
+                        bonusValue += (0.03f * multiplier);
+                        break;
+                    }
+                    case FIVE -> {
+                        bonusValue += (0.04f * multiplier);
+                        break;
+                    }
+                    case SIX -> {
+                        bonusValue += (0.05f * multiplier);
+                        break;
+                    }
+                    case SEVEN -> {
+                        bonusValue += (0.06f * multiplier);
+                        break;
+                    }
+                    case EIGHT -> {
+                        bonusValue += (0.07f * multiplier);
+                        break;
+                    }
+                    case NINE -> {
+                        bonusValue += (0.08f * multiplier);
+                        break;
+                    }
+                    case TEN -> {
+                        bonusValue += (0.09f * multiplier);
+                        break;
+                    }
+                    case JACK -> {
+                        bonusValue += (0.10f * multiplier);
+                        break;
+                    }
+                    case QUEEN -> {
+                        bonusValue += (0.11f * multiplier);
+                        break;
+                    }
+                    case KING -> {
+                        bonusValue += (0.12f * multiplier);
+                        break;
+                    }
+                    case ACE -> {
+                        bonusValue += (0.13f * multiplier);
+                        break;
+                    }
+                }
+                multiplier *= 0.01f;
+            }
+        }
+        return bonusValue;
+    }
+
+    private static boolean isRoyalFlush(Card[] hand,Suit suit){
+        Card[] royalFlushHand = {new Card(Rank.ACE, suit), new Card(Rank.KING, suit), new Card(Rank.QUEEN, suit), new Card(Rank.JACK, suit), new Card(Rank.TEN, suit)};
+        Arrays.sort(royalFlushHand);
+        return Arrays.equals(hand, royalFlushHand);
     }
 }

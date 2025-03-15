@@ -115,6 +115,10 @@ public class HelloController {
                 onBotNumberChange();
             });
 
+
+
+
+            //Remove later (Testing)
             menuQuit.setOnAction(event -> {
                 try {
                     switchToScene(event, "poker-view.fxml");
@@ -122,6 +126,9 @@ public class HelloController {
                     throw new RuntimeException(e);
                 }
             });
+
+
+
     }
 
     private void setImage(ImageView imageView, String filePath){
@@ -155,10 +162,10 @@ public class HelloController {
     public void switchToScene(ActionEvent event, String fxmlFile) throws IOException {
         root = FXMLLoader.load(getClass().getResource(fxmlFile));
         if (event.getSource() instanceof Node) {
-            // If the event source is a Node (e.g., Button), get its stage
+            // If the event source is a Node (ex: Button)
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         } else {
-            // If the event source is not a Node (e.g., MenuItem), get the window from the event
+            // If the event source is not a Node (ex:MenuItem)
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         }
         scene = new Scene(root);
