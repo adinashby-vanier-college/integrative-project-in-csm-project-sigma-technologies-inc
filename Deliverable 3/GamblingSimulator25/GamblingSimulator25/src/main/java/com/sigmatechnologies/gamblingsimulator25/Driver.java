@@ -16,7 +16,7 @@ public class Driver extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/sigmatechnologies/gamblingsimulator25/main-menu.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        mainMenu.setTitle("Gambling Simulator 25");
+        mainMenu.setTitle("Gambling Simulator 25 (W.I.P.)");
         mainMenu.setScene(scene);
         mainMenu.show();
 
