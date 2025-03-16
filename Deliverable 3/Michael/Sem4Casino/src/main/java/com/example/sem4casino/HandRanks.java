@@ -81,15 +81,14 @@ public enum HandRanks{
                     pairedCardValue.add(3);
                     break;
                 case 4:
-                    rank = FOUR_OF_A_KIND.getValue() + subCardRanking(pairedCards, pairedCardValue, 4);
                     pairedCards.add(cardNames.get(i));
                     pairedCardValue.add(4);
+                    rank = FOUR_OF_A_KIND.getValue() + subCardRanking(pairedCards, pairedCardValue, 4);
                     break;
             }
         }
         if (pairs==1 && threeOfAKind==1) {
             rank = (FULL_HOUSE.getValue() + subCardRanking(pairedCards,pairedCardValue,3) + (0.01f * subCardRanking(pairedCards,pairedCardValue,2)));
-            rank = Math.round(rank * 10000.0f) * 0.0001f;
         } else if(pairs==1){
             rank = ONE_PAIR.getValue() + subCardRanking(pairedCards,pairedCardValue,2);
         } else if(pairs==2){
