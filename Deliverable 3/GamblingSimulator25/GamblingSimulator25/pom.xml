@@ -42,7 +42,12 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <repositories>
+        <repository>
+            <id>lyuda-repo</id>
+            <url>https://github.com/lyudaio/jcards.git</url>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
