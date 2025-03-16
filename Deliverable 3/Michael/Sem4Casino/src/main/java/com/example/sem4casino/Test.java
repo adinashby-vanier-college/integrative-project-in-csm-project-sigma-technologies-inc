@@ -20,7 +20,12 @@ public class Test {
         Deck deck = new Deck();
         deck.shuffle();
         ArrayList<Card> cards = new ArrayList<Card>();
-        for(int i=0;i<7;i++)
+        cards.add(new Card(Rank.TWO,Suit.CLUBS));
+        cards.add(new Card(Rank.FOUR, Suit.CLUBS));
+        cards.add(new Card(Rank.FIVE, Suit.CLUBS));
+        cards.add(new Card(Rank.SIX, Suit.CLUBS));
+        cards.add(new Card(Rank.THREE, Suit.CLUBS));
+        for(int i=0;i<2;i++)
         {
             cards.add(deck.deal());
         }

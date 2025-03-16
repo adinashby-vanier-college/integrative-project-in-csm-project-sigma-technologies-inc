@@ -36,8 +36,6 @@ public enum HandRanks{
                 Rank.FOUR, Rank.THREE, Rank.TWO
         ));
         int[] cardNamesCount = new int[13];
-        ArrayList<Suit> suits = new ArrayList<>(Arrays.asList(Suit.CLUBS, Suit.DIAMONDS, Suit.HEARTS, Suit.SPADES));
-        int[] suitsCount = new int[4];
         float rank = HIGH_CARD.getValue();
         int pairs =0;
         int threeOfAKind = 0;
@@ -49,6 +47,21 @@ public enum HandRanks{
         if(isRoyalFlush(hand,suit))
         {
             return ROYAL_FLUSH.getValue();
+        }
+
+        if(isStraight(cardNames,hand) && isFlush(hand, suit))
+        {
+            return STRAIGHT_FLUSH.getValue() + getHighestCard(cardNames, hand);
+        }
+
+        if(isStraight(cardNames,hand))
+        {
+            return STRAIGHT.getValue() + getHighestCard(cardNames,hand);
+        }
+
+        if(isFlush(hand,suit))
+        {
+            return FLUSH.getValue() + getHighestCard(cardNames, hand);
         }
 
         //Sorts Cards
@@ -74,19 +87,6 @@ public enum HandRanks{
                     break;
             }
         }
-        if(rank==HIGH_CARD.getValue())
-        {
-            int[] subRankValues = {13,12,11,10,9,8,7,6,5,4,3,2,1};
-            int max=subRankValues[cardNames.indexOf(hand[0].getRank())];
-            for(int i=0;i<hand.length;i++)
-            {
-                if(max<subRankValues[cardNames.indexOf(hand[i].getRank())])
-                {
-                    max=subRankValues[cardNames.indexOf(hand[i].getRank())];
-                }
-            }
-            rank = rank + (max*0.01f);
-        }
         if (pairs==1 && threeOfAKind==1) {
             rank = (FULL_HOUSE.getValue() + subCardRanking(pairedCards,pairedCardValue,3) + (0.01f * subCardRanking(pairedCards,pairedCardValue,2)));
             rank = Math.round(rank * 10000.0f) * 0.0001f;
@@ -96,6 +96,9 @@ public enum HandRanks{
             rank = TWO_PAIR.getValue()+ subCardRanking(pairedCards,pairedCardValue,2);
         } else if (threeOfAKind==1) {
             rank = THREE_OF_A_KIND.getValue()+ subCardRanking(pairedCards,pairedCardValue,3);
+        } else if(rank==HIGH_CARD.getValue())
+        {
+            rank = rank + getHighestCard(cardNames,hand);
         }
         return rank;
     }
@@ -170,4 +173,48 @@ public enum HandRanks{
         Arrays.sort(royalFlushHand);
         return Arrays.equals(hand, royalFlushHand);
     }
+
+    private static float getHighestCard(ArrayList<Rank> cardNames, Card[] hand){
+        int[] subRankValues = {13,12,11,10,9,8,7,6,5,4,3,2,1};
+        int max=subRankValues[cardNames.indexOf(hand[0].getRank())];
+        for(int i=0;i<hand.length;i++)
+        {
+            if(max<subRankValues[cardNames.indexOf(hand[i].getRank())])
+            {
+                max=subRankValues[cardNames.indexOf(hand[i].getRank())];
+            }
+        }
+        return (max*0.01f);
+    }
+
+    private static boolean isStraight(ArrayList<Rank> cardNames, Card[] hand){
+        int[] subRankValues = {13,12,11,10,9,8,7,6,5,4,3,2,1};
+        ArrayList<Integer> cardRanks = new ArrayList<>();
+        for(int i=0;i<hand.length;i++)
+        {
+            cardRanks.add(subRankValues[cardNames.indexOf(hand[i].getRank())]);
+        }
+        cardRanks.sort(Integer::compareTo);
+        for(int i=0;i<cardRanks.size()-1;i++)
+        {
+            if(cardRanks.get(i)!=cardRanks.get(i+1)-1)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isFlush(Card[] hand, Suit suit){
+        for(int i=0;i<hand.length;i++)
+        {
+            if(hand[i].getSuit()!=suit)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
