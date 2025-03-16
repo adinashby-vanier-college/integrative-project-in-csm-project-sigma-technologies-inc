@@ -19,6 +19,7 @@ public class Test {
 
         Deck deck = new Deck();
         deck.shuffle();
+
         ArrayList<Card> cards = new ArrayList<Card>();
         for(int i=0;i<7;i++)
         {
@@ -54,7 +55,7 @@ public class Test {
         //length of total Cards (7)
         int n = 7;
 
-        //Combination of all possible hands C(7,5) = 21
+        //All possible hands P(7,5)
         for (int i = 0; i < n - 4; i++) {
             for (int j = i + 1; j < n - 3; j++) {
                 for (int k = j + 1; k < n - 2; k++) {
