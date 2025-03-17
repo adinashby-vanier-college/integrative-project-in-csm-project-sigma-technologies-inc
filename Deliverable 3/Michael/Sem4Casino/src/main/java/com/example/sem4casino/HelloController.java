@@ -132,7 +132,9 @@ public class HelloController {
     }
 
     private void setImage(ImageView imageView, String filePath){
-        File file = new File(filePath);
+        System.out.println("In");
+        File file = new File("Deliverable 3/Michael/Sem4Casino/" +filePath);
+        System.out.println(file.toURI());
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
     }
