@@ -2,8 +2,15 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Deliverable 3/SigmaCasino/src/main" isTestSource="false" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:22.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:22.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:22.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:22.0.1" level="project" />
+    <orderEntry type="library" name="jcards-0.0.6 (2)" level="project" />
   </component>
 </module>

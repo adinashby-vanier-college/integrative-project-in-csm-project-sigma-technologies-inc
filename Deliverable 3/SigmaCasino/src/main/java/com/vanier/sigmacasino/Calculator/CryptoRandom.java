@@ -1,4 +1,4 @@
-package com.vanier.sigmacasino.calculator;
+package java.com.vanier.sigmacasino.Calculator;
 
 public class CryptoRandom {
 }

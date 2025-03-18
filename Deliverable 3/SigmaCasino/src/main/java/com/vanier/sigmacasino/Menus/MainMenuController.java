@@ -1,4 +1,4 @@
-package com.sigmatechnologies.gamblingsimulator25;
+package java.com.vanier.sigmacasino.Menus;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

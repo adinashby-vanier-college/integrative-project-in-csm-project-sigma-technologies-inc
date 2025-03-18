@@ -1,4 +1,4 @@
-package com.vanier.sigmacasino.Poker;
+package java.com.vanier.sigmacasino.Poker;
 
 import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Rank;

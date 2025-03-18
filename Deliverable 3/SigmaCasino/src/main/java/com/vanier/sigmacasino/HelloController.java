@@ -1,4 +1,4 @@
-package com.vanier.sigmacasino;
+package java.com.vanier.sigmacasino;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

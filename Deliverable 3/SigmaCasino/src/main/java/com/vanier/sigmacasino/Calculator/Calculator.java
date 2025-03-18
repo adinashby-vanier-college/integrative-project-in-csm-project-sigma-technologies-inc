@@ -1,4 +1,4 @@
-package com.vanier.sigmacasino.Calculator;
+package java.com.vanier.sigmacasino.Calculator;
 
 public class Calculator {
 }

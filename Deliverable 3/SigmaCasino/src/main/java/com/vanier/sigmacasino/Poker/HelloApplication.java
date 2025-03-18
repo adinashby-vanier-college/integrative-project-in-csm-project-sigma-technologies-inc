@@ -1,4 +1,4 @@
-package com.vanier.sigmacasino.Poker;
+package java.com.vanier.sigmacasino.Poker;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

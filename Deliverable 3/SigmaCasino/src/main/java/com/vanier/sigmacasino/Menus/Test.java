@@ -1,4 +1,4 @@
-package com.sigmatechnologies.gamblingsimulator25;
+package java.com.vanier.sigmacasino.Menus;
 
 /*
 import io.lyuda.jcards.Card;
