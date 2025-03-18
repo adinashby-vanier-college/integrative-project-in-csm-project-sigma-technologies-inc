@@ -9,6 +9,7 @@
         <module name="Sem4Casino (1)" />
         <module name="Sem4Casino" />
         <module name="GamblingSimulator25" />
+        <module name="Sem4Casino (2)" />
       </profile>
     </annotationProcessing>
   </component>
