@@ -16,6 +16,8 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();*/
+
+        System.out.println("FXML Path: " + getClass().getResource("UI/poker.fxml"));
     }
 
     public static void main(String[] args) {
