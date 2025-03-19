@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
@@ -20,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
-public class HelloController {
+public class PokerController {
 
     private Stage stage;
     private Scene scene;
@@ -74,7 +73,7 @@ public class HelloController {
     @FXML private Circle botCircle3;
     @FXML private Circle botCircle4;
     @FXML private Circle botCircle5;
-    @FXML private MenuItem menuQuit;
+    @FXML private MenuItem returnGameSelection;
 
 
     @FXML
@@ -116,12 +115,9 @@ public class HelloController {
             });
 
 
-
-
-            //Remove later (Testing)
-            menuQuit.setOnAction(event -> {
+            returnGameSelection.setOnAction(event -> {
                 try {
-                    switchToScene(event, "poker-view.fxml");
+                    switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

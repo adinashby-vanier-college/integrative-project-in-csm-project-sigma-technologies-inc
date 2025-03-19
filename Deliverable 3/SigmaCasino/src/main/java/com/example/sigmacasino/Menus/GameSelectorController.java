@@ -25,6 +25,8 @@ public class GameSelectorController {
     @FXML private ImageView rouletteIV;
     @FXML private ImageView dicesIV;
 
+    @FXML private MenuItem returnMainMenu;
+
 
 
     public void initialize() {
@@ -70,6 +72,13 @@ public class GameSelectorController {
             }
         });
 
+        returnMainMenu.setOnAction(event -> {
+            try {
+                switchToScene(event, "/com/example/sigmacasino/UI/main-menu.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     }
 
