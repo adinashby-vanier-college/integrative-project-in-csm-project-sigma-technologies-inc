@@ -10,6 +10,7 @@
         <module name="Sem4Casino" />
         <module name="GamblingSimulator25" />
         <module name="Sem4Casino (2)" />
+        <module name="SigmaCasino" />
       </profile>
     </annotationProcessing>
   </component>
