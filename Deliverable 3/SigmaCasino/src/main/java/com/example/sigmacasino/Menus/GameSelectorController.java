@@ -1,5 +1,8 @@
 package com.example.sigmacasino.Menus;
 
+import com.example.sigmacasino.Blackjack.controllers.BlackJackController;
+import com.example.sigmacasino.Poker.PokerController;
+import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -17,7 +19,6 @@ import javafx.scene.Scene;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
 public class GameSelectorController {
 
@@ -51,7 +52,7 @@ public class GameSelectorController {
 
         pokerIV.setOnMouseClicked(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/poker.fxml");
+                switchToScene(event, "/com/example/sigmacasino/UI/poker.fxml", new PokerController());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -59,23 +60,24 @@ public class GameSelectorController {
 
         blackjackIV.setOnMouseClicked(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/blackjack.fxml");
+                switchToScene(event, "/com/example/sigmacasino/UI/blackjack.fxml", new BlackJackController());
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
-
+/*  Roulette commented out as there's currently no controller
         rouletteIV.setOnMouseClicked(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/roulette.fxml");
+                switchToScene(event, "/com/example/sigmacasino/UI/roulette.fxml", new ());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
-
+*/
         returnMainMenu.setOnAction(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/main-menu.fxml");
+                switchToScene(event, "/com/example/sigmacasino/UI/main-menu.fxml", new MainMenuController());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -106,21 +108,24 @@ public class GameSelectorController {
 
     }
 
-    public void switchToScene(Event event, String fxmlFile) throws IOException {
-        System.out.println("Fxml: "+getClass().getResource((fxmlFile)));
-
-        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
-        Stage stage = null;
-        if (event.getSource() instanceof Node) {
-            // If the event source is a Node (ex: Button)
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        } else {
-            // If the event source is not a Node (ex:MenuItem)
-            stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+    public void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
+        System.out.println("Fxml: " + getClass().getResource((fxmlFile)));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+        if (controller != null) {
+            loader.setController(controller);
         }
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+            Parent root = loader.load();
+            Stage stage;
+            if (event.getSource() instanceof Node) {
+                // If the event source is a Node (ex: Button)
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            } else {
+                // If the event source is not a Node (ex:MenuItem)
+                stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+            }
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
-}
