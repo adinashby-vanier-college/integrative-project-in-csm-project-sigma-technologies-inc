@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,15 +26,15 @@ public class GameSelectorController {
     @FXML private ImageView rouletteIV;
     @FXML private ImageView dicesIV;
 
-    @FXML private MenuItem returnMainMenu;
+    @FXML private Button returnMainMenu;
 
 
 
     public void initialize() {
 
-        File poker = new File("out/production/integrative-project-in-csm-project-sigma-technologies-inc/com/example/sigmacasino/Sprites/thumbails/poker.png");
-        File blackjack = new File("out/production/integrative-project-in-csm-project-sigma-technologies-inc/com/example/sigmacasino/Sprites/thumbails/blackjack.png");
-        File roulette = new File("out/production/integrative-project-in-csm-project-sigma-technologies-inc/com/example/sigmacasino/Sprites/thumbails/roulette.png");
+        File poker = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/poker.png");
+        File blackjack = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/blackjack.png");
+        File roulette = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/roulette.png");
         //File dices = new File("out/production/integrative-project-in-csm-project-sigma-technologies-inc/com/example/sigmacasino/Sprites/thumbails/menu.png");
 
 
@@ -82,28 +83,28 @@ public class GameSelectorController {
 
     }
 
-//    @FXML
-//    protected void onRouletteClick(MouseEvent mouseEvent) {
-//
-//        Node source = (Node) mouseEvent.getSource();
-//
-//        try {
-//
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/sigmatechnologies/gamblingsimulator25/roulette.fxml"));
-//            BorderPane root = loader.load();
-//
-//            Stage stage = (Stage) source.getScene().getWindow();
-//
-//            Scene newScene = new Scene(root);
-//            stage.setScene(newScene);
-//
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//
-//        }
-//
-//    }
+    @FXML
+    protected void onPlayClick(ActionEvent event) {
+
+        Node source = (Node) event.getSource();
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/game-selector.fxml"));
+            BorderPane root = loader.load();
+
+            Stage stage = (Stage) source.getScene().getWindow();
+
+            Scene newScene = new Scene(root);
+            stage.setScene(newScene);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
 
     public void switchToScene(Event event, String fxmlFile) throws IOException {
         System.out.println("Fxml: "+getClass().getResource((fxmlFile)));

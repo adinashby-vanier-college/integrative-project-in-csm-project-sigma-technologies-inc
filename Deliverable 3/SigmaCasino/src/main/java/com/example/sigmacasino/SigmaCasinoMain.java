@@ -11,7 +11,7 @@ public class SigmaCasinoMain extends Application {
     @Override
     public void start(Stage stage) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/main-menu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/main-menu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Sigma Casino");
         stage.setScene(scene);

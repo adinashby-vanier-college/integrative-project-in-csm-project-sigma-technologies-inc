@@ -21,45 +21,47 @@ import java.util.Objects;
 public class MainMenuController {
 
     @FXML private ImageView mainMenuIV;
-    @FXML private Button mainMenuButton;
+    @FXML private Button playBtn;
 
     public void initialize() {
 
-        File image = new File("out/production/integrative-project-in-csm-project-sigma-technologies-inc/com/example/sigmacasino/Sprites/thumbails/menu.png");
+        File image = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/menu.png");
         Image mainMenuI = new Image(image.toURI().toString());
         mainMenuIV.setImage(mainMenuI);
 
-        mainMenuButton.setOnAction(event -> {
+        playBtn.setOnAction(event -> {
             try {
                 switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
+
+
     }
 
-//    @FXML
-//    protected void onPlayClick(ActionEvent event) {
-//
-//        Node source = (Node) event.getSource();
-//
-//        try {
-//
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/sigmatechnologies/gamblingsimulator25/game-selector.fxml"));
-//            BorderPane root = loader.load();
-//
-//            Stage stage = (Stage) source.getScene().getWindow();
-//
-//            Scene newScene = new Scene(root);
-//            stage.setScene(newScene);
-//
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//
-//        }
-//
-//    }
+   @FXML
+   protected void onPlayClick(ActionEvent event) {
+
+        Node source = (Node) event.getSource();
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("src/main/resources/com/example/sigmacasino/UI/game-selector.fxml"));
+            BorderPane root = loader.load();
+
+            Stage stage = (Stage) source.getScene().getWindow();
+
+            Scene newScene = new Scene(root);
+            stage.setScene(newScene);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
 
 
     public void switchToScene(ActionEvent event, String fxmlFile) throws IOException {
