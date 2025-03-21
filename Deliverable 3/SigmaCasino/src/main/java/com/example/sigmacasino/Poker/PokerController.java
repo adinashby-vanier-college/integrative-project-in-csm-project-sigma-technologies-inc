@@ -6,12 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
@@ -21,12 +18,9 @@ import java.io.IOException;
 
 public class PokerController {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
-    @FXML public Spinner SpinnerBots;
-    @FXML public ChoiceBox ChoiceBoxBruntCards;
+    @FXML public Spinner<Integer> SpinnerBots;
+    @FXML public ChoiceBox<String> ChoiceBoxBruntCards;
     @FXML public Circle bot2Turn;
     @FXML public Circle bot1Turn;
     @FXML public Circle bot4Turn;
@@ -35,7 +29,14 @@ public class PokerController {
     @FXML public Circle bot3Turn;
 
 
-    @FXML private BorderPane borderPane;
+    @FXML public CheckBox startRound;
+
+    @FXML public Button checkButton;
+    @FXML public Button foldButton;
+    @FXML public Button raiseButton;
+
+    @FXML public TextField startingChips;
+    @FXML public TextField raiseText;
 
     @FXML private ImageView best_H1_1;
     @FXML private ImageView best_H1_2;
@@ -73,8 +74,21 @@ public class PokerController {
     @FXML private Circle botCircle3;
     @FXML private Circle botCircle4;
     @FXML private Circle botCircle5;
-    @FXML private MenuItem returnGameSelection;
+    @FXML private MenuItem menuQuit;
 
+    @FXML private Label namePlayer;
+    @FXML private Label nameBot1;
+    @FXML private Label nameBot2;
+    @FXML private Label nameBot3;
+    @FXML private Label nameBot4;
+    @FXML private Label nameBot5;
+
+    @FXML private Label chipsPlayer;
+    @FXML private Label chipsBot1;
+    @FXML private Label chipsBot2;
+    @FXML private Label chipsBot3;
+    @FXML private Label chipsBot4;
+    @FXML private Label chipsBot5;
 
     @FXML
     public void initialize() throws IOException {
@@ -114,29 +128,28 @@ public class PokerController {
                 onBotNumberChange();
             });
 
-
-            returnGameSelection.setOnAction(event -> {
-                try {
-                    switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            startRound.setOnAction(actionEvent -> {
+                    if(startRound.isSelected()) {
+                        PokerGame game = new PokerGame(this);
+                        game.playGame(this);
+                        startRound.setSelected(false);
+                    }
             });
-
-
-
     }
 
     private void setImage(ImageView imageView, String filePath){
-        File file = new File("out/production/integrative-project-in-csm-project-sigma-technologies-inc/com/example/sigmacasino/Sprites/" +filePath);
+        File file = new File("src/main/resources/com/example/sigmacasino/Sprites/"+filePath);
+        System.out.println(file.toURI());
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
     }
 
-    @FXML
+
     protected void onBotNumberChange() {
-        int bots = (int) SpinnerBots.getValue();
+        int bots = SpinnerBots.getValue();
         Circle[] circles = {botCircle1,botCircle2,botCircle3,botCircle4,botCircle5};
+        Label[] names = {nameBot1,nameBot2,nameBot3,nameBot4,nameBot5};
+        Label[] chips = {chipsPlayer,chipsBot1,chipsBot2,chipsBot3,chipsBot4,chipsBot5};
         ImageView[] card1 = {bot1Card1,bot2Card1,bot3Card1,bot4Card1,bot5Card1};
         ImageView[] card2 = {bot1Card2,bot2Card2,bot3Card2,bot4Card2,bot5Card2};
 
@@ -144,6 +157,8 @@ public class PokerController {
             circles[i].setVisible(true);
             card1[i].setVisible(true);
             card2[i].setVisible(true);
+            names[i].setVisible(true);
+            chips[i+1].setVisible(true);
         }
 
         for(int i=bots;i<circles.length;i++)
@@ -151,12 +166,15 @@ public class PokerController {
             circles[i].setVisible(false);
             card1[i].setVisible(false);
             card2[i].setVisible(false);
+            names[i].setVisible(false);
+            chips[i+1].setVisible(false);
         }
 
     }
 
     public void switchToScene(ActionEvent event, String fxmlFile) throws IOException {
-        root = FXMLLoader.load(getClass().getResource(fxmlFile));
+        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+        Stage stage;
         if (event.getSource() instanceof Node) {
             // If the event source is a Node (ex: Button)
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -164,9 +182,32 @@ public class PokerController {
             // If the event source is not a Node (ex:MenuItem)
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         }
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
+    public Spinner<Integer> getSpinnerBots(){
+        return SpinnerBots;
+    }
+    public ChoiceBox<String> getChoiceBoxBruntCards(){
+        return ChoiceBoxBruntCards;
+    }
+    public Button getCheckButton(){
+        return checkButton;
+    }
+    public Button getFoldButton(){
+        return foldButton;
+    }
+    public Button getRaiseButton(){
+        return raiseButton;
+    }
+    public TextField getStartingChipsTextArea(){
+        return startingChips;
+    }
+    public TextField getRaiseTextArea(){
+        return raiseText;
+    }
+
 
 }
