@@ -97,14 +97,6 @@ public class PokerController {
                     , playerCard1, playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2
                     , bot4Card1, bot4Card2, bot5Card1, bot5Card2};
 
-            String[] files = {"PNG-cards-1.3/2_of_clubs.png", "PNG-cards-1.3/3_of_diamonds.png", "PNG-cards-1.3/4_of_hearts.png"
-                    , "PNG-cards-1.3/5_of_spades.png", "PNG-cards-1.3/6_of_clubs.png", "PNG-cards-1.3/7_of_diamonds.png", "PNG-cards-1.3/8_of_hearts.png"
-                    , "PNG-cards-1.3/9_of_spades.png", "PNG-cards-1.3/10_of_clubs.png", "PNG-cards-1.3/jack_of_diamonds.png", "PNG-cards-1.3/2_of_clubs.png"
-                    , "PNG-cards-1.3/3_of_diamonds.png", "PNG-cards-1.3/4_of_hearts.png", "PNG-cards-1.3/5_of_spades.png", "PNG-cards-1.3/6_of_clubs.png"
-                    , "PNG-cards-1.3/5_of_spades.png", "PNG-cards-1.3/6_of_clubs.png", "PNG-cards-1.3/7_of_diamonds.png", "PNG-cards-1.3/8_of_hearts.png"
-                    , "PNG-cards-1.3/9_of_spades.png", "PNG-cards-1.3/10_of_clubs.png", "PNG-cards-1.3/jack_of_diamonds.png", "PNG-cards-1.3/2_of_clubs.png"
-                    , "PNG-cards-1.3/3_of_diamonds.png", "PNG-cards-1.3/4_of_hearts.png", "PNG-cards-1.3/5_of_spades.png", "PNG-cards-1.3/6_of_clubs.png"};
-
             //Hides turn circles
             Circle[] botTurns = {bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
             for (int i = 0; i < botTurns.length; i++) {
@@ -120,7 +112,7 @@ public class PokerController {
 
             //Presets images (remove later)
             for (int i = 0; i < imageViews.length; i++) {
-                setImage(imageViews[i], files[i]);
+                setImage(imageViews[i]);
             }
 
             //Add and remove bots
@@ -137,11 +129,12 @@ public class PokerController {
             });
     }
 
-    private void setImage(ImageView imageView, String filePath){
-        File file = new File("src/main/resources/com/example/sigmacasino/Sprites/"+filePath);
+    private void setImage(ImageView imageView){
+        File file = new File("src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/back_of_card.png");
         System.out.println(file.toURI());
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
+        imageView.setPreserveRatio(true);
     }
 
 
