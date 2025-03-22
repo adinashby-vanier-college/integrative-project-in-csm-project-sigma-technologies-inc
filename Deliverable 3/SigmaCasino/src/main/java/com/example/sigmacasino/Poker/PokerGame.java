@@ -4,7 +4,10 @@ import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 import io.lyuda.jcards.game.Player;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -16,6 +19,8 @@ public class PokerGame {
     private final ArrayList<Card> riverCards = new ArrayList<>();
     private final ArrayList<Float> playerRanks = new ArrayList<>();
     private final ArrayList<String> playerRankNames = new ArrayList<>();
+    private ArrayList<ImageView> card1 = new ArrayList<>();
+    private ArrayList<ImageView> card2 = new ArrayList<>();
     private Deck deck;
     private int potSize;
     private int dealerIndex;
@@ -25,6 +30,7 @@ public class PokerGame {
     private int botAmount;
 
     public PokerGame(PokerController controller){
+        int index = 1;
         botAmount=controller.getSpinnerBots().getValue();
         String burnAmount=controller.getChoiceBoxBruntCards().getValue();
         switch(burnAmount)
@@ -33,22 +39,28 @@ public class PokerGame {
             case "1 Burn Card": burnCards=1;break;
             case "2 Burn Cards": burnCards=2;break;
         }
+
         players.add(new Player("Player"));
+        associatePlayerCards(controller,players.getFirst().getName(),0);
+
         if(botAmount==4)
         {
             players.add(new Player("Bot "+botAmount));
-            botAmount=3;
-
+            index=2;
+            associatePlayerCards(controller,players.get(1).getName(),1);
         }
         else if (botAmount==5)
         {
             players.add(new Player("Bot "+botAmount));
+            associatePlayerCards(controller,players.get(1).getName(),1);
             players.add(new Player("Bot "+(botAmount-1)));
-            botAmount=3;
+            associatePlayerCards(controller,players.get(2).getName(),2);
+            index=3;
         }
-        for(int i=1;i<=botAmount;i++)
+        for(int i=index,j=1;i<=botAmount;i++,j++)
         {
-            players.add(new Player("Bot "+i));
+            players.add(new Player("Bot "+j));
+            associatePlayerCards(controller,players.get(i).getName(),i);
         }
 
         dealerIndex=0;
@@ -63,28 +75,39 @@ public class PokerGame {
         }
     }
 
+    private void associatePlayerCards(PokerController controller,String player, int index){
+        switch(player){
+            case "Player": card1.add(controller.getPlayerCard1());card2.add(controller.getPlayerCard2());break;
+            case "Bot 1": card1.add(controller.getBot1Card1()); card2.add(controller.getBot1Card2()); break;
+            case "Bot 2": card1.add(controller.getBot2Card1()); card2.add(controller.getBot2Card2()); break;
+            case "Bot 3": card1.add(controller.getBot3Card1()); card2.add(controller.getBot3Card2()); break;
+            case "Bot 4": card1.add(controller.getBot4Card1()); card2.add(controller.getBot4Card2()); break;
+            case "Bot 5": card1.add(controller.getBot5Card1()); card2.add(controller.getBot5Card2()); break;
+        }
+    }
+
     public void playGame(PokerController controller){
 
         //Gives player Cards
-        dealCards();
+        dealCards(controller);
 
         //First Round of Betting
         playerBet(controller);
 
         //First River Flop
-        dealFlop();
+        dealFlop(controller);
 
         //Second Round of Betting
         playerBet(controller);
 
         //Second River Flop
-        dealPostFlop();
+        dealPostFlop(controller,true);
 
         //Third Round of Betting
         playerBet(controller);
 
         //Third River Flop
-        dealPostFlop();
+        dealPostFlop(controller,false);
 
         //Fourth Round of Betting
         playerBet(controller);
@@ -94,7 +117,7 @@ public class PokerGame {
         playerRankNames();
     }
 
-    private void dealCards(){
+    private void dealCards(PokerController controller){
         deck = new Deck();
         deck.shuffle();
         for(int j=0;j<2;j++) {
@@ -104,9 +127,20 @@ public class PokerGame {
         }
         for(int i=0;i<players.size();i++)
         {
+            card1.get(i).setImage(getImage(players.get(i).getHand().getCards().getFirst()));
+            card2.get(i).setImage(getImage(players.get(i).getHand().getCards().getLast()));
             System.out.println(players.get(i).getName()+": "+players.get(i).getHand());
         }
     }
+
+    private Image getImage(Card card){
+        String suit = card.getSuit().toString().toLowerCase();
+        String rank = card.getRank().toString().toLowerCase();
+        String imagePath = "src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/" + rank + "_of_" + suit + ".png";
+        File file = new File(imagePath);
+        return new Image(file.toURI().toString());
+    }
+
 
     private void playerBet(PokerController controller){
         try {
@@ -132,7 +166,7 @@ public class PokerGame {
         return future;
     }
 
-    private void dealFlop() {
+    private void dealFlop(PokerController controller) {
         riverCards.clear();
         for(int i=0;i<3;i++)
         {
@@ -145,14 +179,25 @@ public class PokerGame {
                 }
             }
         }
+        controller.getRiverCard1().setImage(getImage(riverCards.getFirst()));
+        controller.getRiverCard2().setImage(getImage(riverCards.get(1)));
+        controller.getRiverCard3().setImage(getImage(riverCards.get(2)));
     }
 
-    private void dealPostFlop() {
+    private void dealPostFlop(PokerController controller,boolean flop) {
         riverCards.add(deck.deal());
         if (burnCards > 0) {
             for (int j = 0; j < burnCards; j++) {
                 deck.deal();
             }
+        }
+        if(flop)
+        {
+            controller.getRiverCard4().setImage(getImage(riverCards.get(3)));
+        }
+        else
+        {
+            controller.getRiverCard5().setImage(getImage(riverCards.get(4)));
         }
     }
 

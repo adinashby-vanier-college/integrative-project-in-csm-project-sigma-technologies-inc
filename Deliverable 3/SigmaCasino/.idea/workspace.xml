@@ -5,8 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0875b1ff-96f6-4834-b4ae-11f722c1b290" name="Changes" comment="File structure modification, fixed some FXML errors, windows now open properly">
-      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Poker/PokerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Poker/PokerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Poker/PokerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Poker/PokerGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/10_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/10_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/10_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/10_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/2_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/2_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/2_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/2_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/3_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/3_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/3_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/3_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/4_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/4_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/4_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/4_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/5_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/5_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/5_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/5_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/6_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/6_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/6_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/6_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/7_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/7_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/7_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/7_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/8_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/8_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/8_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/8_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/9_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/9_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/9_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/9_of_spades.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

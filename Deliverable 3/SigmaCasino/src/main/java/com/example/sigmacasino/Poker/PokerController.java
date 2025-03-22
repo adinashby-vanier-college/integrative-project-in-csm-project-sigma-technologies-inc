@@ -53,6 +53,7 @@ public class PokerController {
     @FXML private ImageView riverCard3;
     @FXML private ImageView riverCard4;
     @FXML private ImageView riverCard5;
+
     @FXML private ImageView playerCard1;
     @FXML private ImageView playerCard2;
     @FXML private ImageView bot1Card1;
@@ -131,7 +132,7 @@ public class PokerController {
 
     private void setImage(ImageView imageView){
         File file = new File("src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/back_of_card.png");
-        System.out.println(file.toURI());
+        //System.out.println(file.toURI());
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
         imageView.setPreserveRatio(true);
@@ -200,6 +201,73 @@ public class PokerController {
     }
     public TextField getRaiseTextArea(){
         return raiseText;
+    }
+    public ImageView getPlayerCard1() {
+        return playerCard1;
+    }
+
+    public ImageView getPlayerCard2() {
+        return playerCard2;
+    }
+
+    public ImageView getBot1Card1() {
+        return bot1Card1;
+    }
+
+    public ImageView getBot1Card2() {
+        return bot1Card2;
+    }
+
+    public ImageView getBot2Card1() {
+        return bot2Card1;
+    }
+
+    public ImageView getBot2Card2() {
+        return bot2Card2;
+    }
+
+    public ImageView getBot3Card1() {
+        return bot3Card1;
+    }
+
+    public ImageView getBot3Card2() {
+        return bot3Card2;
+    }
+
+    public ImageView getBot4Card1() {
+        return bot4Card1;
+    }
+
+    public ImageView getBot4Card2() {
+        return bot4Card2;
+    }
+
+    public ImageView getBot5Card1() {
+        return bot5Card1;
+    }
+
+    public ImageView getBot5Card2() {
+        return bot5Card2;
+    }
+
+    public ImageView getRiverCard1() {
+        return riverCard1;
+    }
+
+    public ImageView getRiverCard2() {
+        return riverCard2;
+    }
+
+    public ImageView getRiverCard3() {
+        return riverCard3;
+    }
+
+    public ImageView getRiverCard4() {
+        return riverCard4;
+    }
+
+    public ImageView getRiverCard5() {
+        return riverCard5;
     }
 
 
