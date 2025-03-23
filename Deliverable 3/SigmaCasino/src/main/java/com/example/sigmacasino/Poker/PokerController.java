@@ -21,27 +21,27 @@ import java.io.IOException;
 public class PokerController {
 
 
-    @FXML public Spinner<Integer> SpinnerBots;
-    @FXML public ChoiceBox<String> ChoiceBoxBruntCards;
-    @FXML public Circle bot2Turn;
-    @FXML public Circle bot1Turn;
-    @FXML public Circle bot4Turn;
-    @FXML public Circle bot5Turn;
-    @FXML public Circle playerTurn;
-    @FXML public Circle bot3Turn;
+    @FXML private Spinner<Integer> SpinnerBots;
+    @FXML private ChoiceBox<String> ChoiceBoxBruntCards;
+    @FXML private Circle bot2Turn;
+    @FXML private Circle bot1Turn;
+    @FXML private Circle bot4Turn;
+    @FXML private Circle bot5Turn;
+    @FXML private Circle playerTurn;
+    @FXML private Circle bot3Turn;
 
     @FXML private MenuItem gameSelect;
     @FXML private MenuItem menuQuit;
 
 
-    @FXML public CheckBox startRound;
+    @FXML private CheckBox startRound;
 
-    @FXML public Button checkButton;
-    @FXML public Button foldButton;
-    @FXML public Button raiseButton;
+    @FXML private Button checkButton;
+    @FXML private Button foldButton;
+    @FXML private Button raiseButton;
 
-    @FXML public TextField startingChips;
-    @FXML public TextField raiseText;
+    @FXML private TextField startingChips;
+    @FXML private TextField raiseText;
 
     @FXML private ImageView best_H1_1;
     @FXML private ImageView best_H1_2;
@@ -97,58 +97,60 @@ public class PokerController {
 
     @FXML
     public void initialize() throws IOException {
-            ImageView[] imageViews = {best_H1_1, best_H1_2, best_H1_3, best_H1_4, best_H1_5, best_H2_1, best_H2_2
-                    , best_H2_3, best_H2_4, best_H2_5, riverCard1, riverCard2, riverCard3, riverCard4, riverCard5
-                    , playerCard1, playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2
-                    , bot4Card1, bot4Card2, bot5Card1, bot5Card2};
+        ImageView[] imageViews = {best_H1_1, best_H1_2, best_H1_3, best_H1_4, best_H1_5, best_H2_1, best_H2_2
+                , best_H2_3, best_H2_4, best_H2_5, riverCard1, riverCard2, riverCard3, riverCard4, riverCard5
+                , playerCard1, playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2
+                , bot4Card1, bot4Card2, bot5Card1, bot5Card2};
 
-            //Hides turn circles
-            Circle[] botTurns = {bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
-            for (int i = 0; i < botTurns.length; i++) {
-                botTurns[i].setVisible(false);
-            }
-            playerTurn.setVisible(true);
+        //Hides turn circles
+        Circle[] botTurns = {bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
+        for (int i = 0; i < botTurns.length; i++) {
+            botTurns[i].setVisible(false);
+        }
+        playerTurn.setVisible(true);
 
-            //Hides extra bots
+        //Hides extra bots
+        onBotNumberChange();
+
+        //Sets burnt cards value
+        ChoiceBoxBruntCards.setValue("No Card");
+
+        //Presets images (remove later)
+        for (int i = 0; i < imageViews.length; i++) {
+            setImage(imageViews[i]);
+        }
+
+        //Add and remove bots
+        SpinnerBots.valueProperty().addListener((obs, oldValue, newValue) -> {
             onBotNumberChange();
+        });
 
-            //Sets burnt cards value
-            ChoiceBoxBruntCards.setValue("No Card");
-
-            //Presets images (remove later)
-            for (int i = 0; i < imageViews.length; i++) {
-                setImage(imageViews[i]);
+        startRound.setOnAction(actionEvent -> {
+            if(startRound.isSelected()) {
+                new Thread(()->{
+                    PokerGame game = new PokerGame(this);
+                    game.playGame(this);
+                    startRound.setSelected(false);
+                }).start();
             }
+        });
 
-            //Add and remove bots
-            SpinnerBots.valueProperty().addListener((obs, oldValue, newValue) -> {
-                onBotNumberChange();
-            });
+        gameSelect.setOnAction(event -> {
+            try {
+                switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml",null);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
-            startRound.setOnAction(actionEvent -> {
-                    if(startRound.isSelected()) {
-                        PokerGame game = new PokerGame(this);
-                        game.playGame(this);
-                        startRound.setSelected(false);
-                    }
-            });
-
-            gameSelect.setOnAction(event -> {
-                try {
-                    switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml",null);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-
-            menuQuit.setOnAction(event -> {
-                try {
-                    Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
-                    stage.close();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
+        menuQuit.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+                stage.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     }
 

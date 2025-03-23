@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class PokerGame {
+    private static BettingThread bettingThread;
     private final ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Integer> playerChips = new ArrayList<>();
     private final ArrayList<Card> riverCards = new ArrayList<>();
@@ -30,6 +31,8 @@ public class PokerGame {
     private int botAmount;
 
     public PokerGame(PokerController controller){
+        bettingThread = new BettingThread();
+        bettingThread.start();
         int index = 1;
         botAmount=controller.getSpinnerBots().getValue();
         String burnAmount=controller.getChoiceBoxBruntCards().getValue();
@@ -115,6 +118,9 @@ public class PokerGame {
         //Check Cards Ranks
         rankings();
         playerRankNames();
+
+        //Ends Round
+        endGame();
     }
 
     private void dealCards(PokerController controller){
@@ -143,27 +149,19 @@ public class PokerGame {
 
 
     private void playerBet(PokerController controller){
+        System.out.println("Player's turn to bet...");
+        bettingThread.pauseThread(); // Pause betting logic
+
+        // Simulate waiting for user input (Check, Fold, Raise)
+        // In real code, this should be event-driven (e.g., waiting for button clicks)
         try {
-            boolean flag = false;
-            while (flag) {
-                System.out.println(flag);
-                // Wait for user choice
-                CompletableFuture<Boolean> userChoice = waitForUserChoice(controller.getCheckButton(), controller.getFoldButton(), controller.getRaiseButton());
-                flag = userChoice.get();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            Thread.sleep(5000); // Simulating player thinking time
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
-    }
 
-    private CompletableFuture<Boolean> waitForUserChoice(Button checkButton, Button foldButton, Button raiseButton) {
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
-
-        checkButton.setOnAction(e -> future.complete(true));
-        foldButton.setOnAction(e -> future.complete(true));
-        raiseButton.setOnAction(e -> future.complete(true));
-
-        return future;
+        System.out.println("Player made a decision.");
+        bettingThread.resumeThread(); // Resume betting logic
     }
 
     private void dealFlop(PokerController controller) {
@@ -282,7 +280,62 @@ public class PokerGame {
         return playerChips;
     }
 
-    public void setPlayerChips(ArrayList<Integer> playerChips) {
+    private void setPlayerChips(ArrayList<Integer> playerChips) {
         this.playerChips = playerChips;
     }
+
+    private void endGame() {
+        bettingThread.stopThread(); // Gracefully stop the betting thread
+    }
+
+    private class BettingThread extends Thread {
+        private volatile boolean running = true;
+        private volatile boolean paused = false;
+
+        public void pauseThread() {
+            paused = true;
+        }
+
+        public void resumeThread() {
+            synchronized (this) {
+                paused = false;
+                notify(); // Wake up the thread
+            }
+        }
+
+        public void stopThread() {
+            running = false; // Signal thread to stop
+            resumeThread();  // In case it's paused, wake it up so it can exit
+        }
+
+        @Override
+        public void run() {
+            while (running) { // Run while the thread is active
+                synchronized (this) {
+                    while (paused && running) { // Pause logic
+                        try {
+                            wait(); // Wait until resumed or stopped
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                }
+
+                if (!running) break; // Exit if stopped
+
+                System.out.println("Betting phase ongoing...");
+                try {
+                    Thread.sleep(1000); // Simulate betting process
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+            System.out.println("Betting thread has stopped.");
+        }
+    }
+
+
+
+
+
 }
