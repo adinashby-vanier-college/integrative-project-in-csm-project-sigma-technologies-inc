@@ -1,7 +1,5 @@
 package com.example.sigmacasino.Poker;
 
-import com.example.sigmacasino.Menus.GameSelectorController;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +17,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class PokerController {
-
-
     @FXML private Spinner<Integer> SpinnerBots;
     @FXML private ChoiceBox<String> ChoiceBoxBruntCards;
     @FXML private Circle bot2Turn;
@@ -95,6 +91,10 @@ public class PokerController {
     @FXML private Label chipsBot4;
     @FXML private Label chipsBot5;
 
+    @FXML private CheckBox checkBox;
+    @FXML private CheckBox foldBox;
+    @FXML private CheckBox raiseBox;
+
     @FXML
     public void initialize() throws IOException {
         ImageView[] imageViews = {best_H1_1, best_H1_2, best_H1_3, best_H1_4, best_H1_5, best_H2_1, best_H2_2
@@ -149,6 +149,27 @@ public class PokerController {
                 stage.close();
             } catch (Exception e) {
                 throw new RuntimeException(e);
+            }
+        });
+
+        checkBox.setOnAction(event -> {
+            if(checkBox.isSelected()) {
+                foldBox.setSelected(false);
+                raiseBox.setSelected(false);
+            }
+        });
+
+        foldBox.setOnAction(event -> {
+            if(foldBox.isSelected()) {
+                checkBox.setSelected(false);
+                raiseBox.setSelected(false);
+            }
+        });
+
+        raiseBox.setOnAction(event -> {
+            if(raiseBox.isSelected()) {
+                foldBox.setSelected(false);
+                checkBox.setSelected(false);
             }
         });
 
@@ -210,20 +231,29 @@ public class PokerController {
         stage.show();
     }
 
+    public int getButtonValue() {
+        int value;
+        if (checkBox.isSelected()) {
+            value = 0;
+        } else if (foldBox.isSelected()) {
+            value = -1;
+        } else if (raiseBox.isSelected()) {
+            System.out.println(raiseText.getText());
+            value = Integer.parseInt(raiseText.getText());
+        } else {
+            value = -2;
+        }
+        checkBox.setSelected(false);
+        foldBox.setSelected(false);
+        raiseBox.setSelected(false);
+        return value;
+    }
+
     public Spinner<Integer> getSpinnerBots(){
         return SpinnerBots;
     }
     public ChoiceBox<String> getChoiceBoxBruntCards(){
         return ChoiceBoxBruntCards;
-    }
-    public Button getCheckButton(){
-        return checkButton;
-    }
-    public Button getFoldButton(){
-        return foldButton;
-    }
-    public Button getRaiseButton(){
-        return raiseButton;
     }
     public TextField getStartingChipsTextArea(){
         return startingChips;
@@ -298,6 +328,4 @@ public class PokerController {
     public ImageView getRiverCard5() {
         return riverCard5;
     }
-
-
 }

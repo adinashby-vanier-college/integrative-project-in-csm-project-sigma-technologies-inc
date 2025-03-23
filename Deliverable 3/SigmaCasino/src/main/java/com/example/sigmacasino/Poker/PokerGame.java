@@ -151,16 +151,18 @@ public class PokerGame {
     private void playerBet(PokerController controller){
         System.out.println("Player's turn to bet...");
         bettingThread.pauseThread(); // Pause betting logic
-
+        int value = -3;
         // Simulate waiting for user input (Check, Fold, Raise)
         // In real code, this should be event-driven (e.g., waiting for button clicks)
         try {
             Thread.sleep(5000); // Simulating player thinking time
+            value = controller.getButtonValue();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
         System.out.println("Player made a decision.");
+        System.out.println(value);
         bettingThread.resumeThread(); // Resume betting logic
     }
 
