@@ -19,34 +19,11 @@
                             <menus>
                                 <Menu mnemonicParsing="false" text="File">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="New" />
-                                        <MenuItem mnemonicParsing="false" text="Open…" />
-                                        <Menu mnemonicParsing="false" text="Open Recent" />
-                                        <SeparatorMenuItem mnemonicParsing="false" />
-                                        <MenuItem mnemonicParsing="false" text="Close" />
-                                        <MenuItem mnemonicParsing="false" text="Save" />
-                                        <MenuItem mnemonicParsing="false" text="Save As…" />
-                                        <MenuItem mnemonicParsing="false" text="Revert" />
-                                        <SeparatorMenuItem mnemonicParsing="false" />
-                                        <MenuItem mnemonicParsing="false" text="Preferences…" />
-                                        <SeparatorMenuItem mnemonicParsing="false" />
+                                        <MenuItem fx:id="gameSelect" mnemonicParsing="false" text="Game Selection" />
                                         <MenuItem fx:id="menuQuit" mnemonicParsing="false" text="Quit" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Edit">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Undo" />
-                                        <MenuItem mnemonicParsing="false" text="Redo" />
-                                        <SeparatorMenuItem mnemonicParsing="false" />
-                                        <MenuItem mnemonicParsing="false" text="Cut" />
-                                        <MenuItem mnemonicParsing="false" text="Copy" />
-                                        <MenuItem mnemonicParsing="false" text="Paste" />
-                                        <MenuItem mnemonicParsing="false" text="Delete" />
-                                        <SeparatorMenuItem mnemonicParsing="false" />
-                                        <MenuItem mnemonicParsing="false" text="Select All" />
-                                        <MenuItem mnemonicParsing="false" text="Unselect All" />
-                                    </items>
-                                </Menu>
+                                <Menu mnemonicParsing="false" text="Edit" />
                                 <Menu mnemonicParsing="false" text="Help">
                                     <items>
                                         <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
@@ -60,8 +37,13 @@
                         <VBox prefHeight="807.0" prefWidth="171.0" spacing="10.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
                             <children>
                            <CheckBox fx:id="startRound" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" text="Start Round" />
-                                <Label alignment="CENTER" text="Starting Chips:" />
-                                <TextField fx:id="startingChips" prefHeight="26.0" prefWidth="99.0" />
+                                <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="82.0" text="Starting Chips:" />
+                           <HBox prefHeight="25.0" prefWidth="119.0">
+                              <children>
+                                 <Label alignment="CENTER" prefHeight="26.0" prefWidth="16.0" text="\$" />
+                                      <TextField fx:id="startingChips" prefHeight="26.0" prefWidth="99.0" />
+                              </children>
+                           </HBox>
                                 <Label prefHeight="22.0" prefWidth="76.0" text="Bots:" />
                                 <Spinner fx:id="SpinnerBots" prefHeight="26.0" prefWidth="71.0">
                                     <valueFactory>
@@ -223,7 +205,7 @@
                <bottom>
                   <VBox alignment="BOTTOM_CENTER" prefHeight="240.0" prefWidth="1920.0">
                      <children>
-                         <TitledPane text="Game Info">
+                         <TitledPane text="Game Statistics">
                            <content>
                               <HBox alignment="CENTER" prefHeight="282.0" prefWidth="1918.0" spacing="50.0">
                                  <children>

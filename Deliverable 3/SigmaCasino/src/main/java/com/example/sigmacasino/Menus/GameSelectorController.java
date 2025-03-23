@@ -26,6 +26,8 @@ public class GameSelectorController {
     @FXML private ImageView blackjackIV;
     @FXML private ImageView rouletteIV;
     @FXML private ImageView dicesIV;
+    @FXML private MenuItem closeMenu;
+
 
     @FXML private MenuItem returnMainMenu;
 
@@ -83,6 +85,15 @@ public class GameSelectorController {
             }
         });
 
+        closeMenu.setOnAction(event -> {
+            try {
+                Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+                stage.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
     }
 
     @FXML
@@ -126,6 +137,6 @@ public class GameSelectorController {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }
     }
+}
 

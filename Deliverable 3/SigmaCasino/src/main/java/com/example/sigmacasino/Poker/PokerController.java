@@ -1,6 +1,8 @@
 package com.example.sigmacasino.Poker;
 
+import com.example.sigmacasino.Menus.GameSelectorController;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -27,6 +29,9 @@ public class PokerController {
     @FXML public Circle bot5Turn;
     @FXML public Circle playerTurn;
     @FXML public Circle bot3Turn;
+
+    @FXML private MenuItem gameSelect;
+    @FXML private MenuItem menuQuit;
 
 
     @FXML public CheckBox startRound;
@@ -75,7 +80,6 @@ public class PokerController {
     @FXML private Circle botCircle3;
     @FXML private Circle botCircle4;
     @FXML private Circle botCircle5;
-    @FXML private MenuItem menuQuit;
 
     @FXML private Label namePlayer;
     @FXML private Label nameBot1;
@@ -128,6 +132,24 @@ public class PokerController {
                         startRound.setSelected(false);
                     }
             });
+
+            gameSelect.setOnAction(event -> {
+                try {
+                    switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml",null);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            menuQuit.setOnAction(event -> {
+                try {
+                    Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+                    stage.close();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
     }
 
     private void setImage(ImageView imageView){
@@ -166,8 +188,13 @@ public class PokerController {
 
     }
 
-    public void switchToScene(ActionEvent event, String fxmlFile) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+    public void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
+        System.out.println("Fxml: " + getClass().getResource((fxmlFile)));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+        if (controller != null) {
+            loader.setController(controller);
+        }
+        Parent root = loader.load();
         Stage stage;
         if (event.getSource() instanceof Node) {
             // If the event source is a Node (ex: Button)

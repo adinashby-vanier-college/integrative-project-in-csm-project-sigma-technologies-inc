@@ -13,7 +13,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <MenuItem fx:id="returnMainMenu" mnemonicParsing="false" text="Main Menu" />
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="closeMenu" mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
