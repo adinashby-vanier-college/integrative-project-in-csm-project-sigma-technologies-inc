@@ -46,28 +46,33 @@ public class PokerGame {
             case "2 Cards": burnCards=2;break;
         }
 
-        System.out.println(burnAmount);
 
         players.add(new Player("Player"));
         associatePlayerCards(controller,players.getFirst().getName(),0);
+        playerChips.add(Integer.parseInt(controller.getChipsPlayer().getText()));
 
         if(botAmount==4)
         {
             players.add(new Player("Bot "+botAmount));
             index=2;
             associatePlayerCards(controller,players.get(1).getName(),1);
+            playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
         }
         else if (botAmount==5)
         {
             players.add(new Player("Bot "+botAmount));
             associatePlayerCards(controller,players.get(1).getName(),1);
+            playerChips.add(Integer.parseInt(controller.getChipsBot5().getText()));
             players.add(new Player("Bot "+(botAmount-1)));
             associatePlayerCards(controller,players.get(2).getName(),2);
+            playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
             index=3;
         }
+        int[] chips = {Integer.parseInt(controller.getChipsBot1().getText()),Integer.parseInt(controller.getChipsBot2().getText()),Integer.parseInt(controller.getChipsBot3().getText())};
         for(int i=index,j=1;i<=botAmount;i++,j++)
         {
             players.add(new Player("Bot "+j));
+            playerChips.add(chips[j-1]);
             associatePlayerCards(controller,players.get(i).getName(),i);
         }
 
@@ -95,6 +100,8 @@ public class PokerGame {
     }
 
     protected void playGame(PokerController controller){
+        //Restricts users controls during the round
+        restrictControls(true,controller);
 
         //Gives player Cards
         dealCards(controller);
@@ -128,8 +135,30 @@ public class PokerGame {
         //Winner
         getRoundWinner();
 
+        //Enables users controls after the round
+        restrictControls(false,controller);
+
         //Ends Round
         endGame(controller);
+    }
+
+    private void restrictControls(boolean restrict, PokerController controller)
+    {
+        if(restrict)
+        {
+            controller.getChoiceBoxBruntCards().setDisable(true);
+            controller.getSpinnerBots().setDisable(true);
+            controller.getStartingChipsTextArea().setEditable(false);
+            controller.getStartRoundCheckBox().setDisable(true);
+            controller.getHideChipsCheckBox().setDisable(true);
+        }
+        else {
+            controller.getChoiceBoxBruntCards().setDisable(false);
+            controller.getSpinnerBots().setDisable(false);
+            controller.getStartingChipsTextArea().setEditable(true);
+            controller.getStartRoundCheckBox().setDisable(false);
+            controller.getHideChipsCheckBox().setDisable(false);
+        }
     }
 
     private void dealCards(PokerController controller){

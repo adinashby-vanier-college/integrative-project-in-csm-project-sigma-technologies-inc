@@ -34,6 +34,7 @@ public class PokerController {
 
 
     @FXML private CheckBox startRound;
+    @FXML private CheckBox hideChips;
 
     @FXML private Button checkButton;
     @FXML private Button foldButton;
@@ -98,7 +99,27 @@ public class PokerController {
     @FXML private CheckBox foldBox;
     @FXML private CheckBox raiseBox;
 
+    @FXML private Label blindLabelPlayer;
+    @FXML private Label blindLabelBot1;
+    @FXML private Label blindLabelBot2;
+    @FXML private Label blindLabelBot3;
+    @FXML private Label blindLabelBot4;
+    @FXML private Label blindLabelBot5;
+
+
+    @FXML private Label dealerLabelPlayer;
+    @FXML private Label dealerLabelBot1;
+    @FXML private Label dealerLabelBot2;
+    @FXML private Label dealerLabelBot3;
+    @FXML private Label dealerLabelBot4;
+    @FXML private Label dealerLabelBot5;
+
+
     protected ImageView[] imageViews;
+    protected Circle[] botTurns;
+    protected Label[] chips;
+    protected Label[] dealerLabels;
+    protected Label[] blindLabels;
 
     @FXML
     public void initialize() throws IOException {
@@ -106,12 +127,26 @@ public class PokerController {
                 , best_H2_3, best_H2_4, best_H2_5, riverCard1, riverCard2, riverCard3, riverCard4, riverCard5
                 , playerCard1, playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2
                 , bot4Card1, bot4Card2, bot5Card1, bot5Card2};
-        //Hides turn circles
-        Circle[] botTurns = {bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
-        for (int i = 0; i < botTurns.length; i++) {
-            botTurns[i].setVisible(false);
+
+        dealerLabels = new Label[]{dealerLabelPlayer,dealerLabelBot1,dealerLabelBot2,dealerLabelBot3,dealerLabelBot4,dealerLabelBot5};
+        blindLabels = new Label[]{blindLabelPlayer,blindLabelBot1,blindLabelBot2,blindLabelBot3,blindLabelBot4,blindLabelBot5};
+        botTurns = new Circle[]{playerTurn, bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
+        chips = new Label[]{chipsPlayer, chipsBot1, chipsBot2, chipsBot3, chipsBot4, chipsBot5};
+
+        //Hides dealer labels
+        for (Label dealerLabel : dealerLabels) {
+            dealerLabel.setVisible(false);
         }
-        playerTurn.setVisible(true);
+
+        //Hides blind labels
+        for (Label blindLabel : blindLabels) {
+            blindLabel.setVisible(false);
+        }
+
+        //Hides turn circles
+        for (Circle botTurn : botTurns) {
+            botTurn.setVisible(false);
+        }
 
         //Hides extra bots
         onBotNumberChange();
@@ -124,10 +159,12 @@ public class PokerController {
             setImage(imageView);
         }
 
+        //Initial starting chips
         startingChips.setText("10000");
-        Label[] chips = {chipsPlayer,chipsBot1,chipsBot2,chipsBot3,chipsBot4,chipsBot5};
+
+        //Sets player chips
         for (Label chip : chips) {
-            chip.setText("$ "+startingChips.getText());
+            chip.setText(startingChips.getText());
         }
 
         startingChips.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -143,7 +180,7 @@ public class PokerController {
             }
             startingChips.setText(String.valueOf(value));
             for (Label chip : chips) {
-                chip.setText("$ "+value);
+                chip.setText(""+value);
             }
         });
 
@@ -276,6 +313,8 @@ public class PokerController {
         return value;
     }
 
+    protected CheckBox getStartRoundCheckBox() {return startRound;}
+    protected CheckBox getHideChipsCheckBox() {return hideChips;}
     protected Spinner<Integer> getSpinnerBots(){
         return SpinnerBots;
     }
@@ -358,5 +397,29 @@ public class PokerController {
 
     protected TextArea getAnnouncerTextArea() {return announcerTextArea;}
 
-    protected String getRaiseText() {return raiseText.getText().toString();}
+    protected String getRaiseText() {return raiseText.getText();}
+
+    protected Label getChipsPlayer() {
+        return chipsPlayer;
+    }
+
+    protected Label getChipsBot1() {
+        return chipsBot1;
+    }
+
+    protected Label getChipsBot2() {
+        return chipsBot2;
+    }
+
+    protected Label getChipsBot3() {
+        return chipsBot3;
+    }
+
+    protected Label getChipsBot4() {
+        return chipsBot4;
+    }
+
+    protected Label getChipsBot5() {
+        return chipsBot5;
+    }
 }
