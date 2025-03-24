@@ -30,7 +30,7 @@ public class PokerGame {
     private int burnCards;
     private int botAmount;
 
-    public PokerGame(PokerController controller){
+    protected PokerGame(PokerController controller){
         bettingThread = new BettingThread();
         bettingThread.start();
         int index = 1;
@@ -89,7 +89,7 @@ public class PokerGame {
         }
     }
 
-    public void playGame(PokerController controller){
+    protected void playGame(PokerController controller){
 
         //Gives player Cards
         dealCards(controller);
@@ -120,7 +120,7 @@ public class PokerGame {
         playerRankNames();
 
         //Ends Round
-        endGame();
+        endGame(controller);
     }
 
     private void dealCards(PokerController controller){
@@ -278,7 +278,7 @@ public class PokerGame {
         System.out.println("\n"+playerRankNames);
     }
 
-    public ArrayList<Integer> getPlayerChips() {
+    protected ArrayList<Integer> getPlayerChips() {
         return playerChips;
     }
 
@@ -286,8 +286,12 @@ public class PokerGame {
         this.playerChips = playerChips;
     }
 
-    private void endGame() {
+    private void endGame(PokerController controller) {
         bettingThread.stopThread(); // Gracefully stop the betting thread
+
+        for (ImageView imageView : controller.imageViews) {
+            controller.setImage(imageView);
+        }
     }
 
     private class BettingThread extends Thread {
@@ -335,9 +339,4 @@ public class PokerGame {
             System.out.println("Betting thread has stopped.");
         }
     }
-
-
-
-
-
 }

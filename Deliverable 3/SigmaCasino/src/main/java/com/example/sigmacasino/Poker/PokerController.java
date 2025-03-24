@@ -95,13 +95,14 @@ public class PokerController {
     @FXML private CheckBox foldBox;
     @FXML private CheckBox raiseBox;
 
+    protected ImageView[] imageViews;
+
     @FXML
     public void initialize() throws IOException {
-        ImageView[] imageViews = {best_H1_1, best_H1_2, best_H1_3, best_H1_4, best_H1_5, best_H2_1, best_H2_2
+        imageViews = new ImageView[]{best_H1_1, best_H1_2, best_H1_3, best_H1_4, best_H1_5, best_H2_1, best_H2_2
                 , best_H2_3, best_H2_4, best_H2_5, riverCard1, riverCard2, riverCard3, riverCard4, riverCard5
                 , playerCard1, playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2
                 , bot4Card1, bot4Card2, bot5Card1, bot5Card2};
-
         //Hides turn circles
         Circle[] botTurns = {bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
         for (int i = 0; i < botTurns.length; i++) {
@@ -116,9 +117,32 @@ public class PokerController {
         ChoiceBoxBruntCards.setValue("No Card");
 
         //Presets images (remove later)
-        for (int i = 0; i < imageViews.length; i++) {
-            setImage(imageViews[i]);
+        for (ImageView imageView : imageViews) {
+            setImage(imageView);
         }
+
+        startingChips.setText("10000");
+        Label[] chips = {chipsPlayer,chipsBot1,chipsBot2,chipsBot3,chipsBot4,chipsBot5};
+        for (Label chip : chips) {
+            chip.setText("$ "+startingChips.getText());
+        }
+
+        startingChips.textProperty().addListener((observable, oldValue, newValue) -> {
+            int value;
+            try{
+                value = Integer.parseInt(newValue);
+                if(value<=0)
+                {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                value = Integer.parseInt(oldValue);
+            }
+            startingChips.setText(String.valueOf(value));
+            for (Label chip : chips) {
+                chip.setText("$ "+value);
+            }
+        });
 
         //Add and remove bots
         SpinnerBots.valueProperty().addListener((obs, oldValue, newValue) -> {
@@ -175,7 +199,7 @@ public class PokerController {
 
     }
 
-    private void setImage(ImageView imageView){
+    protected void setImage(ImageView imageView){
         File file = new File("src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/back_of_card.png");
         //System.out.println(file.toURI());
         Image image = new Image(file.toURI().toString());
@@ -211,7 +235,7 @@ public class PokerController {
 
     }
 
-    public void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
+    protected void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
         System.out.println("Fxml: " + getClass().getResource((fxmlFile)));
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         if (controller != null) {
@@ -231,7 +255,7 @@ public class PokerController {
         stage.show();
     }
 
-    public int getButtonValue() {
+    protected int getButtonValue() {
         int value;
         if (checkBox.isSelected()) {
             value = 0;
@@ -249,83 +273,84 @@ public class PokerController {
         return value;
     }
 
-    public Spinner<Integer> getSpinnerBots(){
+    protected Spinner<Integer> getSpinnerBots(){
         return SpinnerBots;
     }
-    public ChoiceBox<String> getChoiceBoxBruntCards(){
+    protected ChoiceBox<String> getChoiceBoxBruntCards(){
         return ChoiceBoxBruntCards;
     }
-    public TextField getStartingChipsTextArea(){
+    protected TextField getStartingChipsTextArea(){
         return startingChips;
     }
-    public TextField getRaiseTextArea(){
+    protected TextField getRaiseTextArea(){
         return raiseText;
     }
-    public ImageView getPlayerCard1() {
+    protected ImageView getPlayerCard1() {
         return playerCard1;
     }
 
-    public ImageView getPlayerCard2() {
+    protected ImageView getPlayerCard2() {
         return playerCard2;
     }
 
-    public ImageView getBot1Card1() {
+    protected ImageView getBot1Card1() {
         return bot1Card1;
     }
 
-    public ImageView getBot1Card2() {
+    protected ImageView getBot1Card2() {
         return bot1Card2;
     }
 
-    public ImageView getBot2Card1() {
+    protected ImageView getBot2Card1() {
         return bot2Card1;
     }
 
-    public ImageView getBot2Card2() {
+    protected ImageView getBot2Card2() {
         return bot2Card2;
     }
 
-    public ImageView getBot3Card1() {
+    protected ImageView getBot3Card1() {
         return bot3Card1;
     }
 
-    public ImageView getBot3Card2() {
+    protected ImageView getBot3Card2() {
         return bot3Card2;
     }
 
-    public ImageView getBot4Card1() {
+    protected ImageView getBot4Card1() {
         return bot4Card1;
     }
 
-    public ImageView getBot4Card2() {
+    protected ImageView getBot4Card2() {
         return bot4Card2;
     }
 
-    public ImageView getBot5Card1() {
+    protected ImageView getBot5Card1() {
         return bot5Card1;
     }
 
-    public ImageView getBot5Card2() {
+    protected ImageView getBot5Card2() {
         return bot5Card2;
     }
 
-    public ImageView getRiverCard1() {
+    protected ImageView getRiverCard1() {
         return riverCard1;
     }
 
-    public ImageView getRiverCard2() {
+    protected ImageView getRiverCard2() {
         return riverCard2;
     }
 
-    public ImageView getRiverCard3() {
+    protected ImageView getRiverCard3() {
         return riverCard3;
     }
 
-    public ImageView getRiverCard4() {
+    protected ImageView getRiverCard4() {
         return riverCard4;
     }
 
-    public ImageView getRiverCard5() {
+    protected ImageView getRiverCard5() {
         return riverCard5;
     }
+
 }
