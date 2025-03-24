@@ -160,22 +160,29 @@ public class PokerGame {
 
 
     private void playerBet(PokerController controller){
-        String text = "\nPlayer's turn to bet...";
-        announcerTextArea.setText(announcerTextArea.getText()+text);
         bettingThread.pauseThread(); // Pause betting logic
         int value = -1;
         // Simulate waiting for user input (Check, Fold, Raise)
         // In real code, this should be event-driven (e.g., waiting for button clicks)
         try {
+            String text = "\nPlayer's turn to bet...";
+            announcerTextArea.setText(announcerTextArea.getText()+text);
             Thread.sleep(5000); // Simulating player thinking time
             value = controller.getButtonValue();
             text = "\nPlayer has chosen to ";
-            switch(value){
-                case 0: text = text+"stand";break;
-                case -1: text = text+"fold";break;
-                default: text = text+"raise by $"+controller.getRaiseText();break;
-            }
+            text = switch (value) {
+                case 0 -> text + "stand";
+                case -1 -> text + "fold";
+                default -> text + "raise by $" + controller.getRaiseText();
+            };
             announcerTextArea.setText(announcerTextArea.getText()+text);
+            for(int i=1;i<players.size();i++)
+            {
+                text = "\n"+players.get(i).getName()+"'s turn to bet...";
+                announcerTextArea.setText(announcerTextArea.getText()+text);
+                Thread.sleep(5000);
+
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
