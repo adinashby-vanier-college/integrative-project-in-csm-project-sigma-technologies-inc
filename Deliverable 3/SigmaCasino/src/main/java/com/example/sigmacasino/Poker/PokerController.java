@@ -19,6 +19,9 @@ import java.io.IOException;
 public class PokerController {
     @FXML private Spinner<Integer> SpinnerBots;
     @FXML private ChoiceBox<String> ChoiceBoxBruntCards;
+
+    @FXML private TextArea announcerTextArea;
+
     @FXML private Circle bot2Turn;
     @FXML private Circle bot1Turn;
     @FXML private Circle bot4Turn;
@@ -265,7 +268,7 @@ public class PokerController {
             System.out.println(raiseText.getText());
             value = Integer.parseInt(raiseText.getText());
         } else {
-            value = -2;
+            value = -1;
         }
         checkBox.setSelected(false);
         foldBox.setSelected(false);
@@ -353,4 +356,7 @@ public class PokerController {
         return riverCard5;
     }
 
+    protected TextArea getAnnouncerTextArea() {return announcerTextArea;}
+
+    protected String getRaiseText() {return raiseText.getText().toString();}
 }

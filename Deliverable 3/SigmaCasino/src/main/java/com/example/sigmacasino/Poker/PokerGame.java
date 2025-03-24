@@ -4,6 +4,7 @@ import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 import io.lyuda.jcards.game.Player;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -29,19 +30,23 @@ public class PokerGame {
     private int bigBlindIndex;
     private int burnCards;
     private int botAmount;
+    private TextArea announcerTextArea;
 
     protected PokerGame(PokerController controller){
         bettingThread = new BettingThread();
         bettingThread.start();
+        announcerTextArea = controller.getAnnouncerTextArea();
         int index = 1;
         botAmount=controller.getSpinnerBots().getValue();
         String burnAmount=controller.getChoiceBoxBruntCards().getValue();
         switch(burnAmount)
         {
-            case "No Burn Cards": burnCards=0;break;
-            case "1 Burn Card": burnCards=1;break;
-            case "2 Burn Cards": burnCards=2;break;
+            case "No Cards": burnCards=0;break;
+            case "1 Card": burnCards=1;break;
+            case "2 Cards": burnCards=2;break;
         }
+
+        System.out.println(burnAmount);
 
         players.add(new Player("Player"));
         associatePlayerCards(controller,players.getFirst().getName(),0);
@@ -118,6 +123,10 @@ public class PokerGame {
         //Check Cards Ranks
         rankings();
         playerRankNames();
+        displayFinalRankings();
+
+        //Winner
+        getRoundWinner();
 
         //Ends Round
         endGame(controller);
@@ -137,6 +146,8 @@ public class PokerGame {
             card2.get(i).setImage(getImage(players.get(i).getHand().getCards().getLast()));
             System.out.println(players.get(i).getName()+": "+players.get(i).getHand());
         }
+        String text = "Dealer has dealt all the cards";
+        announcerTextArea.setText(text);
     }
 
     private Image getImage(Card card){
@@ -149,33 +160,68 @@ public class PokerGame {
 
 
     private void playerBet(PokerController controller){
-        System.out.println("Player's turn to bet...");
+        String text = "\nPlayer's turn to bet...";
+        announcerTextArea.setText(announcerTextArea.getText()+text);
         bettingThread.pauseThread(); // Pause betting logic
-        int value = -3;
+        int value = -1;
         // Simulate waiting for user input (Check, Fold, Raise)
         // In real code, this should be event-driven (e.g., waiting for button clicks)
         try {
             Thread.sleep(5000); // Simulating player thinking time
             value = controller.getButtonValue();
+            text = "\nPlayer has chosen to ";
+            switch(value){
+                case 0: text = text+"stand";break;
+                case -1: text = text+"fold";break;
+                default: text = text+"raise by $"+controller.getRaiseText();break;
+            }
+            announcerTextArea.setText(announcerTextArea.getText()+text);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-
-        System.out.println("Player made a decision.");
-        System.out.println(value);
         bettingThread.resumeThread(); // Resume betting logic
     }
 
+    private void getRoundWinner(){
+        String text;
+        float max = playerRanks.getFirst();
+        ArrayList<Player> winners = new ArrayList<>();
+        for (int i=1;i<players.size();i++)
+        {
+            if(playerRanks.get(i)>max){
+                max = playerRanks.get(i);
+            }
+        }
+        for(int i=0;i<players.size();i++)
+        {
+            if(playerRanks.get(i)== max)
+            {
+                winners.add(players.get(i));
+            }
+        }
+        for(int i=0;i<winners.size();i++)
+        {
+            text = "\n"+winners.get(i).getName()+" Wins!";
+            announcerTextArea.setText(announcerTextArea.getText()+text);
+        }
+    }
+
     private void dealFlop(PokerController controller) {
+        String text;
+        String[] strings = {"first","second","third"};
         riverCards.clear();
         for(int i=0;i<3;i++)
         {
             riverCards.add(deck.deal());
+            text = "\nThe "+strings[i]+" river card is a "+riverCards.get(i).getRank().toString().toLowerCase()+" of "+riverCards.get(i).getSuit().toString().toLowerCase();
+            announcerTextArea.setText(announcerTextArea.getText()+text);
             if(burnCards>0)
             {
                 for(int j=0;j<burnCards;j++)
                 {
-                    deck.deal();
+                    Card card =deck.deal();
+                    text = "\nThe dealer bruns a "+card.getRank().toString().toLowerCase()+" of "+card.getSuit().toString().toLowerCase();
+                    announcerTextArea.setText(announcerTextArea.getText()+text);
                 }
             }
         }
@@ -185,29 +231,36 @@ public class PokerGame {
     }
 
     private void dealPostFlop(PokerController controller,boolean flop) {
+        String text;
+        System.out.println("Breaks?");
         riverCards.add(deck.deal());
         if (burnCards > 0) {
             for (int j = 0; j < burnCards; j++) {
-                deck.deal();
+                Card card =deck.deal();
+                text = "\nThe dealer bruns a "+card.getRank().toString().toLowerCase()+" of "+card.getSuit().toString().toLowerCase();
+                announcerTextArea.setText(announcerTextArea.getText()+text);
             }
         }
         if(flop)
         {
             controller.getRiverCard4().setImage(getImage(riverCards.get(3)));
+            text = "\nThe fourth river card is a "+riverCards.get(3).getRank().toString().toLowerCase()+" of "+riverCards.get(3).getSuit().toString().toLowerCase();
+            announcerTextArea.setText(announcerTextArea.getText()+text);
         }
         else
         {
             controller.getRiverCard5().setImage(getImage(riverCards.get(4)));
+            text = "\nThe fifth river card is a "+riverCards.get(4).getRank().toString().toLowerCase()+" of "+riverCards.get(4).getSuit().toString().toLowerCase();
+            announcerTextArea.setText(announcerTextArea.getText()+text);
         }
     }
 
     private void rankings() {
-        System.out.println("\n"+riverCards);
         for(int i=0;i<players.size();i++)
         {
             playerRanks.add(bestHand(new ArrayList<Card>(List.of(new Card[]{players.get(i).getHand().getCards().getFirst(), players.get(i).getHand().getCards().getLast(), riverCards.get(0), riverCards.get(1), riverCards.get(2), riverCards.get(3), riverCards.get(4)}))));
+            System.out.println(playerRanks);
         }
-        System.out.println("\n"+playerRanks);
     }
 
     private static float bestHand(ArrayList<Card> allCards) {
@@ -276,6 +329,14 @@ public class PokerGame {
             }
         }
         System.out.println("\n"+playerRankNames);
+    }
+
+    private void displayFinalRankings(){
+        for(int i=0;i<players.size();i++)
+        {
+            String text = "\n"+players.get(i).getName()+" has "+ playerRankNames.get(i);
+            announcerTextArea.setText(announcerTextArea.getText()+text);
+        }
     }
 
     protected ArrayList<Integer> getPlayerChips() {
