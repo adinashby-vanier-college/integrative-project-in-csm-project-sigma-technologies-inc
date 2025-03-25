@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -141,16 +142,23 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <HBox prefHeight="62.0" prefWidth="160.0" translateX="410.0">
+            <HBox prefHeight="62.0" prefWidth="178.0" translateX="330.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current Bet: $" translateY="10.0" />
-                  <TextField fx:id="betField" prefHeight="26.0" prefWidth="57.0" translateX="10.0" translateY="5.0">
+                  <TextField fx:id="betField" prefHeight="26.0" prefWidth="114.0" translateX="10.0" translateY="5.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </TextField>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="addFive" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="+5" translateX="45.0" translateY="-5.0" />
+                        <Button fx:id="removeFive" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="-5" translateX="45.0" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quick bet using RapiBet™" translateX="148.0" translateY="35.0" />
          </children>
       </HBox>
    </bottom>

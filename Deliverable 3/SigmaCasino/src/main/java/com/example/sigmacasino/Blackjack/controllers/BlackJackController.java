@@ -2,6 +2,8 @@ package com.example.sigmacasino.Blackjack.controllers;
 
 import com.example.sigmacasino.Blackjack.gameLogic.Deck;
 import com.example.sigmacasino.Blackjack.gameLogic.Hand;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -14,9 +16,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -32,6 +37,7 @@ public class BlackJackController {
 
 
     private void startNewGame(){
+
         isPlayable.set(true);
         resultText.setText("");
         resultText.setVisible(false);
@@ -42,7 +48,6 @@ public class BlackJackController {
         dealer.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
-
 
     }
     private void endGame(){
@@ -56,8 +61,11 @@ public class BlackJackController {
         else if(playerValue == 21 || dealerValue > 21 || playerValue>dealerValue){
             winner = "PLAYER";
         }
-        resultText.setText(winner);
+        resultText.setText(winner + " won " + currentBet[0] + "$");
         resultText.setVisible(true);
+        betField.clear();
+        currentBet[0] = 0;
+
     }
 
 
@@ -95,14 +103,19 @@ public class BlackJackController {
     private HBox dealerCards;
     @FXML
     private Text resultText;
+    @FXML
+    private Button addFive;
+    @FXML
+    private Button removeFive;
 
-
+    int[] currentBet = {0};
     private Stage stage;
     private Scene scene;
     private Parent root;
 
     @FXML
     public void initialize()  throws IOException {
+        currentBet[0] = 0;
         resultText.setVisible(false);
         System.out.println("BlackJack successfully initialized");
         closeMenu.setOnAction(event -> {
@@ -147,6 +160,32 @@ public class BlackJackController {
             }
             endGame();
         });
+        addFive.setOnAction((ActionEvent event) -> {
+            currentBet[0] = currentBet[0] + 5;
+            betField.setText(Integer.toString(currentBet[0]));
+        });
+        removeFive.setOnAction((ActionEvent event) -> {
+            if (currentBet[0] >= 5) {
+                currentBet[0] = currentBet[0] - 5;
+            }
+            if (currentBet[0] == 0) {
+                Background originalBackground = removeFive.getBackground();
+                removeFive.setTextFill(Color.RED);
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
+                    removeFive.setTextFill(Color.BLACK);
+                }));
+                timeline.setCycleCount(1);
+                timeline.play();
+            }
+            betField.setText(Integer.toString(currentBet[0]));
+
+        });
+    }
+
+
+
+
+    private void setBet(){
 
     }
 
