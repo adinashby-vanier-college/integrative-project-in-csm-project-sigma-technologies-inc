@@ -160,7 +160,7 @@ public class PokerController {
         }
 
         //Initial starting chips
-        startingChips.setText("10000");
+        startingChips.setText("1000");
 
         //Sets player chips
         for (Label chip : chips) {
@@ -182,11 +182,13 @@ public class PokerController {
             for (Label chip : chips) {
                 chip.setText(""+value);
             }
+            PokerGame.getPlayerChips().clear();
         });
 
         //Add and remove bots
         SpinnerBots.valueProperty().addListener((obs, oldValue, newValue) -> {
             onBotNumberChange();
+            PokerGame.getPlayerChips().clear();
         });
 
         startRound.setOnAction(actionEvent -> {
