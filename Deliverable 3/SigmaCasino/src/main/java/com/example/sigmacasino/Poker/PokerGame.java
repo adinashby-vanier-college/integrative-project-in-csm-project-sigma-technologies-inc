@@ -3,6 +3,7 @@ package com.example.sigmacasino.Poker;
 import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 import io.lyuda.jcards.game.Player;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -22,10 +23,13 @@ public class PokerGame {
     private static ArrayList<Label> dealerLabels = new ArrayList<>();
     private static ArrayList<Label> smallBlindLabels = new ArrayList<>();
     private static ArrayList<Label> bigBlindLabels = new ArrayList<>();
-    private ArrayList<ImageView> card1 = new ArrayList<>();
-    private ArrayList<ImageView> card2 = new ArrayList<>();
+    private static ArrayList<ImageView> card1 = new ArrayList<>();
+    private static ArrayList<ImageView> card2 = new ArrayList<>();
+    private static ArrayList<Label> chipLabels = new ArrayList<>();
     private Deck deck;
-    private int potSize;
+    private static int potSize;
+    private static int smallBlindAmount;
+    private static int bigBlindAmount;
     private static int dealerIndex;
     private static int smallBlindIndex;
     private static int bigBlindIndex;
@@ -38,6 +42,9 @@ public class PokerGame {
         if(playerChips.isEmpty())
         {
             newChips = true;
+            int startingChips = Integer.parseInt(controller.getStartingChipsTextArea().getText());
+            smallBlindAmount = startingChips/100;
+            bigBlindAmount = startingChips/50;
         }
 
         bettingThread = new BettingThread();
@@ -55,20 +62,20 @@ public class PokerGame {
 
 
         players.add(new Player("Player"));
-        associatePlayerCards(controller,players.getFirst().getName());
         if(newChips) {
+            associatePlayerCards(controller,players.getFirst().getName());
             playerChips.add(Integer.parseInt(controller.getChipsPlayer().getText()));
             dealerLabels.add(controller.getDealerLabelPlayer());
-            smallBlindLabels.add(controller.getBigBlindLabelPlayer());
-            bigBlindLabels.add(controller.getSmallBlindLabelPlayer());
+            smallBlindLabels.add(controller.getSmallBlindLabelPlayer());
+            bigBlindLabels.add(controller.getBigBlindLabelPlayer());
         }
 
         if(botAmount==4)
         {
             players.add(new Player("Bot "+botAmount));
             index=2;
-            associatePlayerCards(controller,players.get(1).getName());
             if(newChips) {
+                associatePlayerCards(controller,players.get(1).getName());
                 playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
                 dealerLabels.add(controller.getDealerLabelBot4());
                 smallBlindLabels.add(controller.getSmallBlindLabelBot4());
@@ -78,16 +85,16 @@ public class PokerGame {
         else if (botAmount==5)
         {
             players.add(new Player("Bot "+botAmount));
-            associatePlayerCards(controller,players.get(1).getName());
             if(newChips) {
+                associatePlayerCards(controller,players.get(1).getName());
                 playerChips.add(Integer.parseInt(controller.getChipsBot5().getText()));
                 dealerLabels.add(controller.getDealerLabelBot5());
                 smallBlindLabels.add(controller.getSmallBlindLabelBot5());
                 bigBlindLabels.add(controller.getBigBlindLabelBot5());
             }
             players.add(new Player("Bot "+(botAmount-1)));
-            associatePlayerCards(controller,players.get(2).getName());
             if(newChips) {
+                associatePlayerCards(controller,players.get(2).getName());
                 playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
                 dealerLabels.add(controller.getDealerLabelBot4());
                 smallBlindLabels.add(controller.getSmallBlindLabelBot4());
@@ -107,13 +114,12 @@ public class PokerGame {
                 dealerLabels.add(dealer[j - 1]);
                 smallBlindLabels.add(smallBlind[j - 1]);
                 bigBlindLabels.add(bigBlind[j - 1]);
+                associatePlayerCards(controller,players.get(i).getName());
             }
-            associatePlayerCards(controller,players.get(i).getName());
         }
-        System.out.println(dealerLabels);
         if(newChips) {
             dealerIndex = 0;
-            if (botAmount < 2) {
+            if (botAmount == 1) {
                 smallBlindIndex = 0;
                 bigBlindIndex = 1;
             } else {
@@ -149,21 +155,24 @@ public class PokerGame {
 
     private void associatePlayerCards(PokerController controller,String player){
         switch(player){
-            case "Player": card1.add(controller.getPlayerCard1());card2.add(controller.getPlayerCard2());break;
-            case "Bot 1": card1.add(controller.getBot1Card1()); card2.add(controller.getBot1Card2()); break;
-            case "Bot 2": card1.add(controller.getBot2Card1()); card2.add(controller.getBot2Card2()); break;
-            case "Bot 3": card1.add(controller.getBot3Card1()); card2.add(controller.getBot3Card2()); break;
-            case "Bot 4": card1.add(controller.getBot4Card1()); card2.add(controller.getBot4Card2()); break;
-            case "Bot 5": card1.add(controller.getBot5Card1()); card2.add(controller.getBot5Card2()); break;
+            case "Player": card1.add(controller.getPlayerCard1());card2.add(controller.getPlayerCard2());chipLabels.add(controller.chips[0]);break;
+            case "Bot 1": card1.add(controller.getBot1Card1()); card2.add(controller.getBot1Card2());chipLabels.add(controller.chips[1]); break;
+            case "Bot 2": card1.add(controller.getBot2Card1()); card2.add(controller.getBot2Card2());chipLabels.add(controller.chips[2]); break;
+            case "Bot 3": card1.add(controller.getBot3Card1()); card2.add(controller.getBot3Card2());chipLabels.add(controller.chips[3]); break;
+            case "Bot 4": card1.add(controller.getBot4Card1()); card2.add(controller.getBot4Card2());chipLabels.add(controller.chips[4]); break;
+            case "Bot 5": card1.add(controller.getBot5Card1()); card2.add(controller.getBot5Card2());chipLabels.add(controller.chips[5]); break;
         }
     }
 
     protected void playGame(PokerController controller){
         //Restricts users controls during the round
-        restrictControls(true,controller);
+        restrictControls(true, controller);
 
-        //Gives player Cards
+        //Gives player Cards (runs on the JavafxThread)
         dealCards(controller);
+
+        //Places small/big blinds into the pot
+        placeBlinds(controller);
 
         //First Round of Betting
         playerBet(controller);
@@ -175,13 +184,13 @@ public class PokerGame {
         playerBet(controller);
 
         //Second River Flop
-        dealPostFlop(controller,true);
+        dealPostFlop(controller, true);
 
         //Third Round of Betting
         playerBet(controller);
 
         //Third River Flop
-        dealPostFlop(controller,false);
+        dealPostFlop(controller, false);
 
         //Fourth Round of Betting
         playerBet(controller);
@@ -195,7 +204,7 @@ public class PokerGame {
         getRoundWinner();
 
         //Enables users controls after the round
-        restrictControls(false,controller);
+        restrictControls(false, controller);
 
         //Ends Round
         endGame(controller);
@@ -228,14 +237,15 @@ public class PokerGame {
                 player.addCard(deck.deal());
             }
         }
-        for(int i=0;i<players.size();i++)
-        {
-            card1.get(i).setImage(getImage(players.get(i).getHand().getCards().getFirst()));
-            card2.get(i).setImage(getImage(players.get(i).getHand().getCards().getLast()));
-            System.out.println(players.get(i).getName()+": "+players.get(i).getHand());
-        }
+        Platform.runLater(() -> {
+            for (int i = 0; i < players.size(); i++) {
+                card1.get(i).setImage(getImage(players.get(i).getHand().getCards().getFirst()));
+                card2.get(i).setImage(getImage(players.get(i).getHand().getCards().getLast()));
+                System.out.println(players.get(i).getName() + ": " + players.get(i).getHand());
+            }
+        });
         String text = "Dealer has dealt all the cards";
-        announcerTextArea.setText(text);
+        Platform.runLater(() -> announcerTextArea.setText(text));
     }
 
     private Image getImage(Card card){
@@ -254,7 +264,8 @@ public class PokerGame {
         // In real code, this should be event-driven (e.g., waiting for button clicks)
         try {
             String text = "\nPlayer's turn to bet...";
-            announcerTextArea.setText(announcerTextArea.getText()+text);
+            String finalText2 = text;
+            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText2));
             Thread.sleep(1000); // Simulating player thinking time
             value = controller.getButtonValue();
             text = "\nPlayer has chosen to ";
@@ -263,11 +274,13 @@ public class PokerGame {
                 case -1 -> text + "fold";
                 default -> text + "raise by $" + controller.getRaiseText();
             };
-            announcerTextArea.setText(announcerTextArea.getText()+text);
+            String finalText = text;
+            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText));
             for(int i=1;i<players.size();i++)
             {
                 text = "\n"+players.get(i).getName()+"'s turn to bet...";
-                announcerTextArea.setText(announcerTextArea.getText()+text);
+                String finalText1 = text;
+                Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText1));
                 Thread.sleep(1000);
 
             }
@@ -297,7 +310,8 @@ public class PokerGame {
         for(int i=0;i<winners.size();i++)
         {
             text = "\n"+winners.get(i).getName()+" Wins!";
-            announcerTextArea.setText(announcerTextArea.getText()+text);
+            String finalText = text;
+            Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText));
         }
     }
 
@@ -309,45 +323,66 @@ public class PokerGame {
         {
             riverCards.add(deck.deal());
             text = "\nThe "+strings[i]+" river card is a "+riverCards.get(i).getRank().toString().toLowerCase()+" of "+riverCards.get(i).getSuit().toString().toLowerCase();
-            announcerTextArea.setText(announcerTextArea.getText()+text);
+            String finalText = text;
+            Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText));
             if(burnCards>0)
             {
                 for(int j=0;j<burnCards;j++)
                 {
                     Card card =deck.deal();
                     text = "\nThe dealer bruns a "+card.getRank().toString().toLowerCase()+" of "+card.getSuit().toString().toLowerCase();
-                    announcerTextArea.setText(announcerTextArea.getText()+text);
+                    String finalText1 = text;
+                    Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText1));
                 }
             }
         }
-        controller.getRiverCard1().setImage(getImage(riverCards.getFirst()));
-        controller.getRiverCard2().setImage(getImage(riverCards.get(1)));
-        controller.getRiverCard3().setImage(getImage(riverCards.get(2)));
+        Platform.runLater(() -> {
+            controller.getRiverCard1().setImage(getImage(riverCards.getFirst()));
+            controller.getRiverCard2().setImage(getImage(riverCards.get(1)));
+            controller.getRiverCard3().setImage(getImage(riverCards.get(2)));
+        });
     }
 
     private void dealPostFlop(PokerController controller,boolean flop) {
         String text;
-        System.out.println("Breaks?");
         riverCards.add(deck.deal());
         if (burnCards > 0) {
             for (int j = 0; j < burnCards; j++) {
                 Card card =deck.deal();
                 text = "\nThe dealer bruns a "+card.getRank().toString().toLowerCase()+" of "+card.getSuit().toString().toLowerCase();
-                announcerTextArea.setText(announcerTextArea.getText()+text);
+                String finalText = text;
+                Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText));
             }
         }
         if(flop)
         {
-            controller.getRiverCard4().setImage(getImage(riverCards.get(3)));
+            Platform.runLater(() ->controller.getRiverCard4().setImage(getImage(riverCards.get(3))));
             text = "\nThe fourth river card is a "+riverCards.get(3).getRank().toString().toLowerCase()+" of "+riverCards.get(3).getSuit().toString().toLowerCase();
-            announcerTextArea.setText(announcerTextArea.getText()+text);
+            String finalText1 = text;
+            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText1));
         }
         else
         {
-            controller.getRiverCard5().setImage(getImage(riverCards.get(4)));
+            Platform.runLater(() ->controller.getRiverCard5().setImage(getImage(riverCards.get(4))));
             text = "\nThe fifth river card is a "+riverCards.get(4).getRank().toString().toLowerCase()+" of "+riverCards.get(4).getSuit().toString().toLowerCase();
-            announcerTextArea.setText(announcerTextArea.getText()+text);
+            String finalText2 = text;
+            Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText2));
         }
+    }
+
+    private void placeBlinds(PokerController controller){
+        potSize = smallBlindAmount+bigBlindAmount;
+        playerChips.set(smallBlindIndex,playerChips.get(smallBlindIndex)-smallBlindAmount);
+        playerChips.set(bigBlindIndex, playerChips.get(bigBlindIndex)-bigBlindAmount);
+        Platform.runLater(() -> updateChips(potSize, controller));
+    }
+
+    private void updateChips(int pot, PokerController  controller){
+        for(int i=0;i<players.size();i++)
+        {
+            chipLabels.get(i).setText(""+playerChips.get(i));
+        }
+        controller.getPot().setText(""+pot);
     }
 
     private void rankings() {
@@ -430,7 +465,7 @@ public class PokerGame {
         for(int i=0;i<players.size();i++)
         {
             String text = "\n"+players.get(i).getName()+" has "+ playerRankNames.get(i);
-            announcerTextArea.setText(announcerTextArea.getText()+text);
+            Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+text));
         }
     }
 
@@ -454,14 +489,31 @@ public class PokerGame {
         return bigBlindLabels;
     }
 
+    protected static ArrayList<ImageView> getCard1() {
+        return card1;
+    }
+
+    protected static ArrayList<ImageView> getCard2() {
+        return card2;
+    }
+
+    protected static ArrayList<Label> getChipLabels() {
+        return chipLabels;
+    }
+
+
     private void endGame(PokerController controller) {
-        bettingThread.stopThread(); // Gracefully stop the betting thread
-        dealerLabels.get(dealerIndex).setVisible(false);
-        smallBlindLabels.get(smallBlindIndex).setVisible(false);
-        bigBlindLabels.get(bigBlindIndex).setVisible(false);
-        for (ImageView imageView : controller.imageViews) {
-            controller.setImage(imageView);
-        }
+        bettingThread.stopThread();// Gracefully stop the betting thread
+        potSize=0;
+        Platform.runLater(() -> {
+            controller.getPot().setText(""+potSize);
+            dealerLabels.get(dealerIndex).setVisible(false);
+            smallBlindLabels.get(smallBlindIndex).setVisible(false);
+            bigBlindLabels.get(bigBlindIndex).setVisible(false);
+            for (ImageView imageView : controller.imageViews) {
+                controller.setImage(imageView);
+            }
+        });
     }
 
     private class BettingThread extends Thread {

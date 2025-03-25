@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class PokerController {
     @FXML private Spinner<Integer> SpinnerBots;
@@ -42,6 +41,7 @@ public class PokerController {
     @FXML private Button raiseButton;
 
     @FXML private TextField startingChips;
+    @FXML private TextField potText;
     @FXML private TextField raiseText;
 
     @FXML private ImageView best_H1_1;
@@ -143,10 +143,6 @@ public class PokerController {
         botTurns = new Circle[]{playerTurn, bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
         chips = new Label[]{chipsPlayer, chipsBot1, chipsBot2, chipsBot3, chipsBot4, chipsBot5};
 
-        System.out.println(Arrays.toString(dealerLabels));
-        System.out.println(Arrays.toString(smallBlindLabels));
-        System.out.println(Arrays.toString(bigBlindLabels));
-
         //Hides dealer labels
         for (Label dealerLabel : dealerLabels) {
             dealerLabel.setVisible(false);
@@ -203,6 +199,9 @@ public class PokerController {
             PokerGame.getdealerLabels().clear();
             PokerGame.getSmallBlindLabels().clear();
             PokerGame.getBigBlindLabels().clear();
+            PokerGame.getCard1().clear();
+            PokerGame.getCard2().clear();
+            PokerGame.getChipLabels().clear();
         });
 
         //Add and remove bots
@@ -212,10 +211,16 @@ public class PokerController {
             PokerGame.getdealerLabels().clear();
             PokerGame.getSmallBlindLabels().clear();
             PokerGame.getBigBlindLabels().clear();
+            PokerGame.getCard1().clear();
+            PokerGame.getCard2().clear();
+            PokerGame.getChipLabels().clear();
         });
 
         startRound.setOnAction(actionEvent -> {
             if(startRound.isSelected()) {
+                for (Thread t : Thread.getAllStackTraces().keySet()) {
+                    System.out.println("Thread Name: " + t.getName() + " | State: " + t.getState());
+                }
                 new Thread(()->{
                     PokerGame game = new PokerGame(this);
                     game.playGame(this);
@@ -520,4 +525,7 @@ public class PokerController {
         return dealerLabelBot5;
     }
 
+    public TextField getPot() {
+        return potText;
+    }
 }

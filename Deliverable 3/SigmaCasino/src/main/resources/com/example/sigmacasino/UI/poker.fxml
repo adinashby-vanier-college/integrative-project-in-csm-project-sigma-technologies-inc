@@ -268,7 +268,7 @@
                                         <VBox prefHeight="76.0" prefWidth="231.0">
                                             <children>
                                                 <Label prefHeight="26.0" prefWidth="163.0" text="Pot:" />
-                                                <TextField editable="false" prefHeight="46.0" prefWidth="110.0" />
+                                                <TextField fx:id="potText" editable="false" prefHeight="46.0" prefWidth="110.0" />
                                             </children>
                                         </VBox>
                                         <HBox alignment="CENTER" prefHeight="57.0" prefWidth="430.0" spacing="15.0">
