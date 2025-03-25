@@ -139,7 +139,7 @@ public class BlackJackController {
             player.takeCard(deck.drawCard());
         });
         standBtn.setOnAction((ActionEvent event) -> {
-            while(dealer.valueProperty().get()<21){
+            while(dealer.valueProperty().get()<17){
                 dealer.takeCard(deck.drawCard());
             }
             if(player.valueProperty().get()==21){
