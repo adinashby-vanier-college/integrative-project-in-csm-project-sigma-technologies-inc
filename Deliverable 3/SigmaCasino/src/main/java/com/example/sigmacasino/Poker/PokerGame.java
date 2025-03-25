@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class PokerGame {
     private static BettingThread bettingThread;
     private final ArrayList<Player> players = new ArrayList<>();
-    private ArrayList<Integer> playerChips = new ArrayList<>();
+    private static ArrayList<Integer> playerChips = new ArrayList<>();
     private final ArrayList<Card> riverCards = new ArrayList<>();
     private final ArrayList<Float> playerRanks = new ArrayList<>();
     private final ArrayList<String> playerRankNames = new ArrayList<>();
@@ -33,6 +33,12 @@ public class PokerGame {
     private TextArea announcerTextArea;
 
     protected PokerGame(PokerController controller){
+        boolean newChips = false;
+        if(playerChips.isEmpty())
+        {
+            newChips = true;
+        }
+
         bettingThread = new BettingThread();
         bettingThread.start();
         announcerTextArea = controller.getAnnouncerTextArea();
@@ -49,30 +55,40 @@ public class PokerGame {
 
         players.add(new Player("Player"));
         associatePlayerCards(controller,players.getFirst().getName(),0);
-        playerChips.add(Integer.parseInt(controller.getChipsPlayer().getText()));
+        if(newChips) {
+            playerChips.add(Integer.parseInt(controller.getChipsPlayer().getText()));
+        }
 
         if(botAmount==4)
         {
             players.add(new Player("Bot "+botAmount));
             index=2;
             associatePlayerCards(controller,players.get(1).getName(),1);
-            playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
+            if(newChips) {
+                playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
+            }
         }
         else if (botAmount==5)
         {
             players.add(new Player("Bot "+botAmount));
             associatePlayerCards(controller,players.get(1).getName(),1);
-            playerChips.add(Integer.parseInt(controller.getChipsBot5().getText()));
+            if(newChips) {
+                playerChips.add(Integer.parseInt(controller.getChipsBot5().getText()));
+            }
             players.add(new Player("Bot "+(botAmount-1)));
             associatePlayerCards(controller,players.get(2).getName(),2);
-            playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
+            if(newChips) {
+                playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
+            }
             index=3;
         }
         int[] chips = {Integer.parseInt(controller.getChipsBot1().getText()),Integer.parseInt(controller.getChipsBot2().getText()),Integer.parseInt(controller.getChipsBot3().getText())};
         for(int i=index,j=1;i<=botAmount;i++,j++)
         {
             players.add(new Player("Bot "+j));
-            playerChips.add(chips[j-1]);
+            if(newChips) {
+                playerChips.add(chips[j - 1]);
+            }
             associatePlayerCards(controller,players.get(i).getName(),i);
         }
 
@@ -196,7 +212,7 @@ public class PokerGame {
         try {
             String text = "\nPlayer's turn to bet...";
             announcerTextArea.setText(announcerTextArea.getText()+text);
-            Thread.sleep(5000); // Simulating player thinking time
+            Thread.sleep(20000); // Simulating player thinking time
             value = controller.getButtonValue();
             text = "\nPlayer has chosen to ";
             text = switch (value) {
@@ -209,7 +225,7 @@ public class PokerGame {
             {
                 text = "\n"+players.get(i).getName()+"'s turn to bet...";
                 announcerTextArea.setText(announcerTextArea.getText()+text);
-                Thread.sleep(5000);
+                Thread.sleep(1000);
 
             }
         } catch (InterruptedException e) {
@@ -375,11 +391,11 @@ public class PokerGame {
         }
     }
 
-    protected ArrayList<Integer> getPlayerChips() {
+    protected static ArrayList<Integer> getPlayerChips() {
         return playerChips;
     }
 
-    private void setPlayerChips(ArrayList<Integer> playerChips) {
+    protected void setPlayerChips(ArrayList<Integer> playerChips) {
         this.playerChips = playerChips;
     }
 
