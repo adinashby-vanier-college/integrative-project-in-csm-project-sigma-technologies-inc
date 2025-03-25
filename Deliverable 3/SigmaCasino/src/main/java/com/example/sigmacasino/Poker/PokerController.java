@@ -175,6 +175,9 @@ public class PokerController {
         //Initial starting chips
         startingChips.setText("1000");
 
+        //Initial pot
+        potText.setText("0");
+
         //Sets player chips
         for (Label chip : chips) {
             chip.setText(startingChips.getText());
@@ -184,7 +187,7 @@ public class PokerController {
             int value;
             try{
                 value = Integer.parseInt(newValue);
-                if(value<=0)
+                if(value<=100)
                 {
                     throw new Exception();
                 }
