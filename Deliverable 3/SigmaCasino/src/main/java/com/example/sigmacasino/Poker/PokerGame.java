@@ -200,7 +200,7 @@ public class PokerGame {
             value = controller.getButtonValue();
             text = "\nPlayer has chosen to ";
             text = switch (value) {
-                case 0 -> text + "stand";
+                case 0 -> text + "check";
                 case -1 -> text + "fold";
                 default -> text + "raise by $" + controller.getRaiseText();
             };
