@@ -8,7 +8,7 @@ public class Deck {
         refill();
     }
 
-    private final void refill() {
+    public final void refill() {
         int i = 0;
         for( BSuit suit : BSuit.values()){
             for(BRank rank : BRank.values()){

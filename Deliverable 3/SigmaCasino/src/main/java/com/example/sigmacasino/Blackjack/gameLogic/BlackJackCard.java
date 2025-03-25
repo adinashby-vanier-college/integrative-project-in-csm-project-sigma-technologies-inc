@@ -1,11 +1,15 @@
 package com.example.sigmacasino.Blackjack.gameLogic;
 
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.util.Stack;
 
 public class BlackJackCard extends Parent {
@@ -31,13 +35,15 @@ public class BlackJackCard extends Parent {
         this.Bsuit = suit;
         this.Brank = rank;
         this.value = rank.value;
-        Rectangle cardView = new Rectangle(80, 100);
-        cardView.setArcWidth(20);
-        cardView.setArcHeight(20);
+        Rectangle cardView = new Rectangle(68, 99);
+
         cardView.setFill(Color.WHITE);
-        Text text = new Text(toString());
-        text.setWrappingWidth(60);
-        getChildren().add(new StackPane(cardView, text));
+        String imagePath = "src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/" + rank + "_of_" + suit + ".png";
+        File file = new File(imagePath);
+        cardView.setFill(new ImagePattern(new Image(file.toURI().toString())));
+        //Text text = new Text(toString());
+        //text.setWrappingWidth(60);
+        getChildren().add(new StackPane(cardView));
     }
 
     public String toString(){

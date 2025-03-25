@@ -83,12 +83,31 @@
             </Text>
              <TextField fx:id="dealerPts" layoutX="579.0" layoutY="72.0" prefHeight="25.0" prefWidth="48.0" />
              <TextField fx:id="playerPts" layoutX="579.0" layoutY="365.0" prefHeight="25.0" prefWidth="48.0" />
-            <ImageView fx:id="dealCard1" fitHeight="99.0" fitWidth="68.0" layoutX="134.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="dealCard2" fitHeight="99.0" fitWidth="68.0" layoutX="205.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="playerCard1" fitHeight="99.0" fitWidth="68.0" layoutX="134.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="playerCard2" fitHeight="99.0" fitWidth="68.0" layoutX="205.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="dealCard3" fitHeight="99.0" fitWidth="68.0" layoutX="276.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="playerCard3" fitHeight="99.0" fitWidth="68.0" layoutX="270.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox fx:id="playerCards" layoutX="134.0" layoutY="97.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <ImageView fx:id="dealCard1" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="dealCard2" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="dealCard3" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="dealerCards" layoutX="134.0" layoutY="263.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <ImageView fx:id="playerCard1" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="playerCard2" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="playerCard3" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </HBox>
+            <Text fx:id="resultText" layoutX="265.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAMBLING TIME'S OVER">
+               <font>
+                  <Font name="Arial Narrow" size="22.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </center>

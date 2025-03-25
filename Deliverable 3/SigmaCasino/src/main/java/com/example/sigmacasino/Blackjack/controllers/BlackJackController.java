@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -25,44 +26,38 @@ public class BlackJackController {
 
     private Deck deck = new Deck();
     private Hand dealer, player;
-    private Text message = new Text();
+
     private SimpleBooleanProperty isPlayable = new SimpleBooleanProperty(false);
 
 
-    private Parent createContent(){
-        playBtn.disableProperty().bind(isPlayable);
-        hitBtn.disableProperty().bind(isPlayable.not());
-        standBtn.disableProperty().bind(isPlayable.not());
-        dealerPts.textProperty().bind(new SimpleStringProperty("Dealer: ").concat(dealer.valueProperty().asString()));
-        playerPts.textProperty().bind(new SimpleStringProperty("Player: ").concat(player.valueProperty().asString()));
-        player.valueProperty().addListener((obs, old, newValue) -> {
-            if(newValue.intValue() >=21){
-                endGame();
-            }
-        });
-        dealer.valueProperty().addListener((obs, old, newValue) -> {
-            if(newValue.intValue() >=21){
-                endGame();
-            }
-        });
-        playBtn.setOnAction((ActionEvent event) -> {
-            startNewGame();
-        });
-        hitBtn.setOnAction((ActionEvent event) -> {
-            player.takeCard(deck.drawCard());
-        });
-        standBtn.setOnAction((ActionEvent event) -> {
-            while(dealer.valueProperty().get()<17){
-                dealer.takeCard(deck.drawCard());
-            }
-            endGame();
-        });
-   return root; }
+
     private void startNewGame(){
+        isPlayable.set(true);
+        resultText.setText("");
+        resultText.setVisible(false);
+        deck.refill();
+        dealer.reset();
+        player.reset();
+        dealer.takeCard(deck.drawCard());
+        dealer.takeCard(deck.drawCard());
+        player.takeCard(deck.drawCard());
+        player.takeCard(deck.drawCard());
+
 
     }
     private void endGame(){
-
+        isPlayable.set(false);
+        int dealerValue = dealer.valueProperty().get();
+        int playerValue = player.valueProperty().get();
+        String winner = "Point totals: dealer: " +dealerValue+ " player: " + playerValue;
+        if (dealerValue == 21 || playerValue > 21 || dealerValue == playerValue || (dealerValue < 21 || dealerValue > playerValue)) {
+            winner = "DEALER";
+        }
+        else if(playerValue == 21 || dealerValue > 21 || playerValue>dealerValue){
+            winner = "PLAYER";
+        }
+        resultText.setText(winner);
+        resultText.setVisible(true);
     }
 
 
@@ -94,7 +89,12 @@ public class BlackJackController {
     private ImageView playerCard3;
     @FXML
     private MenuItem closeMenu;
-
+    @FXML
+    private HBox playerCards;
+    @FXML
+    private HBox dealerCards;
+    @FXML
+    private Text resultText;
 
 
     private Stage stage;
@@ -103,6 +103,7 @@ public class BlackJackController {
 
     @FXML
     public void initialize()  throws IOException {
+        resultText.setVisible(false);
         System.out.println("BlackJack successfully initialized");
         closeMenu.setOnAction(event -> {
             try {
@@ -111,9 +112,41 @@ public class BlackJackController {
                 throw new RuntimeException(e);
             }
         });
+        dealer = new Hand(dealerCards.getChildren());
+        player = new Hand(playerCards.getChildren());
 
 
 
+        playBtn.disableProperty().bind(isPlayable);
+        hitBtn.disableProperty().bind(isPlayable.not());
+        standBtn.disableProperty().bind(isPlayable.not());
+        dealerPts.textProperty().bind(new SimpleStringProperty("").concat(dealer.valueProperty().asString()));
+        playerPts.textProperty().bind(new SimpleStringProperty("").concat(player.valueProperty().asString()));
+        player.valueProperty().addListener((obs, old, newValue) -> {
+            if(newValue.intValue() >=21){
+                endGame();
+            }
+        });
+        dealer.valueProperty().addListener((obs, old, newValue) -> {
+            if(newValue.intValue() >=21){
+                endGame();
+            }
+        });
+        playBtn.setOnAction((ActionEvent event) -> {
+            startNewGame();
+        });
+        hitBtn.setOnAction((ActionEvent event) -> {
+            player.takeCard(deck.drawCard());
+        });
+        standBtn.setOnAction((ActionEvent event) -> {
+            while(dealer.valueProperty().get()<21){
+                dealer.takeCard(deck.drawCard());
+            }
+            if(player.valueProperty().get()==21){
+                dealer.takeCard(deck.drawCard());
+            }
+            endGame();
+        });
 
     }
 
