@@ -97,7 +97,7 @@
          <children>
             <HBox layoutX="345.0" layoutY="10.0" prefHeight="62.0" prefWidth="89.0" spacing="15.0">
                <children>
-                  <Button fx:id="exitBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="67.0" text="Exit" translateX="10.0" translateY="5.0">
+                  <Button fx:id="playBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="67.0" text="Play" translateX="10.0" translateY="5.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -140,7 +140,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="closeMenu" mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
