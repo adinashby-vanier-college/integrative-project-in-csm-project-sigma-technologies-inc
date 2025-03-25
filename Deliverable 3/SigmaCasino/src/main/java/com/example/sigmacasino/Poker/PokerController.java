@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class PokerController {
     @FXML private Spinner<Integer> SpinnerBots;
@@ -99,12 +100,19 @@ public class PokerController {
     @FXML private CheckBox foldBox;
     @FXML private CheckBox raiseBox;
 
-    @FXML private Label blindLabelPlayer;
-    @FXML private Label blindLabelBot1;
-    @FXML private Label blindLabelBot2;
-    @FXML private Label blindLabelBot3;
-    @FXML private Label blindLabelBot4;
-    @FXML private Label blindLabelBot5;
+    @FXML private Label smallBlindLabelPlayer;
+    @FXML private Label smallBlindLabelBot1;
+    @FXML private Label smallBlindLabelBot2;
+    @FXML private Label smallBlindLabelBot3;
+    @FXML private Label smallBlindLabelBot4;
+    @FXML private Label smallBlindLabelBot5;
+
+    @FXML private Label bigBlindLabelPlayer;
+    @FXML private Label bigBlindLabelBot1;
+    @FXML private Label bigBlindLabelBot2;
+    @FXML private Label bigBlindLabelBot3;
+    @FXML private Label bigBlindLabelBot4;
+    @FXML private Label bigBlindLabelBot5;
 
 
     @FXML private Label dealerLabelPlayer;
@@ -119,7 +127,8 @@ public class PokerController {
     protected Circle[] botTurns;
     protected Label[] chips;
     protected Label[] dealerLabels;
-    protected Label[] blindLabels;
+    protected Label[] smallBlindLabels;
+    protected Label[] bigBlindLabels;
 
     @FXML
     public void initialize() throws IOException {
@@ -129,9 +138,14 @@ public class PokerController {
                 , bot4Card1, bot4Card2, bot5Card1, bot5Card2};
 
         dealerLabels = new Label[]{dealerLabelPlayer,dealerLabelBot1,dealerLabelBot2,dealerLabelBot3,dealerLabelBot4,dealerLabelBot5};
-        blindLabels = new Label[]{blindLabelPlayer,blindLabelBot1,blindLabelBot2,blindLabelBot3,blindLabelBot4,blindLabelBot5};
+        smallBlindLabels = new Label[]{smallBlindLabelPlayer,smallBlindLabelBot1,smallBlindLabelBot2,smallBlindLabelBot3,smallBlindLabelBot4,smallBlindLabelBot5};
+        bigBlindLabels = new Label[]{bigBlindLabelPlayer,bigBlindLabelBot1,bigBlindLabelBot2,bigBlindLabelBot3,bigBlindLabelBot4,bigBlindLabelBot5};
         botTurns = new Circle[]{playerTurn, bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
         chips = new Label[]{chipsPlayer, chipsBot1, chipsBot2, chipsBot3, chipsBot4, chipsBot5};
+
+        System.out.println(Arrays.toString(dealerLabels));
+        System.out.println(Arrays.toString(smallBlindLabels));
+        System.out.println(Arrays.toString(bigBlindLabels));
 
         //Hides dealer labels
         for (Label dealerLabel : dealerLabels) {
@@ -139,7 +153,10 @@ public class PokerController {
         }
 
         //Hides blind labels
-        for (Label blindLabel : blindLabels) {
+        for (Label blindLabel : smallBlindLabels) {
+            blindLabel.setVisible(false);
+        }
+        for (Label blindLabel : bigBlindLabels) {
             blindLabel.setVisible(false);
         }
 
@@ -183,12 +200,18 @@ public class PokerController {
                 chip.setText(""+value);
             }
             PokerGame.getPlayerChips().clear();
+            PokerGame.getdealerLabels().clear();
+            PokerGame.getSmallBlindLabels().clear();
+            PokerGame.getBigBlindLabels().clear();
         });
 
         //Add and remove bots
         SpinnerBots.valueProperty().addListener((obs, oldValue, newValue) -> {
             onBotNumberChange();
             PokerGame.getPlayerChips().clear();
+            PokerGame.getdealerLabels().clear();
+            PokerGame.getSmallBlindLabels().clear();
+            PokerGame.getBigBlindLabels().clear();
         });
 
         startRound.setOnAction(actionEvent -> {
@@ -424,4 +447,77 @@ public class PokerController {
     protected Label getChipsBot5() {
         return chipsBot5;
     }
+
+    protected Label getSmallBlindLabelPlayer() {
+        return smallBlindLabelPlayer;
+    }
+
+    protected Label getSmallBlindLabelBot1() {
+        return smallBlindLabelBot1;
+    }
+
+    protected Label getSmallBlindLabelBot2() {
+        return smallBlindLabelBot2;
+    }
+
+    protected Label getSmallBlindLabelBot3() {
+        return smallBlindLabelBot3;
+    }
+
+    protected Label getSmallBlindLabelBot4() {
+        return smallBlindLabelBot4;
+    }
+
+    protected Label getSmallBlindLabelBot5() {
+        return smallBlindLabelBot5;
+    }
+
+    protected Label getBigBlindLabelPlayer() {
+        return bigBlindLabelPlayer;
+    }
+
+    protected Label getBigBlindLabelBot1() {
+        return bigBlindLabelBot1;
+    }
+
+    protected Label getBigBlindLabelBot2() {
+        return bigBlindLabelBot2;
+    }
+
+    protected Label getBigBlindLabelBot3() {
+        return bigBlindLabelBot3;
+    }
+
+    protected Label getBigBlindLabelBot4() {
+        return bigBlindLabelBot4;
+    }
+
+    protected Label getBigBlindLabelBot5() {
+        return bigBlindLabelBot5;
+    }
+
+    protected Label getDealerLabelPlayer() {
+        return dealerLabelPlayer;
+    }
+
+    protected Label getDealerLabelBot1() {
+        return dealerLabelBot1;
+    }
+
+    protected Label getDealerLabelBot2() {
+        return dealerLabelBot2;
+    }
+
+    protected Label getDealerLabelBot3() {
+        return dealerLabelBot3;
+    }
+
+    protected Label getDealerLabelBot4() {
+        return dealerLabelBot4;
+    }
+
+    protected Label getDealerLabelBot5() {
+        return dealerLabelBot5;
+    }
+
 }
