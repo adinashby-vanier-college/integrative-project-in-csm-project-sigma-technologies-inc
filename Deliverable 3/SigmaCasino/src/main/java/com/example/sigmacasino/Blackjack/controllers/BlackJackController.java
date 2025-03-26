@@ -44,6 +44,7 @@ public class BlackJackController {
         deck.refill();
         dealer.reset();
         player.reset();
+        
         dealer.takeCard(deck.drawCard());
         dealer.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());

@@ -1,8 +1,10 @@
 package com.example.sigmacasino.Blackjack.gameLogic;
 
+import javafx.animation.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.util.Duration;
 
 public class Hand {
 
@@ -24,7 +26,31 @@ public class Hand {
         else{
             value.set(value.get() + card.value);
         }
+        animateCard(card);
     }
+
+    private void animateCard(BlackJackCard card) {
+        card.setTranslateX(-200);
+        card.setTranslateY(-200);
+        card.setOpacity(0);
+
+        TranslateTransition slide = new TranslateTransition(Duration.millis(400), card);
+        slide.setToX(0);
+        slide.setToY(0);
+        slide.setInterpolator(Interpolator.EASE_OUT);
+
+        FadeTransition fade = new FadeTransition(Duration.millis(400), card);
+        fade.setFromValue(0);
+        fade.setToValue(1);
+
+        RotateTransition rotate = new RotateTransition(Duration.millis(250), card);
+        rotate.setByAngle(7);
+
+        ParallelTransition animation = new ParallelTransition(slide, fade, rotate);
+        animation.play();
+    }
+
+
     public void reset(){
     cards.clear();
     value.set(0);
