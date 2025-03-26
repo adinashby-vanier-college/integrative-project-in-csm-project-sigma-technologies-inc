@@ -84,7 +84,7 @@
             </Text>
              <TextField fx:id="dealerPts" layoutX="579.0" layoutY="72.0" prefHeight="25.0" prefWidth="48.0" />
              <TextField fx:id="playerPts" layoutX="579.0" layoutY="365.0" prefHeight="25.0" prefWidth="48.0" />
-            <HBox fx:id="playerCards" layoutX="134.0" layoutY="97.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+            <HBox fx:id="dealerCards" layoutX="134.0" layoutY="97.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <ImageView fx:id="dealCard1" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="dealCard2" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
@@ -94,7 +94,7 @@
                   <Insets right="10.0" />
                </padding>
             </HBox>
-            <HBox fx:id="dealerCards" layoutX="134.0" layoutY="263.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+            <HBox fx:id="playerCards" layoutX="134.0" layoutY="263.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <ImageView fx:id="playerCard1" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="playerCard2" fitHeight="99.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
@@ -158,7 +158,11 @@
                   </VBox>
                </children>
             </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quick bet using RapiBet™" translateX="148.0" translateY="35.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quick bet using RapiBet™" translateX="148.0" translateY="35.0">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Text>
          </children>
       </HBox>
    </bottom>
@@ -172,7 +176,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem fx:id="optionsMenu" mnemonicParsing="false" text="Options" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

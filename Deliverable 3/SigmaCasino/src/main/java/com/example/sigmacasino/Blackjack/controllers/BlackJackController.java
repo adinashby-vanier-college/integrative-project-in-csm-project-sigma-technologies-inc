@@ -55,12 +55,38 @@ public class BlackJackController {
         int dealerValue = dealer.valueProperty().get();
         int playerValue = player.valueProperty().get();
         String winner = "Point totals: dealer: " +dealerValue+ " player: " + playerValue;
-        if (dealerValue == 21 || playerValue > 21 || dealerValue == playerValue || (dealerValue < 21 || dealerValue > playerValue)) {
-            winner = "DEALER";
-        }
-        else if(playerValue == 21 || dealerValue > 21 || playerValue>dealerValue){
+        if(playerValue == 21 && dealerValue != 21) {
             winner = "PLAYER";
         }
+        else if(dealerValue == 21 && playerValue != 21){
+            winner = "DEALER";
+        }
+        else if(playerValue >21){
+            winner = "DEALER";
+        }
+        else if(dealerValue >21){
+            winner = "PLAYER";
+        }
+        else if(playerValue > dealerValue){
+            winner = "PLAYER";
+        }
+        else if(dealerValue > playerValue){
+            winner = "DEALER";
+        }
+        else{
+            resultText.setText(winner + ": no money has been won");
+            resultText.setVisible(true);
+            betField.clear();
+            currentBet[0] = 0;
+        }
+
+        if(resultText.getText().equals("DEALER") || resultText.getText().equals("PLAYER")){
+            resultText.setText(winner + " won " + currentBet[0] + "$");
+            resultText.setVisible(true);
+            betField.clear();
+            currentBet[0] = 0;
+        }
+
         resultText.setText(winner + " won " + currentBet[0] + "$");
         resultText.setVisible(true);
         betField.clear();
@@ -107,6 +133,9 @@ public class BlackJackController {
     private Button addFive;
     @FXML
     private Button removeFive;
+    @FXML
+            private MenuItem optionsMenu;
+
 
     int[] currentBet = {0};
     private Stage stage;
@@ -164,6 +193,14 @@ public class BlackJackController {
             currentBet[0] = currentBet[0] + 5;
             betField.setText(Integer.toString(currentBet[0]));
         });
+        optionsMenu.setOnAction(event -> {
+            try {
+               openOptions();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         removeFive.setOnAction((ActionEvent event) -> {
             if (currentBet[0] >= 5) {
                 currentBet[0] = currentBet[0] - 5;
@@ -182,7 +219,15 @@ public class BlackJackController {
         });
     }
 
-
+    private void openOptions() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/blackjackConfig.fxml"));
+        Parent root = loader.load();
+        BlackJackConfigController configController = loader.getController();
+        Stage newStage = new Stage();
+        newStage.setTitle("Options menu");
+        newStage.setScene(new Scene(root, 400, 450));
+        newStage.show();
+    }
 
 
     private void setBet(){
