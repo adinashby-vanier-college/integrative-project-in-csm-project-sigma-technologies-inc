@@ -259,29 +259,56 @@ public class PokerGame {
 
     private void playerBet(PokerController controller){
         bettingThread.pauseThread(); // Pause betting logic
-        int value = -1;
-        // Simulate waiting for user input (Check, Fold, Raise)
-        // In real code, this should be event-driven (e.g., waiting for button clicks)
+        int value;
+        int starter = bigBlindIndex + 1;
+        if (starter >= players.size()) {
+            starter = 0; // Ensure valid start index
+        }
+        boolean flag = false ;
+        Player firstPlayer = players.get(starter); // Track the first pass to avoid infinite loop
+        String text;
+
         try {
-            String text = "\nPlayer's turn to bet...";
-            String finalText2 = text;
-            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText2));
-            Thread.sleep(1000); // Simulating player thinking time
-            value = controller.getButtonValue();
-            text = "\nPlayer has chosen to ";
-            text = switch (value) {
-                case 0 -> text + "check";
-                case -1 -> text + "fold";
-                default -> text + "raise by $" + controller.getRaiseText();
-            };
-            String finalText = text;
-            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText));
-            for(int i=1;i<players.size();i++)
-            {
-                text = "\n"+players.get(i).getName()+"'s turn to bet...";
-                String finalText1 = text;
-                Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText1));
-                Thread.sleep(1000);
+            System.out.println("Starter: " + starter);
+
+            loop: for (int i = starter; ; i++) {
+                System.out.println("Current: " + i);
+                if(i==players.size())
+                {
+                    System.out.println("In index reset");
+                    i = 0; // Restart at the first player
+                    flag = true; // Now we're in the second pass
+                }
+
+                // Ensure the loop stops after completing a full cycle
+                if (players.get(i).equals(firstPlayer) && flag) {
+                    System.out.println("In break");
+                    break loop;
+                }
+
+                if (i == 0) { // Player's turn
+                    System.out.println("\nPlayer is betting");
+                    text = "\nPlayer's turn to bet...";
+                    String finalText2 = text;
+                    Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText2));
+
+                    Thread.sleep(1000);
+                    value = controller.getButtonValue();
+                    text = switch (value) {
+                        case 0 -> "\nPlayer has chosen to check";
+                        case -1 -> "\nPlayer has chosen to fold";
+                        default -> "\nPlayer has chosen to raise by $" + controller.getRaiseText();
+                    };
+                    String finalText = text;
+                    Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
+                } else { // Bot's turn
+                    System.out.println("\n" + players.get(i).getName() + " is betting");
+                    text = "\n" + players.get(i).getName() + "'s turn to bet...";
+                    String finalText1 = text;
+                    Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText1));
+
+                    Thread.sleep(1000);
+                }
 
             }
         } catch (InterruptedException e) {

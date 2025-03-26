@@ -178,6 +178,9 @@ public class PokerController {
         //Initial pot
         potText.setText("0");
 
+        //Initial raise
+        raiseText.setText("0");
+
         //Sets player chips
         for (Label chip : chips) {
             chip.setText(startingChips.getText());
@@ -229,6 +232,18 @@ public class PokerController {
                     game.playGame(this);
                     startRound.setSelected(false);
                 }).start();
+            }
+        });
+
+        raiseText.textProperty().addListener((observable, oldValue, newValue) -> {
+            try{
+                int value = Integer.parseInt(newValue);
+                if(value<1 || value>Integer.parseInt(chipsPlayer.getText()))
+                {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                raiseText.setText(oldValue);
             }
         });
 
