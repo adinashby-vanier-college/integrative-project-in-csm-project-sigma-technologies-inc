@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -44,7 +45,7 @@ public class BlackJackController {
         deck.refill();
         dealer.reset();
         player.reset();
-        
+
         dealer.takeCard(deck.drawCard());
         dealer.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
@@ -53,6 +54,9 @@ public class BlackJackController {
     }
     private void endGame(){
         isPlayable.set(false);
+        while (dealer.valueProperty().get() < 17) {
+            dealer.takeCard(deck.drawCard());
+        }
         int dealerValue = dealer.valueProperty().get();
         int playerValue = player.valueProperty().get();
         String winner = "Point totals: dealer: " +dealerValue+ " player: " + playerValue;
@@ -75,7 +79,7 @@ public class BlackJackController {
             winner = "DEALER";
         }
         else{
-            resultText.setText(winner + ": no money has been won");
+            resultText.setText("Tie: no money has been won");
             resultText.setVisible(true);
             betField.clear();
             currentBet[0] = 0;
@@ -136,6 +140,8 @@ public class BlackJackController {
     private Button removeFive;
     @FXML
             private MenuItem optionsMenu;
+    @FXML
+            private Rectangle tableBackground;
 
 
     int[] currentBet = {0};
@@ -145,6 +151,7 @@ public class BlackJackController {
 
     @FXML
     public void initialize()  throws IOException {
+
         currentBet[0] = 0;
         resultText.setVisible(false);
         System.out.println("BlackJack successfully initialized");
@@ -195,11 +202,7 @@ public class BlackJackController {
             betField.setText(Integer.toString(currentBet[0]));
         });
         optionsMenu.setOnAction(event -> {
-            try {
-               openOptions();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            openOptions();
         });
 
         removeFive.setOnAction((ActionEvent event) -> {
@@ -220,15 +223,25 @@ public class BlackJackController {
         });
     }
 
-    private void openOptions() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/blackjackConfig.fxml"));
-        Parent root = loader.load();
-        BlackJackConfigController configController = loader.getController();
-        Stage newStage = new Stage();
-        newStage.setTitle("Options menu");
-        newStage.setScene(new Scene(root, 400, 450));
-        newStage.show();
-    }
+    private void openOptions() {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/blackjackConfig.fxml"));
+                Parent root = loader.load();
+
+                BlackJackConfigController optionsController = loader.getController();
+                tableBackground.fillProperty().bind(optionsController.colorPicker().valueProperty());
+
+
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
 
 
     private void setBet(){

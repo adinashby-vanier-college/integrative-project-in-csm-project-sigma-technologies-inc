@@ -61,7 +61,7 @@
          <children>
             <Canvas height="465.0" width="764.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="DIFFERENCE" fill="#9fd1ff" height="388.0" layoutX="91.0" layoutY="39.0" nodeOrientation="LEFT_TO_RIGHT" stroke="BLACK" strokeType="INSIDE" width="580.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00c800" height="333.0" layoutX="119.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
+            <Rectangle fx:id="tableBackground" arcHeight="5.0" arcWidth="5.0" fill="#00c800" height="333.0" layoutX="119.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
             <Text layoutX="134.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEALERS HAND">
                <font>
                   <Font name="System Bold" size="19.0" />
