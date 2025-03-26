@@ -50,8 +50,28 @@ public class BlackJackController {
         dealer.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
+        checkForBlackJack();
 
     }
+//Checks for instant win during card dealing
+    private void checkForBlackJack() {
+        int dealerValue = dealer.valueProperty().get();
+        int playerValue = player.valueProperty().get();
+        if(dealerValue == 21 && playerValue == 21){
+            resultText.setText("Tie: Both players instantly have Blackjack!");
+            resultText.setVisible(true);
+            betField.clear();
+            currentBet[0] = 0;
+        }
+        else if (playerValue == 21) {
+            resultText.setText("Blackjack! PLAYER wins " + currentBet[0] + "$");
+        } else if (dealerValue == 21) {
+            resultText.setText("Dealer has Blackjack! DEALER wins.");
+        } else {
+            return; //base case
+        }
+    }
+
     private void endGame(){
         isPlayable.set(false);
         while (dealer.valueProperty().get() < 17) {
@@ -60,6 +80,13 @@ public class BlackJackController {
         int dealerValue = dealer.valueProperty().get();
         int playerValue = player.valueProperty().get();
         String winner = "Point totals: dealer: " +dealerValue+ " player: " + playerValue;
+        if (playerValue > 21) {
+            resultText.setText("PLAYER busted! DEALER wins " + currentBet[0] + "$");
+            resultText.setVisible(true);
+            betField.clear();
+            currentBet[0] = 0;
+            return; //stop
+        }
         if(playerValue == 21 && dealerValue != 21) {
             winner = "PLAYER";
         }
