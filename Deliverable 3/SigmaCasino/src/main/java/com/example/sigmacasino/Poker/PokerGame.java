@@ -303,11 +303,8 @@ public class PokerGame {
             }
         }
         Platform.runLater(() -> {
-            for (int i = 0; i < players.size(); i++) {
-                card1.get(i).setImage(getImage(players.get(i).getHand().getCards().getFirst()));
-                card2.get(i).setImage(getImage(players.get(i).getHand().getCards().getLast()));
-                System.out.println(players.get(i).getName() + ": " + players.get(i).getHand());
-            }
+            card1.get(0).setImage(getImage(players.get(0).getHand().getCards().getFirst()));
+            card2.get(0).setImage(getImage(players.get(0).getHand().getCards().getLast()));
         });
         String text = "Dealer has dealt all the cards";
         Platform.runLater(() -> announcerTextArea.setText(text));
@@ -543,9 +540,13 @@ public class PokerGame {
     }
 
     private void rankings() {
-        for(int i=0;i<players.size();i++)
-        {
-            playerRanks.add(bestHand(new ArrayList<Card>(List.of(new Card[]{players.get(i).getHand().getCards().getFirst(), players.get(i).getHand().getCards().getLast(), riverCards.get(0), riverCards.get(1), riverCards.get(2), riverCards.get(3), riverCards.get(4)}))));
+        for (int i = 0; i < players.size(); i++) {
+            card1.get(i).setImage(getImage(players.get(i).getHand().getCards().getFirst()));
+            card2.get(i).setImage(getImage(players.get(i).getHand().getCards().getLast()));
+            System.out.println(players.get(i).getName() + ": " + players.get(i).getHand());
+        }
+        for (Player player : players) {
+            playerRanks.add(bestHand(new ArrayList<Card>(List.of(new Card[]{player.getHand().getCards().getFirst(), player.getHand().getCards().getLast(), riverCards.get(0), riverCards.get(1), riverCards.get(2), riverCards.get(3), riverCards.get(4)}))));
             System.out.println(playerRanks);
         }
     }
