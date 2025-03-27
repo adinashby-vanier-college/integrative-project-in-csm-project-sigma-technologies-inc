@@ -663,7 +663,15 @@ public class PokerGame {
     private void endGame(PokerController controller) {
         bettingThread.stopThread();// Gracefully stop the betting thread
         potSize=0;
+        for(int i=0;i<players.size();i++)
+        {
+            if(playerChips.get(i)==0)
+            {
+                playerChips.set(i,Integer.parseInt(controller.getStartingChipsTextArea().getText()));
+            }
+        }
         Platform.runLater(() -> {
+            updateChips(potSize, controller);
             controller.getPot().setText(""+potSize);
             dealerLabels.get(dealerIndex).setVisible(false);
             smallBlindLabels.get(smallBlindIndex).setVisible(false);

@@ -245,12 +245,16 @@ public class PokerController {
             }
         });
 
+
         raiseText.textProperty().addListener((observable, oldValue, newValue) -> {
             try{
                 int value = Integer.parseInt(newValue);
-                if(value<1 || value>Integer.parseInt(chipsPlayer.getText()))
+                if(value<1)
                 {
                     throw new Exception();
+                } else if (value>Integer.parseInt(chipsPlayer.getText())) {
+                    raiseText.setText(chipsPlayer.getText());
+                    value=Integer.parseInt(chipsPlayer.getText());
                 }
             } catch (Exception e) {
                 raiseText.setText(oldValue);
