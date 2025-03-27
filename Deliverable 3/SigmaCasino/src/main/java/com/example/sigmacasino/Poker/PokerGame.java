@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,7 +27,9 @@ public class PokerGame {
     private static ArrayList<ImageView> card1 = new ArrayList<>();
     private static ArrayList<ImageView> card2 = new ArrayList<>();
     private static ArrayList<Label> chipLabels = new ArrayList<>();
+    private static ArrayList<Circle> playerTurnCircles = new ArrayList<>();
     private ArrayList<Boolean> playersFold = new ArrayList<>();
+    private ArrayList<Integer> currentPlayerBets = new ArrayList<>();
     private Deck deck;
     private static int potSize;
     private static int smallBlindAmount;
@@ -42,6 +45,7 @@ public class PokerGame {
 
     protected PokerGame(PokerController controller){
         playersFold.clear();
+        currentPlayerBets.clear();
         earlyWin= false;
         boolean newChips = false;
         if(playerChips.isEmpty())
@@ -68,6 +72,7 @@ public class PokerGame {
 
         players.add(new Player("Player"));
         playersFold.add(false);
+        currentPlayerBets.add(0);
         if(newChips) {
             associatePlayerCards(controller,players.getFirst().getName());
             playerChips.add(Integer.parseInt(controller.getChipsPlayer().getText()));
@@ -80,6 +85,7 @@ public class PokerGame {
         {
             players.add(new Player("Bot "+botAmount));
             playersFold.add(false);
+            currentPlayerBets.add(0);
             index=2;
             if(newChips) {
                 associatePlayerCards(controller,players.get(1).getName());
@@ -93,6 +99,7 @@ public class PokerGame {
         {
             players.add(new Player("Bot "+botAmount));
             playersFold.add(false);
+            currentPlayerBets.add(0);
             if(newChips) {
                 associatePlayerCards(controller,players.get(1).getName());
                 playerChips.add(Integer.parseInt(controller.getChipsBot5().getText()));
@@ -102,6 +109,7 @@ public class PokerGame {
             }
             players.add(new Player("Bot "+(botAmount-1)));
             playersFold.add(false);
+            currentPlayerBets.add(0);
             if(newChips) {
                 associatePlayerCards(controller,players.get(2).getName());
                 playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
@@ -119,6 +127,7 @@ public class PokerGame {
         {
             players.add(new Player("Bot "+j));
             playersFold.add(false);
+            currentPlayerBets.add(0);
             if(newChips) {
                 playerChips.add(chips[j - 1]);
                 dealerLabels.add(dealer[j - 1]);
@@ -165,12 +174,12 @@ public class PokerGame {
 
     private void associatePlayerCards(PokerController controller,String player){
         switch(player){
-            case "Player": card1.add(controller.getPlayerCard1());card2.add(controller.getPlayerCard2());chipLabels.add(controller.chips[0]);break;
-            case "Bot 1": card1.add(controller.getBot1Card1()); card2.add(controller.getBot1Card2());chipLabels.add(controller.chips[1]); break;
-            case "Bot 2": card1.add(controller.getBot2Card1()); card2.add(controller.getBot2Card2());chipLabels.add(controller.chips[2]); break;
-            case "Bot 3": card1.add(controller.getBot3Card1()); card2.add(controller.getBot3Card2());chipLabels.add(controller.chips[3]); break;
-            case "Bot 4": card1.add(controller.getBot4Card1()); card2.add(controller.getBot4Card2());chipLabels.add(controller.chips[4]); break;
-            case "Bot 5": card1.add(controller.getBot5Card1()); card2.add(controller.getBot5Card2());chipLabels.add(controller.chips[5]); break;
+            case "Player": card1.add(controller.getPlayerCard1());card2.add(controller.getPlayerCard2());chipLabels.add(controller.chips[0]); playerTurnCircles.add(controller.botTurns[0]);break;
+            case "Bot 1": card1.add(controller.getBot1Card1()); card2.add(controller.getBot1Card2());chipLabels.add(controller.chips[1]); playerTurnCircles.add(controller.botTurns[1]);break;
+            case "Bot 2": card1.add(controller.getBot2Card1()); card2.add(controller.getBot2Card2());chipLabels.add(controller.chips[2]); playerTurnCircles.add(controller.botTurns[2]);break;
+            case "Bot 3": card1.add(controller.getBot3Card1()); card2.add(controller.getBot3Card2());chipLabels.add(controller.chips[3]); playerTurnCircles.add(controller.botTurns[3]);break;
+            case "Bot 4": card1.add(controller.getBot4Card1()); card2.add(controller.getBot4Card2());chipLabels.add(controller.chips[4]); playerTurnCircles.add(controller.botTurns[4]);break;
+            case "Bot 5": card1.add(controller.getBot5Card1()); card2.add(controller.getBot5Card2());chipLabels.add(controller.chips[5]); playerTurnCircles.add(controller.botTurns[5]);break;
         }
     }
 
@@ -259,7 +268,7 @@ public class PokerGame {
         playerChips.set(winnerIndex, playerChips.get(winnerIndex)+potSize);
         Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText));
         Platform.runLater(() -> updateChips(potSize, controller));
-        restrictControls(true,controller);
+        restrictControls(false,controller);
         endGame(controller);
     }
 
@@ -349,6 +358,7 @@ public class PokerGame {
                         break loop;
                     }
                     if (!playersFold.get(i)) {
+                        playerTurnCircles.get(i).setVisible(true);
                         if (i == 0) { // Player's turn
                             System.out.println("\nPlayer is betting");
                             text = "\nPlayer's turn to bet...";
@@ -360,6 +370,7 @@ public class PokerGame {
                             switch (value) {
                                 case 0:
                                     text = "\nPlayer has chosen to check";
+                                    betFollow=betFollow-currentPlayerBets.get(i);
                                     playerChips.set(i, playerChips.get(i) - betFollow);
                                     break;
                                 case -1:
@@ -372,7 +383,7 @@ public class PokerGame {
                                     playerChips.set(i, playerChips.get(i) - betFollow);
                                     break;
                             }
-                            ;
+
                             if (!playersFold.get(i)) {
                                 Platform.runLater(() -> potSize = potSize + betFollow);
                             }
@@ -384,9 +395,9 @@ public class PokerGame {
                             text = "\n" + players.get(i).getName() + "'s turn to bet...";
                             String finalText1 = text;
                             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText1));
-
                             Thread.sleep(1000);
                         }
+                        playerTurnCircles.get(i).setVisible(false);
                     }
                 }
                 else{
@@ -488,6 +499,8 @@ public class PokerGame {
     }
 
     private void placeBlinds(PokerController controller){
+        currentPlayerBets.set(smallBlindIndex, smallBlindAmount);
+        currentPlayerBets.set(bigBlindIndex, bigBlindAmount);
         betFollow=bigBlindAmount;
         potSize = smallBlindAmount+bigBlindAmount;
         playerChips.set(smallBlindIndex,playerChips.get(smallBlindIndex)-smallBlindAmount);
@@ -591,10 +604,6 @@ public class PokerGame {
         return playerChips;
     }
 
-    protected void setPlayerChips(ArrayList<Integer> playerChips) {
-        this.playerChips = playerChips;
-    }
-
     protected static ArrayList<Label> getdealerLabels(){
         return dealerLabels;
     }
@@ -617,6 +626,10 @@ public class PokerGame {
 
     protected static ArrayList<Label> getChipLabels() {
         return chipLabels;
+    }
+
+    protected static ArrayList<Circle> getPlayerTurnCircles() {
+        return playerTurnCircles;
     }
 
 

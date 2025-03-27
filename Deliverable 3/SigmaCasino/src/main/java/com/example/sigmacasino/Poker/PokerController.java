@@ -208,6 +208,7 @@ public class PokerController {
             PokerGame.getCard1().clear();
             PokerGame.getCard2().clear();
             PokerGame.getChipLabels().clear();
+            PokerGame.getPlayerTurnCircles().clear();
         });
 
         //Add and remove bots
@@ -220,6 +221,7 @@ public class PokerController {
             PokerGame.getCard1().clear();
             PokerGame.getCard2().clear();
             PokerGame.getChipLabels().clear();
+            PokerGame.getPlayerTurnCircles().clear();
         });
 
         startRound.setOnAction(actionEvent -> {
