@@ -391,6 +391,7 @@ public class PokerGame {
                                     text = "\nPlayer has chosen to check";
                                     betFollow=betFollow-currentPlayerBets.get(i);
                                     playerChips.set(i, playerChips.get(i) - betFollow);
+                                    currentPlayerBets.set(i, 0);
                                     break;
                                 case -1:
                                     text = "\nPlayer has chosen to fold";
@@ -420,6 +421,7 @@ public class PokerGame {
                             String finalText1 = text;
                             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText1));
                             Thread.sleep(5000);
+                            currentPlayerBets.set(i, 0);
                         }
                         playerTurnCircles.get(i).setVisible(false);
                     }
