@@ -340,7 +340,6 @@ public class PokerGame {
             starter = 0; // Ensure valid start index
         }
         boolean flag = false ;
-        Player firstPlayer = players.get(starter); // Track the first pass to avoid infinite loop
         String text;
 
         try {
@@ -356,7 +355,7 @@ public class PokerGame {
                     }
 
                     // Ensure the loop stops after completing a full cycle
-                    if (players.get(i).equals(firstPlayer) && flag) {
+                    if (players.get(i).equals(players.get(starter)) && flag) {
                         System.out.println("In break");
                         break loop;
                     }
@@ -401,6 +400,7 @@ public class PokerGame {
                                     text = "\nPlayer has chosen to raise by $" + controller.getRaiseText();
                                     betFollow = value;
                                     playerChips.set(i, playerChips.get(i) - betFollow);
+                                    starter=i;
                                     break;
                             }
 
