@@ -44,6 +44,9 @@ public class PokerGame {
     private TextArea announcerTextArea;
 
     protected PokerGame(PokerController controller){
+        for (ImageView imageView : controller.imageViews) {
+            controller.setImage(imageView);
+        }
         playersFold.clear();
         currentPlayerBets.clear();
         earlyWin= false;
@@ -360,12 +363,28 @@ public class PokerGame {
                     if (!playersFold.get(i)) {
                         playerTurnCircles.get(i).setVisible(true);
                         if (i == 0) { // Player's turn
+                            Platform.runLater(() -> {
+                                controller.getSecondsLabel().setVisible(true);
+                                controller.getTimeRemainingLabel().setVisible(true);
+                                controller.getPlayerTimeLimitLabel().setVisible(true);
+                            });
+                            long delay = 15;
                             System.out.println("\nPlayer is betting");
                             text = "\nPlayer's turn to bet...";
                             String finalText2 = text;
                             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText2));
-
-                            Thread.sleep(10000);
+                            new Thread(() -> {
+                                try {
+                                    for (long j = delay; j >= 0; j--) {
+                                        long finalJ = j;
+                                        Platform.runLater(() -> controller.getPlayerTimeLimitLabel().setText(""+ finalJ));
+                                        Thread.sleep(1000);
+                                    }
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }).start();
+                            Thread.sleep(delay*1000);
                             value = controller.getButtonValue();
                             switch (value) {
                                 case 0:
@@ -390,12 +409,17 @@ public class PokerGame {
                             Platform.runLater(() -> updateChips(potSize, controller));
                             String finalText = text;
                             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
+                            Platform.runLater(() -> {
+                                controller.getSecondsLabel().setVisible(false);
+                                controller.getTimeRemainingLabel().setVisible(false);
+                                controller.getPlayerTimeLimitLabel().setVisible(false);
+                            });
                         } else { // Bot's turn
                             System.out.println("\n" + players.get(i).getName() + " is betting");
                             text = "\n" + players.get(i).getName() + "'s turn to bet...";
                             String finalText1 = text;
                             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText1));
-                            Thread.sleep(1000);
+                            Thread.sleep(5000);
                         }
                         playerTurnCircles.get(i).setVisible(false);
                     }
@@ -641,9 +665,6 @@ public class PokerGame {
             dealerLabels.get(dealerIndex).setVisible(false);
             smallBlindLabels.get(smallBlindIndex).setVisible(false);
             bigBlindLabels.get(bigBlindIndex).setVisible(false);
-            for (ImageView imageView : controller.imageViews) {
-                controller.setImage(imageView);
-            }
         });
     }
 

@@ -116,7 +116,7 @@
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="chipsBot1" alignment="CENTER" layoutX="584.0" layoutY="93.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000">
+                                        <Label fx:id="chipsBot1" alignment="CENTER" layoutX="581.0" layoutY="93.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
@@ -251,6 +251,21 @@
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
+                              <Label fx:id="timeRemainingLabel" alignment="CENTER" layoutX="752.0" layoutY="659.0" prefHeight="25.0" prefWidth="109.0" text="Time Remaining">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="playerTimeLimitLabel" alignment="CENTER" layoutX="753.0" layoutY="683.0" prefHeight="39.0" prefWidth="74.0">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="secondsLabel" alignment="CENTER" layoutX="831.0" layoutY="683.0" prefHeight="39.0" prefWidth="29.0" text="sec">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
                                     </children>
                                 </Pane>
                                 <VBox alignment="BOTTOM_LEFT" prefHeight="783.0" prefWidth="735.0" spacing="10.0">

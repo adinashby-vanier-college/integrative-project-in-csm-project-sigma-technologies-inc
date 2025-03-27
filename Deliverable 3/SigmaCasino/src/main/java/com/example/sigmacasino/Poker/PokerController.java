@@ -122,6 +122,10 @@ public class PokerController {
     @FXML private Label dealerLabelBot4;
     @FXML private Label dealerLabelBot5;
 
+    @FXML private Label playerTimeLimitLabel;
+    @FXML private Label timeRemainingLabel;
+    @FXML private Label secondsLabel;
+
 
     protected ImageView[] imageViews;
     protected Circle[] botTurns;
@@ -142,6 +146,10 @@ public class PokerController {
         bigBlindLabels = new Label[]{bigBlindLabelPlayer,bigBlindLabelBot1,bigBlindLabelBot2,bigBlindLabelBot3,bigBlindLabelBot4,bigBlindLabelBot5};
         botTurns = new Circle[]{playerTurn, bot1Turn, bot2Turn, bot3Turn, bot4Turn, bot5Turn};
         chips = new Label[]{chipsPlayer, chipsBot1, chipsBot2, chipsBot3, chipsBot4, chipsBot5};
+
+        getSecondsLabel().setVisible(false);
+        getTimeRemainingLabel().setVisible(false);
+        getPlayerTimeLimitLabel().setVisible(false);
 
         //Hides dealer labels
         for (Label dealerLabel : dealerLabels) {
@@ -545,7 +553,21 @@ public class PokerController {
         return dealerLabelBot5;
     }
 
-    public TextField getPot() {
+    protected TextField getPot() {
         return potText;
     }
+
+    protected Label getPlayerTimeLimitLabel() {
+        return playerTimeLimitLabel;
+    }
+
+    protected Label getTimeRemainingLabel() {
+        return timeRemainingLabel;
+    }
+
+    protected Label getSecondsLabel() {
+        return secondsLabel;
+    }
+
+
 }
