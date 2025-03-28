@@ -332,11 +332,11 @@
                                                         <HBox alignment="CENTER" prefHeight="106.0" prefWidth="392.0" spacing="5.0">
                                                             <children>
                                                                 <Label prefHeight="18.0" prefWidth="86.0" text="Three of a kind:" />
-                                                                <ImageView fx:id="best_H1_1" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H1_2" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H1_3" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H1_4" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H1_5" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_1" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_2" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_3" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_4" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_5" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                                                             </children>
                                                         </HBox>
                                                     </children>
@@ -347,11 +347,11 @@
                                                         <HBox alignment="CENTER" prefHeight="105.0" prefWidth="385.0" spacing="5.0">
                                                             <children>
                                                                 <Label prefHeight="18.0" prefWidth="86.0" text="Three of a kind:" />
-                                                                <ImageView fx:id="best_H2_1" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H2_2" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H2_3" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H2_4" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H2_5" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_1" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_2" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_3" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_4" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_5" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                                                             </children>
                                                         </HBox>
                                                     </children>
