@@ -14,6 +14,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.sigmacasino.Poker.HandRanks.bestHand;
+
 public class PokerGame {
     private static BettingThread bettingThread;
     private final ArrayList<Player> players = new ArrayList<>();
@@ -192,6 +194,7 @@ public class PokerGame {
 
         //Gives player Cards (runs on the JavafxThread)
         dealCards(controller);
+        updateGraph();
 
         //Places small/big blinds into the pot
         placeBlinds(controller);
@@ -207,6 +210,7 @@ public class PokerGame {
 
         //First River Flop
         dealFlop(controller);
+        updateGraph();
 
         //Second Round of Betting
         playerBet(controller);
@@ -219,6 +223,7 @@ public class PokerGame {
 
         //Second River Flop
         dealPostFlop(controller, true);
+        updateGraph();
 
         //Third Round of Betting
         playerBet(controller);
@@ -231,6 +236,7 @@ public class PokerGame {
 
         //Third River Flop
         dealPostFlop(controller, false);
+        updateGraph();
 
         //Fourth Round of Betting
         playerBet(controller);
@@ -275,6 +281,12 @@ public class PokerGame {
         endGame(controller);
     }
 
+    private void updateGraph(){
+        PokerCalculator simulator = new PokerCalculator(players.getFirst().getHand().getCards(), riverCards, players.size()-1);
+        int winRate = (int) (simulator.runSimulation()*100);
+        System.out.println("Win Chance"+winRate+"%");
+    }
+
     private void restrictControls(boolean restrict, PokerController controller)
     {
         if(restrict)
@@ -297,6 +309,7 @@ public class PokerGame {
     private void dealCards(PokerController controller){
         deck = new Deck();
         deck.shuffle();
+        riverCards.clear();
         for(int j=0;j<2;j++) {
             for (Player player : players) {
                 player.addCard(deck.deal());
@@ -549,56 +562,6 @@ public class PokerGame {
             playerRanks.add(bestHand(new ArrayList<Card>(List.of(new Card[]{player.getHand().getCards().getFirst(), player.getHand().getCards().getLast(), riverCards.get(0), riverCards.get(1), riverCards.get(2), riverCards.get(3), riverCards.get(4)}))));
             System.out.println(playerRanks);
         }
-    }
-
-    private static float bestHand(ArrayList<Card> allCards) {
-        Card[] hand = new Card[5];
-        float bestRank = HandRanks.HIGH_CARD.getValue();
-
-        // Length of total Cards (7)
-        int n = 7;
-
-        // Alpha-Beta-like Pruning in this context
-        // Alpha: Best rank found so far
-        // Beta: We would only proceed if we find a better hand than the current best
-        float alpha = bestRank;
-
-        // All possible hands P(7,5)
-        for (int i = 0; i < n - 4; i++) {
-
-            // We can prune this branch if we already have a better hand
-            if (bestRank > alpha) break;
-
-            for (int j = i + 1; j < n - 3; j++) {
-                if (bestRank > alpha) break;
-
-                for (int k = j + 1; k < n - 2; k++) {
-                    if (bestRank > alpha) break;
-
-                    for (int l = k + 1; l < n - 1; l++) {
-                        if (bestRank > alpha) break;
-
-                        for (int m = l + 1; m < n; m++) {
-                            hand[0] = allCards.get(i);
-                            hand[1] = allCards.get(j);
-                            hand[2] = allCards.get(k);
-                            hand[3] = allCards.get(l);
-                            hand[4] = allCards.get(m);
-
-                            // Evaluate the hand rank
-                            float calRank = HandRanks.calculateRank(hand);
-
-                            // Prune if the current hand is not better
-                            if (calRank > bestRank) {
-                                bestRank = calRank;
-                                alpha = bestRank;  // Update alpha to the new best rank
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return bestRank;
     }
 
     private void playerRankNames() {

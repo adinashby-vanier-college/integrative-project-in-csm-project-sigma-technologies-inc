@@ -29,7 +29,57 @@ public enum HandRanks{
         return this.value;
     }
 
-    public static float calculateRank(Card[] hand){
+    static float bestHand(ArrayList<Card> allCards) {
+        Card[] hand = new Card[5];
+        float bestRank = HandRanks.HIGH_CARD.getValue();
+
+        // Length of total Cards (7)
+        int n = 7;
+
+        // Alpha-Beta-like Pruning in this context
+        // Alpha: Best rank found so far
+        // Beta: We would only proceed if we find a better hand than the current best
+        float alpha = bestRank;
+
+        // All possible hands P(7,5)
+        for (int i = 0; i < n - 4; i++) {
+
+            // We can prune this branch if we already have a better hand
+            if (bestRank > alpha) break;
+
+            for (int j = i + 1; j < n - 3; j++) {
+                if (bestRank > alpha) break;
+
+                for (int k = j + 1; k < n - 2; k++) {
+                    if (bestRank > alpha) break;
+
+                    for (int l = k + 1; l < n - 1; l++) {
+                        if (bestRank > alpha) break;
+
+                        for (int m = l + 1; m < n; m++) {
+                            hand[0] = allCards.get(i);
+                            hand[1] = allCards.get(j);
+                            hand[2] = allCards.get(k);
+                            hand[3] = allCards.get(l);
+                            hand[4] = allCards.get(m);
+
+                            // Evaluate the hand rank
+                            float calRank = calculateRank(hand);
+
+                            // Prune if the current hand is not better
+                            if (calRank > bestRank) {
+                                bestRank = calRank;
+                                alpha = bestRank;  // Update alpha to the new best rank
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return bestRank;
+    }
+
+    private static float calculateRank(Card[] hand){
         ArrayList<Rank> cardNames = new ArrayList<>(Arrays.asList(
                 Rank.ACE, Rank.KING, Rank.QUEEN, Rank.JACK, Rank.TEN,
                 Rank.NINE, Rank.EIGHT, Rank.SEVEN, Rank.SIX, Rank.FIVE,
