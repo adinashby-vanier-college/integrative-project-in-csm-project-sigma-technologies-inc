@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -33,8 +34,8 @@
                         </MenuBar>
                     </top>
                     <left>
-                        <TitledPane collapsible="true" expanded="true" prefHeight="839.0" prefWidth="173.0" text="Game Info">
-                            <VBox prefHeight="807.0" prefWidth="171.0" spacing="10.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                        <TitledPane collapsible="true" expanded="true" prefHeight="910.0" prefWidth="173.0" text="Game Info">
+                            <VBox prefHeight="865.0" prefWidth="171.0" spacing="10.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
                                 <children>
                                     <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="82.0" text="Starting Chips:" />
                                     <HBox prefHeight="25.0" prefWidth="119.0">
@@ -69,229 +70,199 @@
                             <children>
                                 <Pane prefHeight="783.0" prefWidth="1633.0">
                                     <children>
-                                       <CheckBox fx:id="startRound" layoutX="490.0" layoutY="668.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" text="Start Round" />
-                                        <Ellipse fx:id="brownEllipse" fill="#563517" layoutX="686.0" layoutY="382.0" radiusX="446.0" radiusY="257.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" />
-                                        <Ellipse fx:id="greenEllipse" fill="#00c800" layoutX="686.0" layoutY="382.0" radiusX="426.0" radiusY="237.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" />
-                                        <Circle fx:id="playerCircle" fill="DODGERBLUE" layoutX="687.0" layoutY="674.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="10.0" />
-                                        <Circle fx:id="botCircle1" fill="DODGERBLUE" layoutX="687.0" layoutY="89.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="-30.0" />
-                                        <Circle fx:id="botCircle4" fill="DODGERBLUE" layoutX="381.0" layoutY="157.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="-40.0" />
-                                        <Circle fx:id="botCircle5" fill="DODGERBLUE" layoutX="381.0" layoutY="609.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="10.0" />
-                                        <Circle fx:id="botCircle2" fill="DODGERBLUE" layoutX="990.0" layoutY="157.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="-40.0" />
-                                        <Circle fx:id="botCircle3" fill="DODGERBLUE" layoutX="990.0" layoutY="614.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="10.0" />
-                                        <ImageView fx:id="riverCard1" fitHeight="94.0" fitWidth="70.0" layoutX="529.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-20.0" />
-                                        <ImageView fx:id="riverCard2" fitHeight="94.0" fitWidth="70.0" layoutX="606.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-20.0" />
-                                        <ImageView fx:id="riverCard3" fitHeight="94.0" fitWidth="70.0" layoutX="680.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-20.0" />
-                                        <ImageView fx:id="riverCard4" fitHeight="94.0" fitWidth="70.0" layoutX="755.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-20.0" />
-                                        <ImageView fx:id="riverCard5" fitHeight="94.0" fitWidth="70.0" layoutX="830.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-20.0" />
-                                        <ImageView fx:id="bot5Card1" fitHeight="94.0" fitWidth="70.0" layoutX="396.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-5.0" translateY="25.0" />
-                                        <ImageView fx:id="bot5Card2" fitHeight="94.0" fitWidth="70.0" layoutX="471.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-5.0" translateY="25.0" />
-                                        <ImageView fx:id="playerCard1" fitHeight="94.0" fitWidth="70.0" layoutX="616.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateY="30.0" />
-                                        <ImageView fx:id="playerCard2" fitHeight="94.0" fitWidth="70.0" layoutX="691.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateY="30.0" />
-                                        <ImageView fx:id="bot1Card2" fitHeight="94.0" fitWidth="70.0" layoutX="691.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateY="-50.0" />
-                                        <ImageView fx:id="bot1Card1" fitHeight="94.0" fitWidth="70.0" layoutX="616.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateY="-50.0" />
-                                        <ImageView fx:id="bot4Card1" fitHeight="94.0" fitWidth="70.0" layoutX="396.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-5.0" translateY="-45.0" />
-                                        <ImageView fx:id="bot4Card2" fitHeight="94.0" fitWidth="70.0" layoutX="471.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-5.0" translateY="-45.0" />
-                                        <ImageView fx:id="bot2Card1" fitHeight="94.0" fitWidth="70.0" layoutX="840.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="5.0" translateY="-40.0" />
-                                        <ImageView fx:id="bot2Card2" fitHeight="94.0" fitWidth="70.0" layoutX="915.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="5.0" translateY="-40.0" />
-                                        <ImageView fx:id="bot3Card1" fitHeight="94.0" fitWidth="70.0" layoutX="840.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="5.0" translateY="25.0" />
-                                        <ImageView fx:id="bot3Card2" fitHeight="94.0" fitWidth="70.0" layoutX="915.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="5.0" translateY="25.0" />
-                                        <Circle fx:id="playerTurn" fill="RED" layoutX="729.0" layoutY="675.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="10.0" />
-                                        <Circle fx:id="bot1Turn" fill="RED" layoutX="729.0" layoutY="88.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="-30.0" />
-                                        <Circle fx:id="bot4Turn" fill="RED" layoutX="425.0" layoutY="157.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="-40.0" />
-                                        <Circle fx:id="bot5Turn" fill="RED" layoutX="425.0" layoutY="610.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="10.0" />
-                                        <Circle fx:id="bot2Turn" fill="RED" layoutX="1032.0" layoutY="157.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="-40.0" />
-                                        <Circle fx:id="bot3Turn" fill="RED" layoutX="1033.0" layoutY="614.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateY="10.0" />
-                                        <Label fx:id="chipsPlayer" alignment="CENTER" layoutX="574.0" layoutY="717.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000">
+                                       <CheckBox fx:id="startRound" layoutX="490.0" layoutY="668.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" text="Start Round" translateX="-10.0" />
+                                        <Ellipse fx:id="brownEllipse" fill="#563517" layoutX="686.0" layoutY="382.0" radiusX="446.0" radiusY="257.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" />
+                                        <Ellipse fx:id="greenEllipse" fill="#00c800" layoutX="686.0" layoutY="382.0" radiusX="426.0" radiusY="237.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" />
+                                        <Circle fx:id="playerCircle" fill="DODGERBLUE" layoutX="687.0" layoutY="674.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="10.0" />
+                                        <Circle fx:id="botCircle1" fill="DODGERBLUE" layoutX="687.0" layoutY="89.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="-30.0" />
+                                        <Circle fx:id="botCircle4" fill="DODGERBLUE" layoutX="381.0" layoutY="157.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="-40.0" />
+                                        <Circle fx:id="botCircle5" fill="DODGERBLUE" layoutX="381.0" layoutY="609.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="10.0" />
+                                        <Circle fx:id="botCircle2" fill="DODGERBLUE" layoutX="990.0" layoutY="157.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="-40.0" />
+                                        <Circle fx:id="botCircle3" fill="DODGERBLUE" layoutX="990.0" layoutY="614.0" radius="30.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="10.0" />
+                                        <ImageView fx:id="riverCard1" fitHeight="94.0" fitWidth="70.0" layoutX="499.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" />
+                                        <ImageView fx:id="riverCard2" fitHeight="94.0" fitWidth="70.0" layoutX="576.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" />
+                                        <ImageView fx:id="riverCard3" fitHeight="94.0" fitWidth="70.0" layoutX="650.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" />
+                                        <ImageView fx:id="riverCard4" fitHeight="94.0" fitWidth="70.0" layoutX="725.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" />
+                                        <ImageView fx:id="riverCard5" fitHeight="94.0" fitWidth="70.0" layoutX="800.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" />
+                                        <ImageView fx:id="bot5Card1" fitHeight="94.0" fitWidth="70.0" layoutX="396.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="25.0" />
+                                        <ImageView fx:id="bot5Card2" fitHeight="94.0" fitWidth="70.0" layoutX="471.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="25.0" />
+                                        <ImageView fx:id="playerCard1" fitHeight="94.0" fitWidth="70.0" layoutX="616.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="30.0" />
+                                        <ImageView fx:id="playerCard2" fitHeight="94.0" fitWidth="70.0" layoutX="691.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="30.0" />
+                                        <ImageView fx:id="bot1Card2" fitHeight="94.0" fitWidth="70.0" layoutX="691.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="-50.0" />
+                                        <ImageView fx:id="bot1Card1" fitHeight="94.0" fitWidth="70.0" layoutX="616.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="-50.0" />
+                                        <ImageView fx:id="bot4Card1" fitHeight="94.0" fitWidth="70.0" layoutX="396.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="-45.0" />
+                                        <ImageView fx:id="bot4Card2" fitHeight="94.0" fitWidth="70.0" layoutX="471.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="-45.0" />
+                                        <ImageView fx:id="bot2Card1" fitHeight="94.0" fitWidth="70.0" layoutX="840.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="-40.0" />
+                                        <ImageView fx:id="bot2Card2" fitHeight="94.0" fitWidth="70.0" layoutX="915.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="-40.0" />
+                                        <ImageView fx:id="bot3Card1" fitHeight="94.0" fitWidth="70.0" layoutX="840.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="25.0" />
+                                        <ImageView fx:id="bot3Card2" fitHeight="94.0" fitWidth="70.0" layoutX="915.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" translateX="-10.0" translateY="25.0" />
+                                        <Circle fx:id="playerTurn" fill="RED" layoutX="729.0" layoutY="675.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="10.0" />
+                                        <Circle fx:id="bot1Turn" fill="RED" layoutX="729.0" layoutY="88.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="-30.0" />
+                                        <Circle fx:id="bot4Turn" fill="RED" layoutX="425.0" layoutY="157.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="-40.0" />
+                                        <Circle fx:id="bot5Turn" fill="RED" layoutX="425.0" layoutY="610.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="10.0" />
+                                        <Circle fx:id="bot2Turn" fill="RED" layoutX="1032.0" layoutY="157.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="-40.0" />
+                                        <Circle fx:id="bot3Turn" fill="RED" layoutX="1033.0" layoutY="614.0" radius="10.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" translateX="-10.0" translateY="10.0" />
+                                        <Label fx:id="chipsPlayer" alignment="CENTER" layoutX="579.0" layoutY="721.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="chipsBot5" alignment="CENTER" layoutX="274.0" layoutY="651.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000">
+                                        <Label fx:id="chipsBot5" alignment="CENTER" layoutX="274.0" layoutY="651.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="chipsBot3" alignment="CENTER" layoutX="887.0" layoutY="660.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000">
+                                        <Label fx:id="chipsBot3" alignment="CENTER" layoutX="887.0" layoutY="660.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="chipsBot1" alignment="CENTER" layoutX="581.0" layoutY="93.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000">
+                                        <Label fx:id="chipsBot1" alignment="CENTER" layoutX="581.0" layoutY="93.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="chipsBot2" alignment="CENTER" layoutX="883.0" layoutY="151.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000">
+                                        <Label fx:id="chipsBot2" alignment="CENTER" layoutX="883.0" layoutY="151.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="chipsBot4" alignment="CENTER" layoutX="268.0" layoutY="149.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000">
+                                        <Label fx:id="chipsBot4" alignment="CENTER" layoutX="268.0" layoutY="149.0" prefHeight="30.0" prefWidth="214.0" text="\$ 100000" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="namePlayer" alignment="CENTER" layoutX="636.0" layoutY="668.0" prefHeight="30.0" prefWidth="101.0" text="You">
+                                        <Label fx:id="namePlayer" alignment="CENTER" layoutX="636.0" layoutY="668.0" prefHeight="30.0" prefWidth="101.0" text="You" translateX="-10.0">
                                             <font>
                                                 <Font name="Arial" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="nameBot1" alignment="CENTER" layoutX="639.0" layoutY="45.0" prefHeight="30.0" prefWidth="101.0" text="Bot 1">
+                                        <Label fx:id="nameBot1" alignment="CENTER" layoutX="639.0" layoutY="45.0" prefHeight="30.0" prefWidth="101.0" text="Bot 1" translateX="-10.0">
                                             <font>
                                                 <Font name="Arial" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="nameBot2" alignment="CENTER" layoutX="939.0" layoutY="101.0" prefHeight="30.0" prefWidth="101.0" text="Bot 2">
+                                        <Label fx:id="nameBot2" alignment="CENTER" layoutX="939.0" layoutY="101.0" prefHeight="30.0" prefWidth="101.0" text="Bot 2" translateX="-10.0">
                                             <font>
                                                 <Font name="Arial" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="nameBot3" alignment="CENTER" layoutX="949.0" layoutY="609.0" prefHeight="30.0" prefWidth="81.0" text="Bot 3">
+                                        <Label fx:id="nameBot3" alignment="CENTER" layoutX="949.0" layoutY="609.0" prefHeight="30.0" prefWidth="81.0" text="Bot 3" translateX="-10.0">
                                             <font>
                                                 <Font name="Arial" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="nameBot4" alignment="CENTER" layoutX="330.0" layoutY="101.0" prefHeight="30.0" prefWidth="101.0" text="Bot 4">
+                                        <Label fx:id="nameBot4" alignment="CENTER" layoutX="330.0" layoutY="101.0" prefHeight="30.0" prefWidth="101.0" text="Bot 4" translateX="-10.0">
                                             <font>
                                                 <Font name="Arial" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="nameBot5" alignment="CENTER" layoutX="329.0" layoutY="603.0" prefHeight="30.0" prefWidth="101.0" text="Bot 5">
+                                        <Label fx:id="nameBot5" alignment="CENTER" layoutX="329.0" layoutY="603.0" prefHeight="30.0" prefWidth="101.0" text="Bot 5" translateX="-10.0">
                                             <font>
                                                 <Font name="Arial" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="dealerLabelBot5" layoutX="326.0" layoutY="574.0" prefHeight="14.0" prefWidth="18.0" text="D">
+                                        <Label fx:id="dealerLabelBot5" layoutX="326.0" layoutY="574.0" prefHeight="14.0" prefWidth="18.0" text="D" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="smallBlindLabelBot5" layoutX="322.0" layoutY="603.0" prefHeight="30.0" prefWidth="25.0" text="SB">
+                                        <Label fx:id="smallBlindLabelBot5" layoutX="322.0" layoutY="603.0" prefHeight="30.0" prefWidth="25.0" text="SB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="bigBlindLabelBot5" layoutX="322.0" layoutY="628.0" prefHeight="30.0" prefWidth="25.0" text="BB">
+                                        <Label fx:id="bigBlindLabelBot5" layoutX="322.0" layoutY="628.0" prefHeight="30.0" prefWidth="25.0" text="BB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="dealerLabelPlayer" layoutX="631.0" layoutY="641.0" prefHeight="14.0" prefWidth="18.0" text="D">
+                                        <Label fx:id="dealerLabelPlayer" layoutX="631.0" layoutY="641.0" prefHeight="14.0" prefWidth="18.0" text="D" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="smallBlindLabelPlayer" layoutX="627.0" layoutY="670.0" prefHeight="30.0" prefWidth="25.0" text="SB">
+                                        <Label fx:id="smallBlindLabelPlayer" layoutX="627.0" layoutY="670.0" prefHeight="30.0" prefWidth="25.0" text="SB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="bigBlindLabelPlayer" layoutX="627.0" layoutY="695.0" prefHeight="30.0" prefWidth="25.0" text="BB">
+                                        <Label fx:id="bigBlindLabelPlayer" layoutX="627.0" layoutY="695.0" prefHeight="30.0" prefWidth="25.0" text="BB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="dealerLabelBot4" layoutX="327.0" layoutY="66.0" prefHeight="14.0" prefWidth="18.0" text="D">
+                                        <Label fx:id="dealerLabelBot4" layoutX="327.0" layoutY="66.0" prefHeight="14.0" prefWidth="18.0" text="D" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="smallBlindLabelBot4" layoutX="323.0" layoutY="95.0" prefHeight="30.0" prefWidth="25.0" text="SB">
+                                        <Label fx:id="smallBlindLabelBot4" layoutX="323.0" layoutY="95.0" prefHeight="30.0" prefWidth="25.0" text="SB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="bigBlindLabelBot4" layoutX="323.0" layoutY="120.0" prefHeight="30.0" prefWidth="25.0" text="BB">
+                                        <Label fx:id="bigBlindLabelBot4" layoutX="323.0" layoutY="120.0" prefHeight="30.0" prefWidth="25.0" text="BB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="dealerLabelBot1" layoutX="632.0" layoutY="16.0" prefHeight="14.0" prefWidth="18.0" text="D">
+                                        <Label fx:id="dealerLabelBot1" layoutX="632.0" layoutY="16.0" prefHeight="14.0" prefWidth="18.0" text="D" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="smallBlindLabelBot1" layoutX="628.0" layoutY="45.0" prefHeight="30.0" prefWidth="25.0" text="SB">
+                                        <Label fx:id="smallBlindLabelBot1" layoutX="628.0" layoutY="45.0" prefHeight="30.0" prefWidth="25.0" text="SB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="bigBlindLabelBot1" layoutX="628.0" layoutY="70.0" prefHeight="30.0" prefWidth="25.0" text="BB">
+                                        <Label fx:id="bigBlindLabelBot1" layoutX="628.0" layoutY="70.0" prefHeight="30.0" prefWidth="25.0" text="BB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="dealerLabelBot2" layoutX="935.0" layoutY="74.0" prefHeight="14.0" prefWidth="18.0" text="D">
+                                        <Label fx:id="dealerLabelBot2" layoutX="935.0" layoutY="74.0" prefHeight="14.0" prefWidth="18.0" text="D" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="smallBlindLabelBot2" layoutX="931.0" layoutY="103.0" prefHeight="30.0" prefWidth="25.0" text="SB">
+                                        <Label fx:id="smallBlindLabelBot2" layoutX="931.0" layoutY="103.0" prefHeight="30.0" prefWidth="25.0" text="SB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="bigBlindLabelBot2" layoutX="931.0" layoutY="128.0" prefHeight="30.0" prefWidth="25.0" text="BB">
+                                        <Label fx:id="bigBlindLabelBot2" layoutX="931.0" layoutY="128.0" prefHeight="30.0" prefWidth="25.0" text="BB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="dealerLabelBot3" layoutX="936.0" layoutY="588.0" prefHeight="14.0" prefWidth="18.0" text="D">
+                                        <Label fx:id="dealerLabelBot3" layoutX="936.0" layoutY="588.0" prefHeight="14.0" prefWidth="18.0" text="D" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="smallBlindLabelBot3" layoutX="932.0" layoutY="617.0" prefHeight="30.0" prefWidth="25.0" text="SB">
+                                        <Label fx:id="smallBlindLabelBot3" layoutX="932.0" layoutY="617.0" prefHeight="30.0" prefWidth="25.0" text="SB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="bigBlindLabelBot3" layoutX="932.0" layoutY="642.0" prefHeight="30.0" prefWidth="25.0" text="BB">
+                                        <Label fx:id="bigBlindLabelBot3" layoutX="932.0" layoutY="642.0" prefHeight="30.0" prefWidth="25.0" text="BB" translateX="-10.0">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
                                         </Label>
-                              <Label fx:id="timeRemainingLabel" alignment="CENTER" layoutX="752.0" layoutY="659.0" prefHeight="25.0" prefWidth="109.0" text="Time Remaining">
+                              <Label fx:id="timeRemainingLabel" alignment="CENTER" layoutX="752.0" layoutY="659.0" prefHeight="25.0" prefWidth="109.0" text="Time Remaining" translateX="-10.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="playerTimeLimitLabel" alignment="CENTER" layoutX="753.0" layoutY="683.0" prefHeight="39.0" prefWidth="74.0">
+                              <Label fx:id="playerTimeLimitLabel" alignment="CENTER" layoutX="753.0" layoutY="683.0" prefHeight="39.0" prefWidth="74.0" translateX="-10.0">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="secondsLabel" alignment="CENTER" layoutX="831.0" layoutY="683.0" prefHeight="39.0" prefWidth="29.0" text="sec">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                                    </children>
-                                </Pane>
-                                <VBox alignment="BOTTOM_LEFT" prefHeight="783.0" prefWidth="735.0" spacing="10.0">
-                                    <children>
-                                        <VBox prefHeight="638.0" prefWidth="405.0">
-                                            <children>
-                                                <Label prefHeight="27.0" prefWidth="85.0" text="Announcer:">
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextArea fx:id="announcerTextArea" editable="false" prefHeight="613.0" prefWidth="405.0" />
-                                            </children>
-                                        </VBox>
-                                        <VBox prefHeight="76.0" prefWidth="231.0">
-                                            <children>
-                                                <Label prefHeight="26.0" prefWidth="163.0" text="Pot:" />
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Label text="\$" />
-                                                      <TextField fx:id="potText" editable="false" prefHeight="46.0" prefWidth="414.0" />
-                                       </children>
-                                    </HBox>
-                                            </children>
-                                        </VBox>
-                                        <HBox alignment="CENTER" prefHeight="57.0" prefWidth="430.0" spacing="15.0">
+                                        <HBox alignment="CENTER" layoutX="481.0" layoutY="736.0" prefHeight="65.0" prefWidth="416.0" spacing="15.0">
                                             <children>
                                                 <CheckBox fx:id="checkBox" mnemonicParsing="false" prefHeight="58.0" prefWidth="57.0" text="Check" />
                                                 <CheckBox fx:id="foldBox" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="45.0" text="Fold" />
@@ -304,6 +275,42 @@
                                                 </HBox>
                                             </children>
                                         </HBox>
+                              <Label fx:id="secondsLabel" alignment="CENTER" layoutX="831.0" layoutY="683.0" prefHeight="39.0" prefWidth="29.0" text="sec" translateX="-10.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                                    </children>
+                                </Pane>
+                                <VBox alignment="BOTTOM_LEFT" prefHeight="783.0" prefWidth="735.0" spacing="10.0">
+                                    <children>
+                                        <VBox prefHeight="766.0" prefWidth="405.0">
+                                            <children>
+                                                <Label prefHeight="41.0" prefWidth="85.0" text="Announcer:">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextArea fx:id="announcerTextArea" editable="false" prefHeight="730.0" prefWidth="405.0" />
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="76.0" prefWidth="231.0">
+                                            <children>
+                                                <Label prefHeight="17.0" prefWidth="27.0" text="Pot:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Label>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                       <children>
+                                          <Label text="\$">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font></Label>
+                                                      <TextField fx:id="potText" editable="false" prefHeight="46.0" prefWidth="414.0" />
+                                       </children>
+                                    </HBox>
+                                            </children>
+                                        </VBox>
                                     </children>
                                     <padding>
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -313,43 +320,43 @@
                         </HBox>
                     </center>
                     <bottom>
-                        <VBox alignment="BOTTOM_CENTER" prefHeight="240.0" prefWidth="1920.0">
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="191.0" prefWidth="1920.0" BorderPane.alignment="BOTTOM_CENTER">
                             <children>
-                                <TitledPane text="Game Statistics">
+                                <TitledPane prefHeight="192.0" prefWidth="1920.0" text="Game Statistics">
                                     <content>
-                                        <HBox alignment="CENTER" prefHeight="282.0" prefWidth="1918.0" spacing="50.0">
+                                        <HBox alignment="CENTER_LEFT" prefHeight="282.0" prefWidth="1918.0" spacing="50.0">
                                             <children>
-                                                <VBox alignment="CENTER" prefHeight="143.0" prefWidth="409.0">
+                                                <VBox alignment="CENTER" prefHeight="156.0" prefWidth="393.0">
                                                     <children>
                                                         <Label text="Best Hand" />
-                                                        <HBox alignment="CENTER" prefHeight="106.0" prefWidth="391.0">
+                                                        <HBox alignment="CENTER" prefHeight="106.0" prefWidth="392.0" spacing="5.0">
                                                             <children>
                                                                 <Label prefHeight="18.0" prefWidth="86.0" text="Three of a kind:" />
-                                                                <ImageView fx:id="best_H1_1" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H1_2" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H1_3" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H1_4" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H1_5" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_1" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_2" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_3" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_4" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H1_5" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
                                                             </children>
                                                         </HBox>
                                                     </children>
                                                 </VBox>
-                                                <VBox alignment="CENTER" prefHeight="102.0" prefWidth="409.0">
+                                                <VBox alignment="CENTER" prefHeight="156.0" prefWidth="387.0">
                                                     <children>
                                                         <Label text="Second Best Hand" />
-                                                        <HBox alignment="CENTER" prefHeight="105.0" prefWidth="257.0">
+                                                        <HBox alignment="CENTER" prefHeight="105.0" prefWidth="385.0" spacing="5.0">
                                                             <children>
                                                                 <Label prefHeight="18.0" prefWidth="86.0" text="Three of a kind:" />
-                                                                <ImageView fx:id="best_H2_1" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H2_2" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H2_3" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H2_4" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                                                                <ImageView fx:id="best_H2_5" fitHeight="55.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_1" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_2" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_3" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_4" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
+                                                                <ImageView fx:id="best_H2_5" fitHeight="65.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" />
                                                             </children>
                                                         </HBox>
                                                     </children>
                                                 </VBox>
-                                                <VBox prefHeight="102.0" prefWidth="197.0" spacing="10.0">
+                                                <VBox prefHeight="156.0" prefWidth="99.0" spacing="10.0">
                                                     <children>
                                                         <Label prefHeight="18.0" prefWidth="55.0" text="Best Play:" />
                                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -372,6 +379,14 @@
                                                         </HBox>
                                                     </children>
                                                 </VBox>
+                                    <LineChart prefHeight="156.0" prefWidth="462.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
                                             </children>
                                             <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
