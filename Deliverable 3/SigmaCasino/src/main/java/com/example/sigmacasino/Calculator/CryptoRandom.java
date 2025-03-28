@@ -34,7 +34,7 @@ public class CryptoRandom {
         byte[] bytes = generateRandomBytes(4); //4 bytes for int
         return bytesToIntInRange(bytes, min, max);
     }
-    public static float GenerateRandomRangeInt(float min, float max)
+    public static float GenerateRandomRangeFloat(float min, float max)
     {
         byte[] bytes = generateRandomBytes(4); //4 bytes for float, might change to 8 for more precision/double
         return bytesToFloatInRange(bytes, min, max);
