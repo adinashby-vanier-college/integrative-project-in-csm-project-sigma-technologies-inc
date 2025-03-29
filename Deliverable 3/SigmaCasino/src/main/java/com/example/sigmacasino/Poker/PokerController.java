@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class PokerController {
     @FXML private Spinner<Integer> SpinnerBots;
@@ -126,7 +130,11 @@ public class PokerController {
     @FXML private Label timeRemainingLabel;
     @FXML private Label secondsLabel;
 
+    @FXML private LineChart<Number, Number> lineChart;
+    @FXML private NumberAxis xAxis;
+    @FXML private NumberAxis yAxis;
 
+    protected XYChart.Series<Number, Number> series;
     protected ImageView[] imageViews;
     protected Circle[] botTurns;
     protected Label[] chips;
@@ -150,6 +158,29 @@ public class PokerController {
         getSecondsLabel().setVisible(false);
         getTimeRemainingLabel().setVisible(false);
         getPlayerTimeLimitLabel().setVisible(false);
+
+
+        //Initializes Graph
+        xAxis.setAutoRanging(false);
+        xAxis.setLowerBound(0);
+        xAxis.setUpperBound(3);
+        xAxis.setTickUnit(1);
+
+        yAxis.setAutoRanging(false);
+        yAxis.setLowerBound(0);
+        yAxis.setUpperBound(100);
+        yAxis.setTickUnit(10);
+
+        series = new XYChart.Series<>();
+        series.setName("Percentage Data");
+        lineChart.getData().add(series);
+
+        yAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(yAxis) {
+            @Override
+            public String toString(Number object) {
+                return String.format("%.0f%%", object.doubleValue());
+            }
+        });
 
         //Hides dealer labels
         for (Label dealerLabel : dealerLabels) {
@@ -300,6 +331,7 @@ public class PokerController {
         });
 
     }
+
 
     protected void setImage(ImageView imageView){
         File file = new File("src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/back_of_card.png");
@@ -571,6 +603,10 @@ public class PokerController {
 
     protected Label getSecondsLabel() {
         return secondsLabel;
+    }
+
+    protected LineChart<Number, Number> getLineChart(){
+        return lineChart;
     }
 
 

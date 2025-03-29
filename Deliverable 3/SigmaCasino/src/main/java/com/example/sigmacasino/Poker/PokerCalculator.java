@@ -97,8 +97,6 @@ public class PokerCalculator extends Calculator {
         return wins;
     }
 
-
-
     private ArrayList<Card> makeHand(Deck deck){
         ArrayList<Card> hand = new ArrayList<>();
         for(int i=0;i<2;i++) {

@@ -4,6 +4,7 @@ import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 import io.lyuda.jcards.game.Player;
 import javafx.application.Platform;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -49,6 +50,7 @@ public class PokerGame {
         for (ImageView imageView : controller.imageViews) {
             controller.setImage(imageView);
         }
+        clearGraph(controller);
         playersFold.clear();
         currentPlayerBets.clear();
         earlyWin= false;
@@ -194,7 +196,7 @@ public class PokerGame {
 
         //Gives player Cards (runs on the JavafxThread)
         dealCards(controller);
-        updateGraph();
+        updateGraph(0,controller);
 
         //Places small/big blinds into the pot
         placeBlinds(controller);
@@ -210,7 +212,7 @@ public class PokerGame {
 
         //First River Flop
         dealFlop(controller);
-        updateGraph();
+        updateGraph(1,controller);
 
         //Second Round of Betting
         playerBet(controller);
@@ -223,7 +225,7 @@ public class PokerGame {
 
         //Second River Flop
         dealPostFlop(controller, true);
-        updateGraph();
+        updateGraph(2,controller);
 
         //Third Round of Betting
         playerBet(controller);
@@ -236,7 +238,7 @@ public class PokerGame {
 
         //Third River Flop
         dealPostFlop(controller, false);
-        updateGraph();
+        updateGraph(3,controller);
 
         //Fourth Round of Betting
         playerBet(controller);
@@ -262,6 +264,10 @@ public class PokerGame {
         endGame(controller);
     }
 
+    private void clearGraph(PokerController controller){
+        Platform.runLater(() -> controller.series.getData().clear());
+    }
+
     private void earlyWinner(PokerController controller){
         int winnerIndex=0;
         for(int i=0;i<playersFold.size();i++)
@@ -281,10 +287,35 @@ public class PokerGame {
         endGame(controller);
     }
 
-    private void updateGraph(){
-        PokerCalculator simulator = new PokerCalculator(players.getFirst().getHand().getCards(), riverCards, players.size()-1);
-        int winRate = (int) (simulator.runSimulation()*100);
-        System.out.println("Win Chance: "+winRate+"%");
+    private void updateGraph(int round, PokerController controller) {
+        // Run simulation in background
+        new Thread(() -> {
+            PokerCalculator simulator = new PokerCalculator(
+                    players.getFirst().getHand().getCards(),
+                    riverCards,
+                    players.size() - 1
+            );
+
+            int winRate = (int) (simulator.runSimulation() * 100);
+            System.out.println("Round " + round + " Win Chance: " + winRate + "%");
+
+            // Update UI on JavaFX thread
+            Platform.runLater(() -> {
+                // Clear previous data for this round if it exists
+                for (XYChart.Data<Number, Number> data : controller.series.getData()) {
+                    if (data.getXValue().intValue() == round) {
+                        controller.series.getData().remove(data);
+                        break;
+                    }
+                }
+
+                // Add new data point
+                controller.series.getData().add(new XYChart.Data<>(round, winRate));
+
+                // Auto-range if needed
+                controller.getLineChart().requestLayout();
+            });
+        }).start();
     }
 
     private void restrictControls(boolean restrict, PokerController controller)
@@ -483,12 +514,11 @@ public class PokerGame {
 
         winnerAmount = potSize/winners.size();
 
-        for(int i=0;i<winners.size();i++)
-        {
-            text = "\n"+players.get(winners.get(i)).getName()+" Wins!";
+        for (Integer winner : winners) {
+            text = "\n" + players.get(winner).getName() + " Wins!";
             String finalText = text;
-            playerChips.set(winners.get(i), playerChips.get(winners.get(i))+winnerAmount);
-            Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText));
+            playerChips.set(winner, playerChips.get(winner) + winnerAmount);
+            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
         }
         Platform.runLater(() -> updateChips(potSize, controller));
     }

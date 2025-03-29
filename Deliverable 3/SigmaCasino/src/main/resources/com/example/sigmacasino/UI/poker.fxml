@@ -379,12 +379,12 @@
                                                         </HBox>
                                                     </children>
                                                 </VBox>
-                                    <LineChart fx:id="winnerPercentageGraph" prefHeight="156.0" prefWidth="462.0">
+                                    <LineChart fx:id="lineChart" prefHeight="133.0" prefWidth="530.0">
                                       <xAxis>
-                                        <CategoryAxis side="BOTTOM" />
+                                        <NumberAxis label="Flop" prefHeight="36.0" prefWidth="448.0" fx:id="xAxis" />
                                       </xAxis>
                                       <yAxis>
-                                        <NumberAxis side="LEFT" />
+                                        <NumberAxis fx:id="yAxis" label="Win %" lowerBound="1" prefHeight="90.0" prefWidth="51.0" tickUnit="10" upperBound="100" />
                                       </yAxis>
                                     </LineChart>
                                             </children>
