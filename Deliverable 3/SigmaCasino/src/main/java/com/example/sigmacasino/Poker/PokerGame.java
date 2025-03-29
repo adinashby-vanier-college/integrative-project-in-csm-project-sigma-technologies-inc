@@ -284,7 +284,7 @@ public class PokerGame {
     private void updateGraph(){
         PokerCalculator simulator = new PokerCalculator(players.getFirst().getHand().getCards(), riverCards, players.size()-1);
         int winRate = (int) (simulator.runSimulation()*100);
-        System.out.println("Win Chance"+winRate+"%");
+        System.out.println("Win Chance: "+winRate+"%");
     }
 
     private void restrictControls(boolean restrict, PokerController controller)
@@ -465,6 +465,20 @@ public class PokerGame {
             {
                 winners.add(i);
             }
+        }
+
+        if(winners.size()>1)
+        {
+            max = HandRanks.getIndividualHandRank(players.get(winners.getFirst()));
+            ArrayList<Integer> realWinners = new ArrayList<>();
+            for(int i=0;i<winners.size();i++){
+                if(HandRanks.getIndividualHandRank(players.get(winners.get(i)))>=max){
+                    max = HandRanks.getIndividualHandRank(players.get(winners.get(i)));
+                    realWinners.add(i);
+                }
+            }
+            winners.clear();
+            winners.addAll(realWinners);
         }
 
         winnerAmount = potSize/winners.size();

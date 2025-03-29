@@ -3,6 +3,7 @@ package com.example.sigmacasino.Poker;
 import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Rank;
 import io.lyuda.jcards.Suit;
+import io.lyuda.jcards.game.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +28,25 @@ public enum HandRanks{
 
     public int getValue(){
         return this.value;
+    }
+
+    public static int getIndividualHandRank(Player player){
+        ArrayList<Rank> cardNames = new ArrayList<>(Arrays.asList(
+                Rank.ACE, Rank.KING, Rank.QUEEN, Rank.JACK, Rank.TEN,
+                Rank.NINE, Rank.EIGHT, Rank.SEVEN, Rank.SIX, Rank.FIVE,
+                Rank.FOUR, Rank.THREE, Rank.TWO
+        ));
+        int[] subRankValues = {13,12,11,10,9,8,7,6,5,4,3,2,1};
+        Card[] hand = {player.getHand().getCards().get(0), player.getHand().getCards().get(1)};
+        Arrays.sort(hand);
+        if(hand[0].getRank().equals(Rank.ACE)){
+            Card temp = hand[0];
+            hand[0] = hand[1];
+            hand[1] = temp;
+        }
+        System.out.println(Arrays.toString(hand));
+        System.out.println((subRankValues[cardNames.indexOf(hand[0].getRank())]) + (100*subRankValues[cardNames.indexOf(hand[1].getRank())]));
+        return (subRankValues[cardNames.indexOf(hand[0].getRank())]) + (100*subRankValues[cardNames.indexOf(hand[1].getRank())]);
     }
 
     static float bestHand(ArrayList<Card> allCards) {
