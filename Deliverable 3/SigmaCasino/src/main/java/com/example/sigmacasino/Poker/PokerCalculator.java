@@ -7,8 +7,8 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class PokerCalculator extends Calculator {
-    private static final int INITIAL_TRIALS = 50_000;  // Start with this number
-    private static final int MAX_TIME_MILLIS = 1_000; // 15 seconds
+    private static final int INITIAL_TRIALS = 50_000;  // Start with this number of trials
+    private static final int MAX_TIME_MILLIS = 1_000; // 1 seconds
     private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
 
     private List<Card> playerHand;

@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class PokerController {
     @FXML private Spinner<Integer> SpinnerBots;
@@ -129,6 +128,7 @@ public class PokerController {
     @FXML private Label playerTimeLimitLabel;
     @FXML private Label timeRemainingLabel;
     @FXML private Label secondsLabel;
+    @FXML private Label winPercentageLabel;
 
     @FXML private LineChart<Number, Number> lineChart;
     @FXML private NumberAxis xAxis;
@@ -399,7 +399,7 @@ public class PokerController {
             System.out.println(raiseText.getText());
             value = Integer.parseInt(raiseText.getText());
         } else {
-            value = -1;
+            value = 0;
         }
         checkBox.setSelected(false);
         foldBox.setSelected(false);
@@ -609,5 +609,8 @@ public class PokerController {
         return lineChart;
     }
 
+    protected Label getWinPercentageLabel(){
+        return winPercentageLabel;
+    }
 
 }

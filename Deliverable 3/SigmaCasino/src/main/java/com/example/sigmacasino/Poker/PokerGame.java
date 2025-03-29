@@ -50,6 +50,7 @@ public class PokerGame {
         for (ImageView imageView : controller.imageViews) {
             controller.setImage(imageView);
         }
+        controller.getWinPercentageLabel().setText("");
         clearGraph(controller);
         playersFold.clear();
         currentPlayerBets.clear();
@@ -301,6 +302,10 @@ public class PokerGame {
 
             // Update UI on JavaFX thread
             Platform.runLater(() -> {
+
+                //Updates win percent label
+                controller.getWinPercentageLabel().setText(winRate + "%");
+
                 // Clear previous data for this round if it exists
                 for (XYChart.Data<Number, Number> data : controller.series.getData()) {
                     if (data.getXValue().intValue() == round) {
@@ -514,6 +519,7 @@ public class PokerGame {
             }
             winners.clear();
             winners.addAll(realWinners);
+            System.out.println("Winners: "+winners);
         }
 
         winnerAmount = potSize/winners.size();

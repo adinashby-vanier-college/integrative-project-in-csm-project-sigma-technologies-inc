@@ -379,6 +379,20 @@
                                                         </HBox>
                                                     </children>
                                                 </VBox>
+                                    <HBox alignment="CENTER" prefHeight="156.0" prefWidth="226.0" spacing="10.0">
+                                       <children>
+                                          <Label text="Win Precentage:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="winPercentageLabel" prefHeight="30.0" prefWidth="54.0">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
                                     <LineChart fx:id="lineChart" prefHeight="133.0" prefWidth="530.0">
                                       <xAxis>
                                         <NumberAxis label="Flop" prefHeight="36.0" prefWidth="448.0" fx:id="xAxis" />
