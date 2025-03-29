@@ -50,7 +50,7 @@ public class PokerGame {
         for (ImageView imageView : controller.imageViews) {
             controller.setImage(imageView);
         }
-        controller.getWinPercentageLabel().setText("");
+        Platform.runLater(() ->controller.getWinPercentageLabel().setText(""));
         clearGraph(controller);
         playersFold.clear();
         currentPlayerBets.clear();
@@ -491,45 +491,58 @@ public class PokerGame {
     private void getRoundWinner(PokerController controller){
         String text;
         int winnerAmount;
-        float max = playerRanks.getFirst();
+        float max = playerRanks.getFirst();  // Get the first player's rank
         ArrayList<Integer> winners = new ArrayList<>();
-        for (int i=1;i<players.size();i++)
-        {
-            if(playerRanks.get(i)>max){
+
+        // Find the maximum rank
+        for (int i = 1; i < players.size(); i++) {
+            if (playerRanks.get(i) > max) {
                 max = playerRanks.get(i);
             }
         }
-        for(int i=0;i<players.size();i++)
-        {
-            if(playerRanks.get(i)== max)
-            {
+
+        // Add all players with the maximum rank to the winners list
+        for (int i = 0; i < players.size(); i++) {
+            if (playerRanks.get(i) == max) {
                 winners.add(i);
             }
         }
 
-        if(winners.size()>1)
-        {
-            max = HandRanks.getIndividualHandRank(players.get(winners.getFirst()));
+        // If there are multiple winners, determine the highest individual hand rank
+        if (winners.size() > 1) {
+            max = HandRanks.getIndividualHandRank(players.get(winners.getFirst()));  // Start with the first winner's hand rank
             ArrayList<Integer> realWinners = new ArrayList<>();
-            for(int i=0;i<winners.size();i++){
-                if(HandRanks.getIndividualHandRank(players.get(winners.get(i)))>=max){
-                    max = HandRanks.getIndividualHandRank(players.get(winners.get(i)));
-                    realWinners.add(i);
+
+            // Check for individual hand ranks to break ties
+            for (int winnerIndex : winners) {
+                float handRank = HandRanks.getIndividualHandRank(players.get(winnerIndex));
+
+                if (handRank > max) {
+                    max = handRank;
+                    realWinners.clear();  // Clear previous winners and add the new one
+                    realWinners.add(winnerIndex);
+                } else if (handRank == max) {
+                    realWinners.add(winnerIndex);
                 }
             }
+
             winners.clear();
-            winners.addAll(realWinners);
-            System.out.println("Winners: "+winners);
+            winners.addAll(realWinners);  // Update winners list with final winners
+            System.out.println("Winners: " + winners);
         }
 
-        winnerAmount = potSize/winners.size();
+        // Calculate winner amount
+        winnerAmount = potSize / winners.size();
 
+        // Distribute the pot to each winner
         for (Integer winner : winners) {
             text = "\n" + players.get(winner).getName() + " Wins!";
             String finalText = text;
             playerChips.set(winner, playerChips.get(winner) + winnerAmount);
             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
         }
+
+        // Update the chips display after the round
         Platform.runLater(() -> updateChips(potSize, controller));
     }
 
