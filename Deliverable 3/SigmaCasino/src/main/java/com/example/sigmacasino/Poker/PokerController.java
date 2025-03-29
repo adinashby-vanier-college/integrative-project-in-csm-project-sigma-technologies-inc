@@ -280,7 +280,7 @@ public class PokerController {
         raiseText.textProperty().addListener((observable, oldValue, newValue) -> {
             try{
                 int value = Integer.parseInt(newValue);
-                if(value<1)
+                if(value<0)
                 {
                     throw new Exception();
                 } else if (value>Integer.parseInt(chipsPlayer.getText())) {

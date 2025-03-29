@@ -456,6 +456,10 @@ public class PokerGame {
                                 controller.getTimeRemainingLabel().setVisible(false);
                                 controller.getPlayerTimeLimitLabel().setVisible(false);
                             });
+                            Platform.runLater(() -> {
+                                controller.getRaiseTextArea().setText("0");
+                                controller.getRaiseTextArea().requestLayout();
+                            });
                         } else { // Bot's turn
                             System.out.println("\n" + players.get(i).getName() + " is betting");
                             text = "\n" + players.get(i).getName() + "'s turn to bet...";
