@@ -110,25 +110,4 @@ public class PokerCalculator extends Calculator {
         }
         return hand;
     }
-
-//    public static void main(String[] args) {
-//        System.out.println("Number of Threads: "+NUM_THREADS);
-//        for(int i=0;i<1;i++) {
-//            long startTime = System.currentTimeMillis();
-//            Deck deck = new Deck();
-//            deck.shuffle();
-//            List<Card> playerHand = Arrays.asList(deck.deal(), deck.deal());
-//            List<Card> communityCards = Arrays.asList(deck.deal(), deck.deal(), deck.deal(),deck.deal(),deck.deal());
-//
-//            System.out.println("Player Hand: " + playerHand);
-//            System.out.println("Community Cards: " + communityCards);
-//
-//            PokerCalculator simulator = new PokerCalculator(playerHand, communityCards, 5);
-//            double winRate = simulator.runSimulation();
-//            System.out.println("Estimated Win Probability: " + (winRate * 100) + "%");
-//            long endTime = System.currentTimeMillis();  // End timing
-//            double elapsedTime = (endTime - startTime) / 1000.0;  // Convert to seconds
-//            System.out.println("Execution Time: " + elapsedTime + " seconds\n");  // Print execution time
-//        }
-//    }
 }
