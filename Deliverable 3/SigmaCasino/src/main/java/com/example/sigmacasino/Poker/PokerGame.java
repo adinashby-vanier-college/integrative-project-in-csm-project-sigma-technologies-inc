@@ -54,6 +54,11 @@ public class PokerGame {
         for (ImageView imageView : controller.imageViews) {
             controller.setImage(imageView);
         }
+        Platform.runLater(() -> {
+            controller.getCheckProbabilityLabel().setText("");
+            controller.getFoldProbabilityLabel().setText("");
+            controller.getRaiseProbabilityLabel().setText("");
+        });
         Platform.runLater(() ->controller.getWinPercentageLabel().setText(""));
         clearGraph(controller);
         playersFold.clear();
@@ -501,10 +506,10 @@ public class PokerGame {
                                 controller.getSecondsLabel().setVisible(false);
                                 controller.getTimeRemainingLabel().setVisible(false);
                                 controller.getPlayerTimeLimitLabel().setVisible(false);
-                            });
-                            Platform.runLater(() -> {
                                 controller.getRaiseTextArea().setText("0");
-                                controller.getRaiseTextArea().requestLayout();
+                                controller.getCheckProbabilityLabel().setText("");
+                                controller.getFoldProbabilityLabel().setText("");
+                                controller.getRaiseProbabilityLabel().setText("");
                             });
                         } else { // Bot's turn
                             botWinRate=0;
