@@ -412,7 +412,6 @@ public class PokerController {
     }
 
     protected CheckBox getStartRoundCheckBox() {return startRound;}
-    protected CheckBox getHideChipsCheckBox() {return hideChips;}
     protected Spinner<Integer> getSpinnerBots(){
         return SpinnerBots;
     }

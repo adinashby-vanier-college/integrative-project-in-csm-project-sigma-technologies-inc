@@ -337,14 +337,12 @@ public class PokerGame {
             controller.getSpinnerBots().setDisable(true);
             controller.getStartingChipsTextArea().setEditable(false);
             controller.getStartRoundCheckBox().setDisable(true);
-            controller.getHideChipsCheckBox().setDisable(true);
         }
         else {
             controller.getChoiceBoxBruntCards().setDisable(false);
             controller.getSpinnerBots().setDisable(false);
             controller.getStartingChipsTextArea().setEditable(true);
             controller.getStartRoundCheckBox().setDisable(false);
-            controller.getHideChipsCheckBox().setDisable(false);
         }
     }
 
