@@ -388,7 +388,9 @@ public class PokerGame {
         bettingThread.pauseThread(); // Pause betting logic
 
         //Resets values for a new betting phase
-        currentPlayerBets.replaceAll(ignored -> 0);
+        for (int j = 0; j < currentPlayerBets.size(); j++) {
+            currentPlayerBets.set(j, 0);
+        }
         betFollow=0;
 
         //Finds starter player
@@ -455,34 +457,39 @@ public class PokerGame {
                             value = controller.getButtonValue();
                             int playerFollow;
                             switch (value) {
-                                case 0:
-                                    text = "\nPlayer has chosen to check";
-                                    playerFollow =betFollow-currentPlayerBets.get(i);
+                                case 0: // Check/Call
+                                    int botFollow = betFollow - currentPlayerBets.get(i);
+                                    if (botFollow == 0) {
+                                        text = "\nPlayer has chosen to check";
+                                    } else {
+                                        text = "\nPlayer has chosen to call $" + botFollow;
+                                    }
 
-                                    //If player runs out of chips
-                                    if(playerFollow<0){ playerFollow=playerChips.get(i); }
-
-                                    playerChips.set(i, playerChips.get(i) - playerFollow);
+                                    // Ensure player doesn't bet more than they have
+                                    botFollow = Math.min(botFollow, playerChips.get(i));
+                                    playerChips.set(i, playerChips.get(i) - botFollow);
+                                    currentPlayerBets.set(i, currentPlayerBets.get(i) + botFollow);
+                                    potSize += botFollow;
                                     break;
-                                case -1:
+
+                                case -1: // Fold
                                     text = "\nPlayer has chosen to fold";
                                     playersFold.set(i, true);
                                     break;
-                                default:
-                                    text = "\nPlayer has chosen to raise by $" + controller.getRaiseText();
 
-                                    //Determines the correct raise amount
-                                    if(playerChips.get(i)>betFollow) {
-                                        betFollow = betFollow + (value-betFollow);
-                                    }
+                                default: // Raise
+                                    int raiseAmount = value;
+                                    botFollow = betFollow - currentPlayerBets.get(i);
+                                    int totalBet = botFollow + raiseAmount;
 
-                                    playerFollow = betFollow-currentPlayerBets.get(i);
-
-                                    //If player runs out of chips
-                                    if(playerFollow<0){ playerFollow=playerChips.get(i); }
-
-                                    playerChips.set(i, playerChips.get(i) - playerFollow);
-                                    starter=i;
+                                    // Ensure player doesn't bet more than they have
+                                    totalBet = Math.min(totalBet, playerChips.get(i));
+                                    playerChips.set(i, playerChips.get(i) - totalBet);
+                                    currentPlayerBets.set(i, currentPlayerBets.get(i) + totalBet);
+                                    betFollow += raiseAmount; // Update the highest bet
+                                    potSize += totalBet;
+                                    starter = i; // New raiser becomes the new "starter" for betting round
+                                    text = "\nPlayer has chosen to raise by $" + raiseAmount;
                                     break;
                             }
 
@@ -510,7 +517,7 @@ public class PokerGame {
 
                             // Run simulation in background
                             int finalI = i;
-                            new Thread(() -> {
+
                                 PokerCalculator simulator = new PokerCalculator(
                                         players.get(finalI).getHand().getCards(),
                                         riverCards,
@@ -518,8 +525,10 @@ public class PokerGame {
                                 );
 
                                 int winRate = (int) (simulator.runSimulation() * 100);
+                                System.out.println("\n\nWin Rate: " + winRate+"\n\n");
                                 setBotWinRate(winRate);
-                            }).start();
+
+
 
                             //Bot decision
                             int[] results = PokerCalculator.getMoveDecision(botWinRate, betFollow, potSize, currentPlayerBets.get(i));
@@ -535,38 +544,41 @@ public class PokerGame {
                             }
                             int botFollow;
                             switch(index){
-                                case 0:
-                                    text = "\n"+players.get(i).getName()+" has chosen to check";
-                                    botFollow =betFollow-currentPlayerBets.get(i);
-
-                                    //If player runs out of chips
-                                    if(botFollow<0){ botFollow=playerChips.get(i); }
-
+                                case 0: // Check/Call
+                                    botFollow = betFollow - currentPlayerBets.get(i);
+                                    if (botFollow == 0) {
+                                        text = "\n" + players.get(i).getName() + " has chosen to check";
+                                    } else {
+                                        text = "\n" + players.get(i).getName() + " has chosen to call $" + botFollow;
+                                    }
+                                    botFollow = Math.min(botFollow, playerChips.get(i));
                                     playerChips.set(i, playerChips.get(i) - botFollow);
+                                    currentPlayerBets.set(i, currentPlayerBets.get(i) + botFollow);
+                                    potSize += botFollow;
                                     break;
 
-                                case 1:
-                                    text = "\n"+players.get(i).getName()+" has chosen to fold";
+                                case 1: // Fold
+                                    text = "\n" + players.get(i).getName() + " has chosen to fold";
                                     playersFold.set(i, true);
                                     break;
 
-                                case 2:
-                                    value = ThreadLocalRandom.current().nextInt(0, playerChips.get(i));
+                                case 2: // Raise
+                                    if(playerChips.get(i)!=0) {
+                                        int raiseAmount = ThreadLocalRandom.current().nextInt(0, (playerChips.get(i) / 4));
+                                        botFollow = betFollow - currentPlayerBets.get(i);
+                                        int totalBet = botFollow + raiseAmount;
 
-                                    text = "\n"+players.get(i).getName()+" has chosen to raise by $" + controller.getRaiseText();
-
-                                    //Determines the correct raise amount
-                                    if(playerChips.get(i)>betFollow) {
-                                        betFollow = betFollow + (value-betFollow);
+                                        totalBet = Math.min(totalBet, playerChips.get(i));
+                                        playerChips.set(i, playerChips.get(i) - totalBet);
+                                        currentPlayerBets.set(i, currentPlayerBets.get(i) + totalBet);
+                                        betFollow += raiseAmount;
+                                        potSize += totalBet;
+                                        starter = i;
+                                        text = "\n" + players.get(i).getName() + " has chosen to raise by $" + raiseAmount;
                                     }
-
-                                    botFollow = betFollow-currentPlayerBets.get(i);
-
-                                    //If player runs out of chips
-                                    if(botFollow<0){ botFollow=playerChips.get(i); }
-
-                                    playerChips.set(i, playerChips.get(i) - botFollow);
-                                    starter=i;
+                                    else{
+                                        text = "\n" + players.get(i).getName() + " has chosen to check";
+                                    }
                                     break;
                             }
                             Thread.sleep(5000);
@@ -593,6 +605,8 @@ public class PokerGame {
         bettingThread.resumeThread(); // Resume betting logic
     }
 
+
+
     private void getRoundWinner(PokerController controller){
         String text;
         int winnerAmount;
@@ -601,14 +615,14 @@ public class PokerGame {
 
         // Find the maximum rank
         for (int i = 1; i < players.size(); i++) {
-            if (playerRanks.get(i) > max) {
+            if ((playerRanks.get(i) > max) && !playersFold.get(i)) {
                 max = playerRanks.get(i);
             }
         }
 
         // Add all players with the maximum rank to the winners list
         for (int i = 0; i < players.size(); i++) {
-            if (playerRanks.get(i) == max) {
+            if ((playerRanks.get(i) == max) && !playersFold.get(i)) {
                 winners.add(i);
             }
         }
