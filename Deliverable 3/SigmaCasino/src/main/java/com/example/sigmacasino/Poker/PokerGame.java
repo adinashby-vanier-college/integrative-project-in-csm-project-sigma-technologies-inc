@@ -352,8 +352,8 @@ public class PokerGame {
             }
         }
         Platform.runLater(() -> {
-            card1.get(0).setImage(getImage(players.get(0).getHand().getCards().getFirst()));
-            card2.get(0).setImage(getImage(players.get(0).getHand().getCards().getLast()));
+            card1.getFirst().setImage(getImage(players.getFirst().getHand().getCards().getFirst()));
+            card2.getFirst().setImage(getImage(players.getFirst().getHand().getCards().getLast()));
         });
         String text = "Dealer has dealt all the cards";
         Platform.runLater(() -> announcerTextArea.setText(text));
@@ -466,12 +466,18 @@ public class PokerGame {
                                 controller.getRaiseTextArea().requestLayout();
                             });
                         } else { // Bot's turn
+
+                            
+
                             System.out.println("\n" + players.get(i).getName() + " is betting");
                             text = "\n" + players.get(i).getName() + "'s turn to bet...";
                             String finalText1 = text;
                             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText1));
                             Thread.sleep(5000);
                             currentPlayerBets.set(i, 0);
+
+
+
                         }
                         playerTurnCircles.get(i).setVisible(false);
                     }
