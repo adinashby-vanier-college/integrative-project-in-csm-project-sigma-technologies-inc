@@ -53,7 +53,7 @@
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" text="Play" onAction="#onPlayClick" />
-            <Button mnemonicParsing="false" text="About" />
+            <Button mnemonicParsing="false" text="About" onAction="#onAboutClick"/>
          </children>
          <opaqueInsets>
             <Insets />
