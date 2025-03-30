@@ -129,6 +129,10 @@ public class PokerController {
     @FXML private Label timeRemainingLabel;
     @FXML private Label secondsLabel;
     @FXML private Label winPercentageLabel;
+    @FXML private Label checkProbabilityLabel;
+    @FXML private Label foldProbabilityLabel;
+    @FXML private Label raiseProbabilityLabel;
+
 
     @FXML private LineChart<Number, Number> lineChart;
     @FXML private NumberAxis xAxis;
@@ -611,6 +615,18 @@ public class PokerController {
 
     protected Label getWinPercentageLabel(){
         return winPercentageLabel;
+    }
+
+    protected Label getCheckProbabilityLabel() {
+        return checkProbabilityLabel;
+    }
+
+    protected Label getFoldProbabilityLabel() {
+        return foldProbabilityLabel;
+    }
+
+    protected Label getRaiseProbabilityLabel() {
+        return raiseProbabilityLabel;
     }
 
 }

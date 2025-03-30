@@ -13,7 +13,9 @@ import javafx.scene.shape.Circle;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.example.sigmacasino.Poker.HandRanks.bestHand;
 
@@ -40,6 +42,8 @@ public class PokerGame {
     private static int dealerIndex;
     private static int smallBlindIndex;
     private static int bigBlindIndex;
+    private static int playerWinRate;
+    private static int botWinRate;
     private int burnCards;
     private int botAmount;
     private int betFollow;
@@ -54,6 +58,7 @@ public class PokerGame {
         clearGraph(controller);
         playersFold.clear();
         currentPlayerBets.clear();
+        playerWinRate=0;
         earlyWin= false;
         boolean newChips = false;
         if(playerChips.isEmpty())
@@ -297,14 +302,14 @@ public class PokerGame {
                     players.size() - 1
             );
 
-            int winRate = (int) (simulator.runSimulation() * 100);
-            System.out.println("Round " + round + " Win Chance: " + winRate + "%");
+            playerWinRate = (int) (simulator.runSimulation() * 100);
+            System.out.println("Round " + round + " Win Chance: " + playerWinRate + "%");
 
             // Update UI on JavaFX thread
             Platform.runLater(() -> {
 
                 //Updates win percent label
-                controller.getWinPercentageLabel().setText(winRate + "%");
+                controller.getWinPercentageLabel().setText(playerWinRate + "%");
 
                 // Clear previous data for this round if it exists
                 for (XYChart.Data<Number, Number> data : controller.series.getData()) {
@@ -315,13 +320,14 @@ public class PokerGame {
                 }
 
                 // Add new data point
-                controller.series.getData().add(new XYChart.Data<>(round, winRate));
+                controller.series.getData().add(new XYChart.Data<>(round, playerWinRate));
 
                 // Auto-range if needed
                 controller.getLineChart().requestLayout();
             });
         }).start();
     }
+
 
     private void restrictControls(boolean restrict, PokerController controller)
     {
@@ -380,6 +386,12 @@ public class PokerGame {
 
     private void playerBet(PokerController controller){
         bettingThread.pauseThread(); // Pause betting logic
+
+        //Resets values for a new betting phase
+        currentPlayerBets.replaceAll(ignored -> 0);
+        betFollow=0;
+
+        //Finds starter player
         int value;
         int starter = bigBlindIndex + 1;
         if (starter >= players.size()) {
@@ -408,6 +420,16 @@ public class PokerGame {
                     if (!playersFold.get(i)) {
                         playerTurnCircles.get(i).setVisible(true);
                         if (i == 0) { // Player's turn
+                            
+                            //Updates check, fold, raise percentages
+                            int[] results = PokerCalculator.getMoveDecision(playerWinRate,betFollow,potSize,currentPlayerBets.get(i));
+                            Platform.runLater(() -> {
+                                controller.getCheckProbabilityLabel().setText(results[0] + "%");
+                                controller.getFoldProbabilityLabel().setText(results[1] + "%");
+                                controller.getRaiseProbabilityLabel().setText(results[2] + "%");
+                            });
+                            
+                            //Updates time label
                             Platform.runLater(() -> {
                                 controller.getSecondsLabel().setVisible(true);
                                 controller.getTimeRemainingLabel().setVisible(true);
@@ -431,12 +453,16 @@ public class PokerGame {
                             }).start();
                             Thread.sleep(delay*1000);
                             value = controller.getButtonValue();
+                            int playerFollow;
                             switch (value) {
                                 case 0:
                                     text = "\nPlayer has chosen to check";
-                                    betFollow=betFollow-currentPlayerBets.get(i);
-                                    playerChips.set(i, playerChips.get(i) - betFollow);
-                                    currentPlayerBets.set(i, 0);
+                                    playerFollow =betFollow-currentPlayerBets.get(i);
+
+                                    //If player runs out of chips
+                                    if(playerFollow<0){ playerFollow=playerChips.get(i); }
+
+                                    playerChips.set(i, playerChips.get(i) - playerFollow);
                                     break;
                                 case -1:
                                     text = "\nPlayer has chosen to fold";
@@ -444,8 +470,18 @@ public class PokerGame {
                                     break;
                                 default:
                                     text = "\nPlayer has chosen to raise by $" + controller.getRaiseText();
-                                    betFollow = value;
-                                    playerChips.set(i, playerChips.get(i) - betFollow);
+
+                                    //Determines the correct raise amount
+                                    if(playerChips.get(i)>betFollow) {
+                                        betFollow = betFollow + (value-betFollow);
+                                    }
+
+                                    playerFollow = betFollow-currentPlayerBets.get(i);
+
+                                    //If player runs out of chips
+                                    if(playerFollow<0){ playerFollow=playerChips.get(i); }
+
+                                    playerChips.set(i, playerChips.get(i) - playerFollow);
                                     starter=i;
                                     break;
                             }
@@ -466,18 +502,82 @@ public class PokerGame {
                                 controller.getRaiseTextArea().requestLayout();
                             });
                         } else { // Bot's turn
-
-                            
-
+                            botWinRate=0;
                             System.out.println("\n" + players.get(i).getName() + " is betting");
                             text = "\n" + players.get(i).getName() + "'s turn to bet...";
                             String finalText1 = text;
                             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText1));
+
+                            // Run simulation in background
+                            int finalI = i;
+                            new Thread(() -> {
+                                PokerCalculator simulator = new PokerCalculator(
+                                        players.get(finalI).getHand().getCards(),
+                                        riverCards,
+                                        players.size() - 1
+                                );
+
+                                int winRate = (int) (simulator.runSimulation() * 100);
+                                setBotWinRate(winRate);
+                            }).start();
+
+                            //Bot decision
+                            int[] results = PokerCalculator.getMoveDecision(botWinRate, betFollow, potSize, currentPlayerBets.get(i));
+                            int max = results[0];
+                            int index = 0;
+                            for(int j=1;j<results.length;j++)
+                            {
+                                if(results[j]>max)
+                                {
+                                    max=results[j];
+                                    index =j;
+                                }
+                            }
+                            int botFollow;
+                            switch(index){
+                                case 0:
+                                    text = "\n"+players.get(i).getName()+" has chosen to check";
+                                    botFollow =betFollow-currentPlayerBets.get(i);
+
+                                    //If player runs out of chips
+                                    if(botFollow<0){ botFollow=playerChips.get(i); }
+
+                                    playerChips.set(i, playerChips.get(i) - botFollow);
+                                    break;
+
+                                case 1:
+                                    text = "\n"+players.get(i).getName()+" has chosen to fold";
+                                    playersFold.set(i, true);
+                                    break;
+
+                                case 2:
+                                    value = ThreadLocalRandom.current().nextInt(0, playerChips.get(i));
+
+                                    text = "\n"+players.get(i).getName()+" has chosen to raise by $" + controller.getRaiseText();
+
+                                    //Determines the correct raise amount
+                                    if(playerChips.get(i)>betFollow) {
+                                        betFollow = betFollow + (value-betFollow);
+                                    }
+
+                                    botFollow = betFollow-currentPlayerBets.get(i);
+
+                                    //If player runs out of chips
+                                    if(botFollow<0){ botFollow=playerChips.get(i); }
+
+                                    playerChips.set(i, playerChips.get(i) - botFollow);
+                                    starter=i;
+                                    break;
+                            }
                             Thread.sleep(5000);
-                            currentPlayerBets.set(i, 0);
 
-
-
+                            if (!playersFold.get(i)) {
+                                Platform.runLater(() -> potSize = potSize + betFollow);
+                            }
+                            Platform.runLater(() -> updateChips(potSize, controller));
+                            String finalText = text;
+                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
+                            botWinRate=0;
                         }
                         playerTurnCircles.get(i).setVisible(false);
                     }
@@ -490,7 +590,6 @@ public class PokerGame {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        betFollow=0;
         bettingThread.resumeThread(); // Resume betting logic
     }
 
@@ -693,6 +792,10 @@ public class PokerGame {
 
     protected static ArrayList<Circle> getPlayerTurnCircles() {
         return playerTurnCircles;
+    }
+
+    private static void setBotWinRate(int winRate){
+        botWinRate=winRate;
     }
 
 

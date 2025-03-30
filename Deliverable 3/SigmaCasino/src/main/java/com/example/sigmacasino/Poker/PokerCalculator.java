@@ -4,6 +4,7 @@ import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 
 import java.util.*;
+import java.util.Arrays;
 import java.util.concurrent.*;
 
 public class PokerCalculator extends Calculator {
@@ -57,6 +58,33 @@ public class PokerCalculator extends Calculator {
         System.out.println("Total Trials Run: " + totalTrials);
         return winRate;
     }
+
+    static int[] getMoveDecision(int winRate, double currentBet, double potSize, double playerInvestment) {
+        double callCost = currentBet - playerInvestment; // Adjust for what the player has already invested
+        if (callCost < 0) callCost = 0; // Prevent negative values
+        double effectivePotSize = potSize + callCost;
+        double potOdds = callCost / effectivePotSize;
+
+        int checkProbability = 0;
+        int foldProbability = 0;
+        int raiseProbability = 0;
+
+        if (winRate > potOdds + 0.1) {
+            // Strong hand, should raise
+            raiseProbability = (int) (winRate * 100);
+            checkProbability = 100 - raiseProbability;
+        } else if (winRate > potOdds) {
+            // Marginal hand, should check if possible, call if needed
+            checkProbability = (int) ((1 - potOdds) * 100);
+            foldProbability = 100 - checkProbability;
+        } else {
+            // Weak hand, should fold
+            foldProbability = 100;
+        }
+        System.out.println(Arrays.toString(new int[]{checkProbability, foldProbability, raiseProbability}));
+        return new int[]{checkProbability, foldProbability, raiseProbability};
+    }
+
 
 
     private int simulateGames(int numTrials) {
