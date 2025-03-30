@@ -1,5 +1,6 @@
 package com.sigmatechnologies.gamblingsimulator25;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,6 +57,13 @@ public class MainMenuController {
         about.setHeaderText("About");
         about.setContentText("W.I.P.");
         about.showAndWait();
+
+    }
+
+    @FXML
+    protected void onCloseClick(ActionEvent event) {
+
+        Platform.exit();
 
     }
 
