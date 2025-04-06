@@ -1,21 +1,25 @@
 package com.example.sigmacasino.Poker;
+
 import com.example.sigmacasino.Calculator.Calculator;
 import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 
-import java.util.*;
-import java.util.Arrays;
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class PokerCalculator extends Calculator {
     private static final int INITIAL_TRIALS = 50_000;  // Start with this number of trials
     private static final int MAX_TIME_MILLIS = 1_000; // 1 seconds
     private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
 
-    private List<Card> playerHand;
-    private List<Card> communityCards;
-    private ArrayList<Card> discardCards = new ArrayList<>();
-    private int numOpponents;
+    private final List<Card> playerHand;
+    private final List<Card> communityCards;
+    private final ArrayList<Card> discardCards = new ArrayList<>();
+    private final int numOpponents;
 
     public PokerCalculator(List<Card> playerHand, List<Card> communityCards, int numOpponents) {
         discardCards.add(playerHand.get(0));

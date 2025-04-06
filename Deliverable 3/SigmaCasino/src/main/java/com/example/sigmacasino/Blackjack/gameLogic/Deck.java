@@ -3,7 +3,7 @@ import com.example.sigmacasino.Blackjack.gameLogic.BlackJackCard.BRank;
 import com.example.sigmacasino.Blackjack.gameLogic.BlackJackCard.BSuit;
 public class Deck {
 
-    private BlackJackCard[] cards = new BlackJackCard[52];
+    private final BlackJackCard[] cards = new BlackJackCard[52];
     public Deck(){
         refill();
     }

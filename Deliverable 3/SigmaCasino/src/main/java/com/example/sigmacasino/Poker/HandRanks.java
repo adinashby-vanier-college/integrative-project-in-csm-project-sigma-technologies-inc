@@ -1,7 +1,6 @@
 package com.example.sigmacasino.Poker;
 
 import io.lyuda.jcards.Card;
-import io.lyuda.jcards.Deck;
 import io.lyuda.jcards.Rank;
 import io.lyuda.jcards.Suit;
 import io.lyuda.jcards.game.Player;

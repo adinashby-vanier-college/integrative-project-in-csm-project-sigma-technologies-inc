@@ -13,7 +13,6 @@ import javafx.scene.shape.Circle;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -22,19 +21,19 @@ import static com.example.sigmacasino.Poker.HandRanks.bestHand;
 public class PokerGame {
     private static BettingThread bettingThread;
     private final ArrayList<Player> players = new ArrayList<>();
-    private static ArrayList<Integer> playerChips = new ArrayList<>();
+    private static final ArrayList<Integer> playerChips = new ArrayList<>();
     private final ArrayList<Card> riverCards = new ArrayList<>();
     private final ArrayList<Float> playerRanks = new ArrayList<>();
     private final ArrayList<String> playerRankNames = new ArrayList<>();
-    private static ArrayList<Label> dealerLabels = new ArrayList<>();
-    private static ArrayList<Label> smallBlindLabels = new ArrayList<>();
-    private static ArrayList<Label> bigBlindLabels = new ArrayList<>();
-    private static ArrayList<ImageView> card1 = new ArrayList<>();
-    private static ArrayList<ImageView> card2 = new ArrayList<>();
-    private static ArrayList<Label> chipLabels = new ArrayList<>();
-    private static ArrayList<Circle> playerTurnCircles = new ArrayList<>();
-    private ArrayList<Boolean> playersFold = new ArrayList<>();
-    private ArrayList<Integer> currentPlayerBets = new ArrayList<>();
+    private static final ArrayList<Label> dealerLabels = new ArrayList<>();
+    private static final ArrayList<Label> smallBlindLabels = new ArrayList<>();
+    private static final ArrayList<Label> bigBlindLabels = new ArrayList<>();
+    private static final ArrayList<ImageView> card1 = new ArrayList<>();
+    private static final ArrayList<ImageView> card2 = new ArrayList<>();
+    private static final ArrayList<Label> chipLabels = new ArrayList<>();
+    private static final ArrayList<Circle> playerTurnCircles = new ArrayList<>();
+    private final ArrayList<Boolean> playersFold = new ArrayList<>();
+    private final ArrayList<Integer> currentPlayerBets = new ArrayList<>();
     private Deck deck;
     private static int potSize;
     private static int smallBlindAmount;
@@ -45,10 +44,10 @@ public class PokerGame {
     private static int playerWinRate;
     private static int botWinRate;
     private int burnCards;
-    private int botAmount;
+    private final int botAmount;
     private int betFollow;
     private boolean earlyWin;
-    private TextArea announcerTextArea;
+    private final TextArea announcerTextArea;
 
     protected PokerGame(PokerController controller){
         for (ImageView imageView : controller.imageViews) {
@@ -420,7 +419,7 @@ public class PokerGame {
                     // Ensure the loop stops after completing a full cycle
                     if (players.get(i).equals(players.get(starter)) && flag) {
                         System.out.println("In break");
-                        break loop;
+                        break;
                     }
                     if (!playersFold.get(i)) {
                         playerTurnCircles.get(i).setVisible(true);

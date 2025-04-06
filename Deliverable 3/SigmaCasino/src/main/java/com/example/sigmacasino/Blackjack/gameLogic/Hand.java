@@ -8,8 +8,8 @@ import javafx.util.Duration;
 
 public class Hand {
 
-    private ObservableList<Node> cards;
-    private SimpleIntegerProperty value = new SimpleIntegerProperty(0);
+    private final ObservableList<Node> cards;
+    private final SimpleIntegerProperty value = new SimpleIntegerProperty(0);
     private int numOfAces = 0;
     public Hand(ObservableList<Node> cards){
         this.cards = cards;

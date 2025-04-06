@@ -5,12 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 import java.io.File;
-import java.util.Stack;
 
 public class BlackJackCard extends Parent {
 
@@ -18,14 +15,15 @@ public class BlackJackCard extends Parent {
     enum BSuit{
         HEARTS, DIAMONDS, CLUBS, SPADES
 
-    };
+    }
+
     enum BRank{
         TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10), ACE(11);
         final int value;
-        private BRank(int value){
+        BRank(int value){
             this.value = value;
 
-        };
+        }
 
     }
     public final BSuit Bsuit;

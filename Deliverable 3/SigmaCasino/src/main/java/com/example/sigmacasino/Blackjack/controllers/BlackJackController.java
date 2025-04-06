@@ -30,10 +30,10 @@ import java.io.IOException;
 public class BlackJackController {
 
 
-    private Deck deck = new Deck();
+    private final Deck deck = new Deck();
     private Hand dealer, player;
 
-    private SimpleBooleanProperty isPlayable = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty isPlayable = new SimpleBooleanProperty(false);
 
 
 
@@ -68,7 +68,7 @@ public class BlackJackController {
         } else if (dealerValue == 21) {
             resultText.setText("Dealer has Blackjack! DEALER wins.");
         } else {
-            return; //base case
+            //base case
         }
     }
 
