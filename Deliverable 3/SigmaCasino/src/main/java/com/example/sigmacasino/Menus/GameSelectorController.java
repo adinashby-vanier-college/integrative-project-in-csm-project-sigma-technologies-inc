@@ -152,4 +152,27 @@ public class GameSelectorController {
 
     }
 
+    @FXML
+    protected void onOptionsClick(ActionEvent event) {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/settings.fxml"));
+            BorderPane root = loader.load();
+
+            Stage secondStage = new Stage();
+            secondStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            Scene secondScene = new Scene(root);
+            secondStage.setTitle("Settings");
+            secondStage.setScene(secondScene);
+            secondStage.showAndWait();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
 }
