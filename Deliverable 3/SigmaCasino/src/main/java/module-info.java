@@ -11,4 +11,6 @@ module com.example.sigmacasino {
     exports com.example.sigmacasino.Poker;
     opens com.example.sigmacasino.Menus to javafx.fxml;
     exports com.example.sigmacasino.Menus;
+    opens com.example.sigmacasino.Roulette to javafx.fxml;
+    exports com.example.sigmacasino.Roulette;
 }
