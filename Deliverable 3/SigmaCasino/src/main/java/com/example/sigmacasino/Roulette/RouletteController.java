@@ -2,18 +2,19 @@ package com.example.sigmacasino.Roulette;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
+
+import java.util.Random;
 
 public class RouletteController {
 
     @FXML
+    private Label tracker;
+
+    @FXML
     protected void onReturnClick(ActionEvent event) {
+
         //TO FIX LATER + MODIFY LINE 15 OF ROULETTE.FXML
         /*
         MenuItem menuItem = (MenuItem) event.getSource();
@@ -47,6 +48,38 @@ public class RouletteController {
 
     }
 
-    
+    @FXML
+    protected void onTipsClick(ActionEvent event) {
+
+        Alert about = new Alert(Alert.AlertType.INFORMATION);
+        about.setTitle("About");
+        about.setHeaderText("Tips and Information");
+        about.setContentText("W.I.P.");
+        about.showAndWait();
+
+    }
+
+    @FXML
+    protected void onSpinClick(ActionEvent event) {
+
+        //RNG TO BE REPLACED BY CUSTOM RNG WRAPPER
+        Random rng = new Random();
+        int number = rng.nextInt(38);
+        if (number == 37) {
+            number = 0;
+        } else if (number == 38) {
+            number = -1;
+        }
+
+        String temp;
+        if (number == -1) {
+            temp = "00";
+        } else {
+            temp = String.valueOf(number);
+        }
+        String list = tracker.getText();
+        tracker.setText(temp + ", " + list);
+
+    }
 
 }
