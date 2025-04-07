@@ -1,7 +1,7 @@
 package com.example.sigmacasino.Menus;
+import com.example.sigmacasino.Settings.Settings;
 
 public class SettingsController {
 
-    //SETTINGS IMPLEMENTATION HERE
 
 }
