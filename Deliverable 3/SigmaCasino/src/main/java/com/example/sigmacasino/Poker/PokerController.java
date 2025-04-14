@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PokerController {
     @FXML private Spinner<Integer> SpinnerBots;
@@ -298,6 +300,15 @@ public class PokerController {
 
         gameSelect.setOnAction(event -> {
             try {
+                ArrayList<String> openThreads = new ArrayList<>(List.of(new String[]{"Monitor Ctrl-Break", "Notification Thread", "InvokeLaterDispatcher", "Cleaner-0", "JavaFX Application Thread", "Common-Cleaner",
+                        "Attach Listener", "Prism Font Disposer", "Reference Handler", "QuantumRenderer-0", "Signal Dispatcher", "main", "Finalizer", "JavaFX-Launcher"}));
+                for (Thread t : Thread.getAllStackTraces().keySet()) {
+                    if (openThreads.contains(t.getName())) {
+                        System.out.println("Found Thread-1 with ID: " + t.getId());
+                        t.interrupt();
+                        break;
+                    }
+                }
                 switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml",null);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -306,6 +317,15 @@ public class PokerController {
 
         menuQuit.setOnAction(event -> {
             try {
+                ArrayList<String> openThreads = new ArrayList<>(List.of(new String[]{"Monitor Ctrl-Break", "Notification Thread", "InvokeLaterDispatcher", "Cleaner-0", "JavaFX Application Thread", "Common-Cleaner",
+                        "Attach Listener", "Prism Font Disposer", "Reference Handler", "QuantumRenderer-0", "Signal Dispatcher", "main", "Finalizer", "JavaFX-Launcher"}));
+                for (Thread t : Thread.getAllStackTraces().keySet()) {
+                    if (openThreads.contains(t.getName())) {
+                        System.out.println("Found Thread-1 with ID: " + t.getId());
+                        t.interrupt();
+                        break;
+                    }
+                }
                 Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
                 stage.close();
             } catch (Exception e) {
