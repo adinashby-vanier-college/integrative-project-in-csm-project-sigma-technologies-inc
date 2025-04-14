@@ -1,0 +1,162 @@
+
+
+
+            loop: for (int i = starter; ; i++) {
+
+
+
+                    if (!playersFold.get(i)) {
+                        playerTurnCircles.get(i).setVisible(true);
+                        if (i == 0) { // Player's turn
+
+
+                            System.out.println("\nPlayer is betting");
+                            text = "\nPlayer's turn to bet...";
+                            String finalText2 = text;
+                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText2));
+
+                            Thread.sleep(delay*1000);
+                            value = controller.getButtonValue();
+                            int playerFollow;
+                            switch (value) {
+                                case 0: // Check/Call
+                                    int botFollow = betFollow - currentPlayerBets.get(i);
+                                    if (botFollow == 0) {
+                                        text = "\nPlayer has chosen to check";
+                                    } else {
+                                        text = "\nPlayer has chosen to call $" + botFollow;
+                                    }
+
+                                    // Ensure player doesn't bet more than they have
+                                    botFollow = Math.min(botFollow, playerChips.get(i));
+                                    playerChips.set(i, playerChips.get(i) - botFollow);
+                                    currentPlayerBets.set(i, currentPlayerBets.get(i) + botFollow);
+                                    potSize += botFollow;
+                                    break;
+
+                                case -1: // Fold
+                                    text = "\nPlayer has chosen to fold";
+                                    playersFold.set(i, true);
+                                    break;
+
+                                default: // Raise
+                                    int raiseAmount = value;
+                                    botFollow = betFollow - currentPlayerBets.get(i);
+                                    int totalBet = botFollow + raiseAmount;
+
+                                    // Ensure player doesn't bet more than they have
+                                    totalBet = Math.min(totalBet, playerChips.get(i));
+                                    playerChips.set(i, playerChips.get(i) - totalBet);
+                                    currentPlayerBets.set(i, currentPlayerBets.get(i) + totalBet);
+                                    betFollow += raiseAmount; // Update the highest bet
+                                    potSize += totalBet;
+                                    starter = i; // New raiser becomes the new "starter" for betting round
+                                    text = "\nPlayer has chosen to raise by $" + raiseAmount;
+                                    break;
+                            }
+
+                            if (!playersFold.get(i)) {
+                                Platform.runLater(() -> potSize = potSize + betFollow);
+                            }
+                            Platform.runLater(() -> updateChips(potSize, controller));
+                            String finalText = text;
+                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
+                            Platform.runLater(() -> {
+                                controller.getSecondsLabel().setVisible(false);
+                                controller.getTimeRemainingLabel().setVisible(false);
+                                controller.getPlayerTimeLimitLabel().setVisible(false);
+                                controller.getRaiseTextArea().setText("0");
+                                controller.getCheckProbabilityLabel().setText("");
+                                controller.getFoldProbabilityLabel().setText("");
+                                controller.getRaiseProbabilityLabel().setText("");
+                            });
+                        } else { // Bot's turn
+                            botWinRate=0;
+                            System.out.println("\n" + players.get(i).getName() + " is betting");
+                            text = "\n" + players.get(i).getName() + "'s turn to bet...";
+                            String finalText1 = text;
+                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText1));
+
+                            // Run simulation in background
+                            int finalI = i;
+
+                                PokerCalculator simulator = new PokerCalculator(
+                                        players.get(finalI).getHand().getCards(),
+                                        riverCards,
+                                        players.size() - 1
+                                );
+
+                                int winRate = (int) (simulator.runSimulation() * 100);
+                                System.out.println("\n\nWin Rate: " + winRate+"\n\n");
+                                setBotWinRate(winRate);
+
+
+
+                            //Bot decision
+                            int[] results = PokerCalculator.getMoveDecision(botWinRate, betFollow, potSize, currentPlayerBets.get(i));
+                            int max = results[0];
+                            int index = 0;
+                            for(int j=1;j<results.length;j++)
+                            {
+                                if(results[j]>max)
+                                {
+                                    max=results[j];
+                                    index =j;
+                                }
+                            }
+                            int botFollow;
+                            switch(index){
+                                case 0: // Check/Call
+                                    botFollow = betFollow - currentPlayerBets.get(i);
+                                    if (botFollow == 0) {
+                                        text = "\n" + players.get(i).getName() + " has chosen to check";
+                                    } else {
+                                        text = "\n" + players.get(i).getName() + " has chosen to call $" + botFollow;
+                                    }
+                                    botFollow = Math.min(botFollow, playerChips.get(i));
+                                    playerChips.set(i, playerChips.get(i) - botFollow);
+                                    currentPlayerBets.set(i, currentPlayerBets.get(i) + botFollow);
+                                    potSize += botFollow;
+                                    break;
+
+                                case 1: // Fold
+                                    text = "\n" + players.get(i).getName() + " has chosen to fold";
+                                    playersFold.set(i, true);
+                                    break;
+
+                                case 2: // Raise
+                                    if(playerChips.get(i)!=0) {
+                                        int raiseAmount = ThreadLocalRandom.current().nextInt(0, (playerChips.get(i) / 4));
+                                        botFollow = betFollow - currentPlayerBets.get(i);
+                                        int totalBet = botFollow + raiseAmount;
+
+                                        totalBet = Math.min(totalBet, playerChips.get(i));
+                                        playerChips.set(i, playerChips.get(i) - totalBet);
+                                        currentPlayerBets.set(i, currentPlayerBets.get(i) + totalBet);
+                                        betFollow += raiseAmount;
+                                        potSize += totalBet;
+                                        starter = i;
+                                        text = "\n" + players.get(i).getName() + " has chosen to raise by $" + raiseAmount;
+                                    }
+                                    else{
+                                        text = "\n" + players.get(i).getName() + " has chosen to check";
+                                    }
+                                    break;
+                            }
+                            Thread.sleep(5000);
+
+                            if (!playersFold.get(i)) {
+                                Platform.runLater(() -> potSize = potSize + betFollow);
+                            }
+                            Platform.runLater(() -> updateChips(potSize, controller));
+                            String finalText = text;
+                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
+                            botWinRate=0;
+                        }
+                        playerTurnCircles.get(i).setVisible(false);
+                    }
+                }
+                else{
+                    earlyWin = true;
+                    break;
+                }

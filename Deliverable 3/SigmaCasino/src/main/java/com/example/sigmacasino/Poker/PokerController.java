@@ -245,7 +245,7 @@ public class PokerController {
                 chip.setText(""+value);
             }
             PokerGame.getPlayerChips().clear();
-            PokerGame.getdealerLabels().clear();
+            PokerGame.getDealerLabels().clear();
             PokerGame.getSmallBlindLabels().clear();
             PokerGame.getBigBlindLabels().clear();
             PokerGame.getCard1().clear();
@@ -258,7 +258,7 @@ public class PokerController {
         SpinnerBots.valueProperty().addListener((obs, oldValue, newValue) -> {
             onBotNumberChange();
             PokerGame.getPlayerChips().clear();
-            PokerGame.getdealerLabels().clear();
+            PokerGame.getDealerLabels().clear();
             PokerGame.getSmallBlindLabels().clear();
             PokerGame.getBigBlindLabels().clear();
             PokerGame.getCard1().clear();

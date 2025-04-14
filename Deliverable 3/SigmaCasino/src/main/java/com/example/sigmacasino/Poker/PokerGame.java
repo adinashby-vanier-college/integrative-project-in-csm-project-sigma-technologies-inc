@@ -19,7 +19,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.example.sigmacasino.Poker.HandRanks.bestHand;
 
 public class PokerGame {
-    private static BettingThread bettingThread;
     private final ArrayList<Player> players = new ArrayList<>();
     private static final ArrayList<Integer> playerChips = new ArrayList<>();
     private final ArrayList<Card> riverCards = new ArrayList<>();
@@ -72,9 +71,6 @@ public class PokerGame {
             smallBlindAmount = startingChips/100;
             bigBlindAmount = startingChips/50;
         }
-
-        bettingThread = new BettingThread();
-        bettingThread.start();
         announcerTextArea = controller.getAnnouncerTextArea();
         int index = 1;
         botAmount=controller.getSpinnerBots().getValue();
@@ -387,13 +383,7 @@ public class PokerGame {
     }
 
     private void playerBet(PokerController controller){
-        bettingThread.pauseThread(); // Pause betting logic
-
-        //Resets values for a new betting phase
-        for (int j = 0; j < currentPlayerBets.size(); j++) {
-            currentPlayerBets.set(j, 0);
-        }
-        betFollow=0;
+        System.out.println("Bet Follow: "+betFollow);
 
         //Finds starter player
         int value;
@@ -407,7 +397,7 @@ public class PokerGame {
         try {
             System.out.println("Starter: " + starter);
 
-            loop: for (int i = starter; ; i++) {
+            for (int i = starter; ; i++) {
                 if(!didEveryoneFold()) {
                     System.out.println("Current: " + i);
                     if (i == players.size()) {
@@ -600,11 +590,16 @@ public class PokerGame {
                     earlyWin = true;
                     break;
                 }
+                System.out.println("Pot size:"+potSize);
+
+                //Resets values for a new betting phase
+                currentPlayerBets.replaceAll(ignored -> 0);
+                betFollow=0;
+                System.out.println("Current Bets: "+currentPlayerBets);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        bettingThread.resumeThread(); // Resume betting logic
     }
 
 
@@ -725,6 +720,7 @@ public class PokerGame {
     private void placeBlinds(PokerController controller){
         currentPlayerBets.set(smallBlindIndex, smallBlindAmount);
         currentPlayerBets.set(bigBlindIndex, bigBlindAmount);
+        System.out.println("Current Bets: "+currentPlayerBets);
         betFollow=bigBlindAmount;
         potSize = smallBlindAmount+bigBlindAmount;
         playerChips.set(smallBlindIndex,playerChips.get(smallBlindIndex)-smallBlindAmount);
@@ -782,7 +778,7 @@ public class PokerGame {
         return playerChips;
     }
 
-    protected static ArrayList<Label> getdealerLabels(){
+    protected static ArrayList<Label> getDealerLabels(){
         return dealerLabels;
     }
 
@@ -816,7 +812,6 @@ public class PokerGame {
 
 
     private void endGame(PokerController controller) {
-        bettingThread.stopThread();// Gracefully stop the betting thread
         potSize=0;
         for(int i=0;i<players.size();i++)
         {
@@ -832,51 +827,5 @@ public class PokerGame {
             smallBlindLabels.get(smallBlindIndex).setVisible(false);
             bigBlindLabels.get(bigBlindIndex).setVisible(false);
         });
-    }
-
-    private class BettingThread extends Thread {
-        private volatile boolean running = true;
-        private volatile boolean paused = false;
-
-        public void pauseThread() {
-            paused = true;
-        }
-
-        public void resumeThread() {
-            synchronized (this) {
-                paused = false;
-                notify(); // Wake up the thread
-            }
-        }
-
-        public void stopThread() {
-            running = false; // Signal thread to stop
-            resumeThread();  // In case it's paused, wake it up so it can exit
-        }
-
-        @Override
-        public void run() {
-            while (running) { // Run while the thread is active
-                synchronized (this) {
-                    while (paused && running) { // Pause logic
-                        try {
-                            wait(); // Wait until resumed or stopped
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                        }
-                    }
-                }
-
-                if (!running) break; // Exit if stopped
-
-                System.out.println("Betting phase ongoing...");
-                try {
-                    Thread.sleep(1000); // Simulate betting process
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            }
-            System.out.println("Betting thread has stopped.");
-        }
     }
 }
