@@ -447,21 +447,21 @@ public class PokerGame {
                             }).start();
                             Thread.sleep(delay*1000);
                             value = controller.getButtonValue();
-                            int playerFollow;
+                            int playerFollow = betFollow - currentPlayerBets.get(i);
                             switch (value) {
                                 case 0: // Check/Call
-                                    int botFollow = betFollow - currentPlayerBets.get(i);
-                                    if (botFollow == 0) {
+                                    System.out.println("\nPlayer Follow: "+playerFollow);
+                                    if (playerFollow == 0) {
                                         text = "\nPlayer has chosen to check";
                                     } else {
-                                        text = "\nPlayer has chosen to call $" + botFollow;
+                                        text = "\nPlayer has chosen to call $" + playerFollow;
                                     }
 
                                     // Ensure player doesn't bet more than they have
-                                    botFollow = Math.min(botFollow, playerChips.get(i));
-                                    playerChips.set(i, playerChips.get(i) - botFollow);
-                                    currentPlayerBets.set(i, currentPlayerBets.get(i) + botFollow);
-                                    potSize += botFollow;
+                                    playerFollow = Math.min(playerFollow, playerChips.get(i));
+                                    playerChips.set(i, playerChips.get(i) - playerFollow);
+                                    currentPlayerBets.set(i, currentPlayerBets.get(i) + playerFollow);
+                                    potSize += playerFollow;
                                     break;
 
                                 case -1: // Fold
@@ -470,23 +470,17 @@ public class PokerGame {
                                     break;
 
                                 default: // Raise
-                                    int raiseAmount = value;
-                                    botFollow = betFollow - currentPlayerBets.get(i);
-                                    int totalBet = botFollow + raiseAmount;
+                                    int totalBet = playerFollow + value;
 
                                     // Ensure player doesn't bet more than they have
                                     totalBet = Math.min(totalBet, playerChips.get(i));
                                     playerChips.set(i, playerChips.get(i) - totalBet);
                                     currentPlayerBets.set(i, currentPlayerBets.get(i) + totalBet);
-                                    betFollow += raiseAmount; // Update the highest bet
+                                    betFollow += value; // Update the highest bet
                                     potSize += totalBet;
                                     starter = i; // New raiser becomes the new "starter" for betting round
-                                    text = "\nPlayer has chosen to raise by $" + raiseAmount;
+                                    text = "\nPlayer has chosen to raise by $" + value;
                                     break;
-                            }
-
-                            if (!playersFold.get(i)) {
-                                Platform.runLater(() -> potSize = potSize + betFollow);
                             }
                             Platform.runLater(() -> updateChips(potSize, controller));
                             String finalText = text;
@@ -509,18 +503,14 @@ public class PokerGame {
 
                             // Run simulation in background
                             int finalI = i;
-
-                                PokerCalculator simulator = new PokerCalculator(
-                                        players.get(finalI).getHand().getCards(),
-                                        riverCards,
-                                        players.size() - 1
-                                );
-
-                                int winRate = (int) (simulator.runSimulation() * 100);
-                                System.out.println("\n\nWin Rate: " + winRate+"\n\n");
-                                setBotWinRate(winRate);
-
-
+                            PokerCalculator simulator = new PokerCalculator(
+                                    players.get(finalI).getHand().getCards(),
+                                    riverCards,
+                                    players.size() - 1
+                            );
+                            int winRate = (int) (simulator.runSimulation() * 100);
+                            System.out.println("\n\nWin Rate: " + winRate+"\n\n");
+                            setBotWinRate(winRate);
 
                             //Bot decision
                             int[] results = PokerCalculator.getMoveDecision(botWinRate, betFollow, potSize, currentPlayerBets.get(i));
@@ -534,10 +524,10 @@ public class PokerGame {
                                     index =j;
                                 }
                             }
-                            int botFollow;
+                            int botFollow = betFollow - currentPlayerBets.get(i);
+                            System.out.println("\nBot Follow: "+botFollow);
                             switch(index){
                                 case 0: // Check/Call
-                                    botFollow = betFollow - currentPlayerBets.get(i);
                                     if (botFollow == 0) {
                                         text = "\n" + players.get(i).getName() + " has chosen to check";
                                     } else {
@@ -574,10 +564,6 @@ public class PokerGame {
                                     break;
                             }
                             Thread.sleep(5000);
-
-                            if (!playersFold.get(i)) {
-                                Platform.runLater(() -> potSize = potSize + betFollow);
-                            }
                             Platform.runLater(() -> updateChips(potSize, controller));
                             String finalText = text;
                             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
