@@ -477,6 +477,7 @@ public class PokerGame {
                                     playerChips.set(i, playerChips.get(i) - totalBet);
                                     currentPlayerBets.set(i, currentPlayerBets.get(i) + totalBet);
                                     betFollow += value; // Update the highest bet
+                                    System.out.println("\nBet Follow: "+betFollow);
                                     potSize += totalBet;
                                     starter = i; // New raiser becomes the new "starter" for betting round
                                     text = "\nPlayer has chosen to raise by $" + value;
@@ -554,6 +555,7 @@ public class PokerGame {
                                         playerChips.set(i, playerChips.get(i) - totalBet);
                                         currentPlayerBets.set(i, currentPlayerBets.get(i) + totalBet);
                                         betFollow += raiseAmount;
+                                        System.out.println("\nBet Follow: "+betFollow);
                                         potSize += totalBet;
                                         starter = i;
                                         text = "\n" + players.get(i).getName() + " has chosen to raise by $" + raiseAmount;
@@ -576,16 +578,16 @@ public class PokerGame {
                     earlyWin = true;
                     break;
                 }
-                System.out.println("Pot size:"+potSize);
-
-                //Resets values for a new betting phase
-                currentPlayerBets.replaceAll(ignored -> 0);
-                betFollow=0;
-                System.out.println("Current Bets: "+currentPlayerBets);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+        System.out.println("Pot size:"+potSize);
+
+        //Resets values for a new betting phase
+        currentPlayerBets.replaceAll(ignored -> 0);
+        betFollow=0;
+        System.out.println("Current Bets: "+currentPlayerBets);
     }
 
 
