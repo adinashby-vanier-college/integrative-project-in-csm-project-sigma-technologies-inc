@@ -150,6 +150,17 @@ public class PokerController {
 
     @FXML
     public void initialize() throws IOException {
+
+        //Clears all PokerGame assets
+        PokerGame.getPlayerChips().clear();
+        PokerGame.getDealerLabels().clear();
+        PokerGame.getSmallBlindLabels().clear();
+        PokerGame.getBigBlindLabels().clear();
+        PokerGame.getCard1().clear();
+        PokerGame.getCard2().clear();
+        PokerGame.getChipLabels().clear();
+        PokerGame.getPlayerTurnCircles().clear();
+
         imageViews = new ImageView[]{best_H1_1, best_H1_2, best_H1_3, best_H1_4, best_H1_5, best_H2_1, best_H2_2
                 , best_H2_3, best_H2_4, best_H2_5, riverCard1, riverCard2, riverCard3, riverCard4, riverCard5
                 , playerCard1, playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2
@@ -303,7 +314,7 @@ public class PokerController {
                 ArrayList<String> openThreads = new ArrayList<>(List.of(new String[]{"Monitor Ctrl-Break", "Notification Thread", "InvokeLaterDispatcher", "Cleaner-0", "JavaFX Application Thread", "Common-Cleaner",
                         "Attach Listener", "Prism Font Disposer", "Reference Handler", "QuantumRenderer-0", "Signal Dispatcher", "main", "Finalizer", "JavaFX-Launcher"}));
                 for (Thread t : Thread.getAllStackTraces().keySet()) {
-                    if (openThreads.contains(t.getName())) {
+                    if (!openThreads.contains(t.getName())) {
                         System.out.println("Found Thread-1 with ID: " + t.getId());
                         t.interrupt();
                         break;
@@ -320,7 +331,7 @@ public class PokerController {
                 ArrayList<String> openThreads = new ArrayList<>(List.of(new String[]{"Monitor Ctrl-Break", "Notification Thread", "InvokeLaterDispatcher", "Cleaner-0", "JavaFX Application Thread", "Common-Cleaner",
                         "Attach Listener", "Prism Font Disposer", "Reference Handler", "QuantumRenderer-0", "Signal Dispatcher", "main", "Finalizer", "JavaFX-Launcher"}));
                 for (Thread t : Thread.getAllStackTraces().keySet()) {
-                    if (openThreads.contains(t.getName())) {
+                    if (!openThreads.contains(t.getName())) {
                         System.out.println("Found Thread-1 with ID: " + t.getId());
                         t.interrupt();
                         break;
