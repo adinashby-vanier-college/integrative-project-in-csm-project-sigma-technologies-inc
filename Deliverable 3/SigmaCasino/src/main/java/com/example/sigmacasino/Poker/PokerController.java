@@ -628,4 +628,29 @@ public class PokerController {
         return raiseProbabilityLabel;
     }
 
+    protected Circle getPlayerCircle() {
+        return playerCircle;
+    }
+
+    protected Circle getBotCircle1() {
+        return botCircle1;
+    }
+
+    protected Circle getBotCircle2() {
+        return botCircle2;
+    }
+
+    protected Circle getBotCircle3() {
+        return botCircle3;
+    }
+
+    protected Circle getBotCircle4() {
+        return botCircle4;
+    }
+
+    protected Circle getBotCircle5() {
+        return botCircle5;
+    }
+
+
 }

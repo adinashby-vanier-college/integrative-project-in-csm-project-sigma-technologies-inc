@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.io.File;
@@ -33,6 +34,7 @@ public class PokerGame {
     private static final ArrayList<Circle> playerTurnCircles = new ArrayList<>();
     private final ArrayList<Boolean> playersFold = new ArrayList<>();
     private final ArrayList<Integer> currentPlayerBets = new ArrayList<>();
+    private final ArrayList<Circle> playerCirlesGUI = new ArrayList<>();
     private Deck deck;
     private static int potSize;
     private static int smallBlindAmount;
@@ -61,6 +63,7 @@ public class PokerGame {
         clearGraph(controller);
         playersFold.clear();
         currentPlayerBets.clear();
+        playerCirlesGUI.clear();
         playerWinRate=0;
         earlyWin= false;
         boolean newChips = false;
@@ -86,6 +89,7 @@ public class PokerGame {
         players.add(new Player("Player"));
         playersFold.add(false);
         currentPlayerBets.add(0);
+        playerCirlesGUI.add(controller.getPlayerCircle());
         if(newChips) {
             associatePlayerCards(controller,players.getFirst().getName());
             playerChips.add(Integer.parseInt(controller.getChipsPlayer().getText()));
@@ -99,6 +103,7 @@ public class PokerGame {
             players.add(new Player("Bot "+botAmount));
             playersFold.add(false);
             currentPlayerBets.add(0);
+            playerCirlesGUI.add(controller.getBotCircle4());
             index=2;
             if(newChips) {
                 associatePlayerCards(controller,players.get(1).getName());
@@ -113,6 +118,7 @@ public class PokerGame {
             players.add(new Player("Bot "+botAmount));
             playersFold.add(false);
             currentPlayerBets.add(0);
+            playerCirlesGUI.add(controller.getBotCircle5());
             if(newChips) {
                 associatePlayerCards(controller,players.get(1).getName());
                 playerChips.add(Integer.parseInt(controller.getChipsBot5().getText()));
@@ -123,6 +129,7 @@ public class PokerGame {
             players.add(new Player("Bot "+(botAmount-1)));
             playersFold.add(false);
             currentPlayerBets.add(0);
+            playerCirlesGUI.add(controller.getBotCircle4());
             if(newChips) {
                 associatePlayerCards(controller,players.get(2).getName());
                 playerChips.add(Integer.parseInt(controller.getChipsBot4().getText()));
@@ -136,11 +143,13 @@ public class PokerGame {
         Label[] dealer = {controller.getDealerLabelBot1(),controller.getDealerLabelBot2(),controller.getDealerLabelBot3()};
         Label[] smallBlind = {controller.getSmallBlindLabelBot1(),controller.getSmallBlindLabelBot2(),controller.getSmallBlindLabelBot3()};
         Label[] bigBlind = {controller.getBigBlindLabelBot1(),controller.getBigBlindLabelBot2(),controller.getBigBlindLabelBot3()};
+        Circle[] circles = {controller.getBotCircle1(),controller.getBotCircle2(),controller.getBotCircle3()};
         for(int i=index,j=1;i<=botAmount;i++,j++)
         {
             players.add(new Player("Bot "+j));
             playersFold.add(false);
             currentPlayerBets.add(0);
+            playerCirlesGUI.add(circles[j-1]);
             if(newChips) {
                 playerChips.add(chips[j - 1]);
                 dealerLabels.add(dealer[j - 1]);
@@ -165,6 +174,11 @@ public class PokerGame {
         dealerLabels.get(dealerIndex).setVisible(true);
         smallBlindLabels.get(smallBlindIndex).setVisible(true);
         bigBlindLabels.get(bigBlindIndex).setVisible(true);
+
+        //Resets player circle color
+        for (Circle circle : playerCirlesGUI) {
+            circle.setFill(Color.LIGHTBLUE);
+        }
     }
 
     private void changeDealer(int botAmount){
@@ -467,6 +481,7 @@ public class PokerGame {
                                 case -1: // Fold
                                     text = "\nPlayer has chosen to fold";
                                     playersFold.set(i, true);
+                                    playerCirlesGUI.get(i).setFill(Color.GRAY);
                                     break;
 
                                 default: // Raise
@@ -543,6 +558,7 @@ public class PokerGame {
                                 case 1: // Fold
                                     text = "\n" + players.get(i).getName() + " has chosen to fold";
                                     playersFold.set(i, true);
+                                    playerCirlesGUI.get(i).setFill(Color.GRAY);
                                     break;
 
                                 case 2: // Raise
