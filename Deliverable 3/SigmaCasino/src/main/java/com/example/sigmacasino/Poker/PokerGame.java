@@ -222,7 +222,7 @@ public class PokerGame {
         placeBlinds(controller);
 
         //First Round of Betting
-        playerBet(controller);
+        playerBet(controller,true);
 
         if(earlyWin)
         {
@@ -235,7 +235,7 @@ public class PokerGame {
         updateGraph(1,controller);
 
         //Second Round of Betting
-        playerBet(controller);
+        playerBet(controller,false);
 
         if(earlyWin)
         {
@@ -248,7 +248,7 @@ public class PokerGame {
         updateGraph(2,controller);
 
         //Third Round of Betting
-        playerBet(controller);
+        playerBet(controller,false);
 
         if(earlyWin)
         {
@@ -261,7 +261,7 @@ public class PokerGame {
         updateGraph(3,controller);
 
         //Fourth Round of Betting
-        playerBet(controller);
+        playerBet(controller,false);
 
         if(earlyWin)
         {
@@ -396,7 +396,7 @@ public class PokerGame {
         return counter == 1;
     }
 
-    private void playerBet(PokerController controller){
+    private void playerBet(PokerController controller, boolean isFirstRound){
         System.out.println("Bet Follow: "+betFollow);
 
         //Finds starter player
@@ -430,7 +430,7 @@ public class PokerGame {
                         if (i == 0) { // Player's turn
                             
                             //Updates check, fold, raise percentages
-                            int[] results = PokerCalculator.getMoveDecision(playerWinRate,betFollow,potSize,currentPlayerBets.get(i));
+                            int[] results = PokerCalculator.getMoveDecision(playerWinRate,betFollow,potSize,currentPlayerBets.get(i),isFirstRound);
                             Platform.runLater(() -> {
                                 controller.getCheckProbabilityLabel().setText(results[0] + "%");
                                 controller.getFoldProbabilityLabel().setText(results[1] + "%");
@@ -529,7 +529,7 @@ public class PokerGame {
                             setBotWinRate(winRate);
 
                             //Bot decision
-                            int[] results = PokerCalculator.getMoveDecision(botWinRate, betFollow, potSize, currentPlayerBets.get(i));
+                            int[] results = PokerCalculator.getMoveDecision(botWinRate, betFollow, potSize, currentPlayerBets.get(i),isFirstRound);
                             int max = results[0];
                             int index = 0;
                             for(int j=1;j<results.length;j++)

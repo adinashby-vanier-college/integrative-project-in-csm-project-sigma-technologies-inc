@@ -63,39 +63,45 @@ public class PokerCalculator extends Calculator {
         return winRate;
     }
 
-    static int[] getMoveDecision(double winRatePercent, double currentBet, double potSize, double playerInvestment) {
+    static int[] getMoveDecision(double winRatePercent, double currentBet, double potSize, double playerInvestment, boolean isFirstRound) {
         System.out.println("\n=== NEW DECISION CALCULATION ===");
         System.out.printf("Input params - WinRate: %.2f%%, CurrentBet: %.1f, PotSize: %.1f, PlayerInvestment: %.1f\n",
                 winRatePercent, currentBet, potSize, playerInvestment);
 
-        // Convert win rate percentage to decimal (0-1)
+        // Convert win rate percentage (0-100%) to decimal (0.0-1.0)
         double winRate = Math.max(0, Math.min(100, winRatePercent)) / 100.0;
         System.out.printf("Converted WinRate: %.2f\n", winRate);
 
-        // Calculate pot odds
+        // Calculate the cost to call and pot odds
         double callCost = Math.max(currentBet - playerInvestment, 0);
         double effectivePotSize = potSize + callCost;
-        double potOdds = (callCost == 0) ? 0 : callCost / effectivePotSize;
+        double potOdds = (callCost == 0) ? 0 : callCost / effectivePotSize; //Doesn't throw an error if dividing by 0
         System.out.printf("Calculated - CallCost: %.1f, EffectivePot: %.1f, PotOdds: %.2f\n",
                 callCost, effectivePotSize, potOdds);
 
-        // Base probabilities
+        // Decision probabilities
         int checkProb = 0;
         int foldProb = 0;
         int raiseProb = 0;
         String decisionCase = "";
 
-        // Decision logic
+
+        // Case 1: No bet to call — you can check or raise
         if (callCost == 0) {
             decisionCase = "NO BET TO CALL";
             System.out.println("Case: " + decisionCase);
 
-            // More likely to check with lower win rate
+            // Default: more likely to check unless win rate is high
             checkProb = 60 + (int)((1 - winRate) * 30);  // 60-90% check
             raiseProb = 100 - checkProb;
-            System.out.printf("Initial probs - Check: %d, Raise: %d\n", checkProb, raiseProb);
 
-            // Ensure one is always at least 10% higher
+            // If win rate > 50%, boost raise chance
+            if (winRate > 0.5) {
+                raiseProb += (int)((winRate - 0.5) * 40);  // boost based on how strong the hand is
+                checkProb = 100 - raiseProb;
+            }
+
+            // Ensure there's a clear difference between choices
             if (Math.abs(checkProb - raiseProb) < 10) {
                 System.out.println("Adjusting for minimum 10% difference");
                 if (winRate > 0.5) {
@@ -105,27 +111,49 @@ public class PokerCalculator extends Calculator {
                     checkProb += 10;
                     raiseProb -= 10;
                 }
-                System.out.printf("Adjusted probs - Check: %d, Raise: %d\n", checkProb, raiseProb);
             }
+
+            System.out.printf("Adjusted probs - Check: %d, Raise: %d\n", checkProb, raiseProb);
+
         } else {
-            // There is a bet to call
+            // Case 2: There is a bet to call
+
             if (winRate < potOdds - 0.15) {
                 decisionCase = "VERY UNFAVORABLE";
                 System.out.println("Case: " + decisionCase);
 
                 foldProb = 70 + (int)(Math.random() * 20);  // 70-90% fold
+
+                // First round: encourage more play by reducing fold
+                if (isFirstRound) {
+                    System.out.println("First round: reducing fold probability");
+                    foldProb -= 40;
+                }
+
                 checkProb = (int)((1 - winRate) * (100 - foldProb) * 0.7);
                 raiseProb = 100 - foldProb - checkProb;
-                System.out.printf("Initial probs - Check: %d, Fold: %d, Raise: %d\n", checkProb, foldProb, raiseProb);
+
+                // Add bluffing if win rate is very low
+                if (winRate < 0.35 && Math.random() < 0.34) {
+                    int bluffAmount = 2 + (int)(Math.random() * 6);  // 2% to 8%
+                    System.out.printf("BLUFFING! Boosting raise by %d%%\n", bluffAmount);
+                    raiseProb += bluffAmount;
+                    foldProb -= bluffAmount;
+                }
 
             } else if (winRate < potOdds) {
                 decisionCase = "SLIGHTLY UNFAVORABLE";
                 System.out.println("Case: " + decisionCase);
 
                 foldProb = 30 + (int)(Math.random() * 30);  // 30-60% fold
+
+                if (isFirstRound) {
+                    System.out.println("First round: reducing fold probability");
+                    foldProb -= 35;
+                }
+
                 checkProb = (int)((winRate * 0.7) * (100 - foldProb));
                 raiseProb = 100 - foldProb - checkProb;
-                System.out.printf("Initial probs - Check: %d, Fold: %d, Raise: %d\n", checkProb, foldProb, raiseProb);
 
             } else if (winRate < potOdds + 0.2) {
                 decisionCase = "MARGINAL SITUATION";
@@ -133,51 +161,53 @@ public class PokerCalculator extends Calculator {
 
                 checkProb = 60 + (int)(Math.random() * 30);  // 60-90% check
                 raiseProb = (int)((winRate - potOdds) * (100 - checkProb) * 2);
+
+                // Favor raise if win rate > 50%
+                if (winRate > 0.5) {
+                    raiseProb += (int)((winRate - 0.5) * 30);
+                }
+
                 foldProb = 100 - checkProb - raiseProb;
-                System.out.printf("Initial probs - Check: %d, Fold: %d, Raise: %d\n", checkProb, foldProb, raiseProb);
 
             } else {
                 decisionCase = "STRONG HAND";
                 System.out.println("Case: " + decisionCase);
 
                 raiseProb = 50 + (int)((winRate - potOdds) * 40);  // 50-90% raise
+
+                // Strong win rate gets extra raise boost
+                if (winRate > 0.5) {
+                    raiseProb += (int)((winRate - 0.5) * 30);
+                }
+
                 checkProb = (int)((1 - (winRate - potOdds)) * (100 - raiseProb) * 0.6);
                 foldProb = 100 - raiseProb - checkProb;
-                System.out.printf("Initial probs - Check: %d, Fold: %d, Raise: %d\n", checkProb, foldProb, raiseProb);
             }
 
-            // Ensure one action is clearly dominant (at least 15% difference)
+            // Ensure one action is clearly favored by >=15%
             System.out.println("Checking for dominant action...");
             int maxProb = Math.max(checkProb, Math.max(foldProb, raiseProb));
-            if (maxProb == checkProb) {
-                System.out.println("Check is currently dominant");
-                if (checkProb - Math.max(foldProb, raiseProb) < 15) {
-                    System.out.println("Adjusting to strengthen check");
-                    checkProb += 15;
-                    if (foldProb > raiseProb) foldProb -= 15;
-                    else raiseProb -= 15;
-                }
-            } else if (maxProb == foldProb) {
-                System.out.println("Fold is currently dominant");
-                if (foldProb - Math.max(checkProb, raiseProb) < 15) {
-                    System.out.println("Adjusting to strengthen fold");
-                    foldProb += 15;
-                    if (checkProb > raiseProb) checkProb -= 15;
-                    else raiseProb -= 15;
-                }
-            } else {
-                System.out.println("Raise is currently dominant");
-                if (raiseProb - Math.max(checkProb, foldProb) < 15) {
-                    System.out.println("Adjusting to strengthen raise");
-                    raiseProb += 15;
-                    if (checkProb > foldProb) checkProb -= 15;
-                    else foldProb -= 15;
-                }
+            if (maxProb == checkProb && checkProb - Math.max(foldProb, raiseProb) < 15) {
+                System.out.println("Adjusting to strengthen check");
+                checkProb += 15;
+                if (foldProb > raiseProb) foldProb -= 15;
+                else raiseProb -= 15;
+            } else if (maxProb == foldProb && foldProb - Math.max(checkProb, raiseProb) < 15) {
+                System.out.println("Adjusting to strengthen fold");
+                foldProb += 15;
+                if (checkProb > raiseProb) checkProb -= 15;
+                else raiseProb -= 15;
+            } else if (maxProb == raiseProb && raiseProb - Math.max(checkProb, foldProb) < 15) {
+                System.out.println("Adjusting to strengthen raise");
+                raiseProb += 15;
+                if (checkProb > foldProb) checkProb -= 15;
+                else foldProb -= 15;
             }
+
             System.out.printf("Post-dominance probs - Check: %d, Fold: %d, Raise: %d\n", checkProb, foldProb, raiseProb);
         }
 
-        // Final adjustments
+        // Normalize to total 100
         System.out.println("Making final adjustments...");
         int total = checkProb + foldProb + raiseProb;
         System.out.printf("Current total: %d\n", total);
@@ -198,7 +228,7 @@ public class PokerCalculator extends Calculator {
             }
         }
 
-        // Final clamp
+        // Clamp probabilities to valid range
         checkProb = Math.max(0, Math.min(100, checkProb));
         foldProb = Math.max(0, Math.min(100, foldProb));
         raiseProb = Math.max(0, Math.min(100, raiseProb));
@@ -209,6 +239,7 @@ public class PokerCalculator extends Calculator {
 
         return new int[]{checkProb, foldProb, raiseProb};
     }
+
 
     private int simulateGames(int numTrials) {
         int wins = 0;
