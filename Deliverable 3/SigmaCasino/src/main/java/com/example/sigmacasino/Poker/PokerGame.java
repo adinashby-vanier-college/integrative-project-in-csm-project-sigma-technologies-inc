@@ -664,10 +664,8 @@ public class PokerGame {
             {
                 for(int j=0;j<burnCards;j++)
                 {
-                    Card card =deck.deal();
-                    text = "\nThe dealer bruns a "+card.getRank().toString().toLowerCase()+" of "+card.getSuit().toString().toLowerCase();
-                    String finalText1 = text;
-                    Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText1));
+                    deck.deal();
+                    Platform.runLater(() ->announcerTextArea.setText("A card was burned"));
                 }
             }
         }
@@ -683,10 +681,8 @@ public class PokerGame {
         riverCards.add(deck.deal());
         if (burnCards > 0) {
             for (int j = 0; j < burnCards; j++) {
-                Card card =deck.deal();
-                text = "\nThe dealer bruns a "+card.getRank().toString().toLowerCase()+" of "+card.getSuit().toString().toLowerCase();
-                String finalText = text;
-                Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText));
+                deck.deal();
+                Platform.runLater(() ->announcerTextArea.setText("A card was burned"));
             }
         }
         if(flop)
