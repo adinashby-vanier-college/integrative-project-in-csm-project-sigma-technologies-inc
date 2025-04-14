@@ -177,7 +177,7 @@ public class PokerGame {
 
         //Resets player circle color
         for (Circle circle : playerCirlesGUI) {
-            circle.setFill(Color.LIGHTBLUE);
+            circle.setFill(Color.rgb(30,144,255));
         }
     }
 
