@@ -49,16 +49,6 @@ public class PokerController {
     @FXML private TextField potText;
     @FXML private TextField raiseText;
 
-    @FXML private ImageView best_H1_1;
-    @FXML private ImageView best_H1_2;
-    @FXML private ImageView best_H1_3;
-    @FXML private ImageView best_H1_4;
-    @FXML private ImageView best_H1_5;
-    @FXML private ImageView best_H2_1;
-    @FXML private ImageView best_H2_2;
-    @FXML private ImageView best_H2_3;
-    @FXML private ImageView best_H2_4;
-    @FXML private ImageView best_H2_5;
     @FXML private ImageView riverCard1;
     @FXML private ImageView riverCard2;
     @FXML private ImageView riverCard3;
@@ -140,13 +130,20 @@ public class PokerController {
     @FXML private NumberAxis xAxis;
     @FXML private NumberAxis yAxis;
 
-    protected XYChart.Series<Number, Number> series;
-    protected ImageView[] imageViews;
-    protected Circle[] botTurns;
-    protected Label[] chips;
-    protected Label[] dealerLabels;
-    protected Label[] smallBlindLabels;
-    protected Label[] bigBlindLabels;
+    @FXML private ImageView bestHandC1;
+    @FXML private ImageView bestHandC2;
+    @FXML private ImageView bestHandC3;
+    @FXML private ImageView bestHandC4;
+    @FXML private ImageView bestHandC5;
+    @FXML private Label currentBestHandName;
+
+     XYChart.Series<Number, Number> series;
+     ImageView[] imageViews;
+     Circle[] botTurns;
+     Label[] chips;
+     Label[] dealerLabels;
+     Label[] smallBlindLabels;
+     Label[] bigBlindLabels;
 
     @FXML
     public void initialize() throws IOException {
@@ -161,8 +158,7 @@ public class PokerController {
         PokerGame.getChipLabels().clear();
         PokerGame.getPlayerTurnCircles().clear();
 
-        imageViews = new ImageView[]{best_H1_1, best_H1_2, best_H1_3, best_H1_4, best_H1_5, best_H2_1, best_H2_2
-                , best_H2_3, best_H2_4, best_H2_5, riverCard1, riverCard2, riverCard3, riverCard4, riverCard5
+        imageViews = new ImageView[]{bestHandC1, bestHandC2, bestHandC3, bestHandC4, bestHandC5, riverCard1, riverCard2, riverCard3, riverCard4, riverCard5
                 , playerCard1, playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2
                 , bot4Card1, bot4Card2, bot5Card1, bot5Card2};
 
@@ -242,6 +238,7 @@ public class PokerController {
             chip.setText(startingChips.getText());
         }
 
+        //Sets the low bound for the starting chips
         startingChips.textProperty().addListener((observable, oldValue, newValue) -> {
             int value;
             try{
@@ -280,6 +277,7 @@ public class PokerController {
             PokerGame.getPlayerTurnCircles().clear();
         });
 
+        //Starts poker game/round
         startRound.setOnAction(actionEvent -> {
             if(startRound.isSelected()) {
                 for (Thread t : Thread.getAllStackTraces().keySet()) {
@@ -293,7 +291,7 @@ public class PokerController {
             }
         });
 
-
+        //Retrieves the amount of chips that the player has raised
         raiseText.textProperty().addListener((observable, oldValue, newValue) -> {
             try{
                 int value = Integer.parseInt(newValue);
@@ -309,8 +307,10 @@ public class PokerController {
             }
         });
 
+        //Goes back to game selection menu
         gameSelect.setOnAction(event -> {
             try {
+                //Closes unnecessary threads
                 ArrayList<String> openThreads = new ArrayList<>(List.of(new String[]{"Monitor Ctrl-Break", "Notification Thread", "InvokeLaterDispatcher", "Cleaner-0", "JavaFX Application Thread", "Common-Cleaner",
                         "Attach Listener", "Prism Font Disposer", "Reference Handler", "QuantumRenderer-0", "Signal Dispatcher", "main", "Finalizer", "JavaFX-Launcher"}));
                 for (Thread t : Thread.getAllStackTraces().keySet()) {
@@ -326,8 +326,10 @@ public class PokerController {
             }
         });
 
+        //Closes application
         menuQuit.setOnAction(event -> {
             try {
+                //Closes unnecessary threads
                 ArrayList<String> openThreads = new ArrayList<>(List.of(new String[]{"Monitor Ctrl-Break", "Notification Thread", "InvokeLaterDispatcher", "Cleaner-0", "JavaFX Application Thread", "Common-Cleaner",
                         "Attach Listener", "Prism Font Disposer", "Reference Handler", "QuantumRenderer-0", "Signal Dispatcher", "main", "Finalizer", "JavaFX-Launcher"}));
                 for (Thread t : Thread.getAllStackTraces().keySet()) {
@@ -344,6 +346,7 @@ public class PokerController {
             }
         });
 
+        //Check, Fold and Raise event handlers
         checkBox.setOnAction(event -> {
             if(checkBox.isSelected()) {
                 foldBox.setSelected(false);
@@ -367,8 +370,8 @@ public class PokerController {
 
     }
 
-
-    protected void setImage(ImageView imageView){
+    //Sets the initial image of the cards
+     void setImage(ImageView imageView){
         File file = new File("src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/back_of_card.png");
         //System.out.println(file.toURI());
         Image image = new Image(file.toURI().toString());
@@ -376,8 +379,8 @@ public class PokerController {
         imageView.setPreserveRatio(true);
     }
 
-
-    protected void onBotNumberChange() {
+    //Changes UI components (Player visuals) depending on how many bots there are
+     void onBotNumberChange() {
         int bots = SpinnerBots.getValue();
         Circle[] circles = {botCircle1,botCircle2,botCircle3,botCircle4,botCircle5};
         Label[] names = {nameBot1,nameBot2,nameBot3,nameBot4,nameBot5};
@@ -404,7 +407,8 @@ public class PokerController {
 
     }
 
-    protected void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
+    //Method for changing the FXML file of the stage
+     void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
         System.out.println("Fxml: " + getClass().getResource((fxmlFile)));
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         if (controller != null) {
@@ -424,7 +428,8 @@ public class PokerController {
         stage.show();
     }
 
-    protected int getButtonValue() {
+    //Sets a value to the checkbox that is selected
+     int getButtonValue() {
         int value;
         if (checkBox.isSelected()) {
             value = 0;
@@ -442,247 +447,273 @@ public class PokerController {
         return value;
     }
 
-    protected CheckBox getStartRoundCheckBox() {return startRound;}
-    protected Spinner<Integer> getSpinnerBots(){
+    //Getters (package access in order to not be used publicly)
+    CheckBox getStartRoundCheckBox() {return startRound;}
+
+    Spinner<Integer> getSpinnerBots(){
         return SpinnerBots;
     }
-    protected ChoiceBox<String> getChoiceBoxBruntCards(){
+
+    ChoiceBox<String> getChoiceBoxBruntCards(){
         return ChoiceBoxBruntCards;
     }
-    protected TextField getStartingChipsTextArea(){
+
+    TextField getStartingChipsTextArea(){
         return startingChips;
     }
-    protected TextField getRaiseTextArea(){
+
+    TextField getRaiseTextArea(){
         return raiseText;
     }
-    protected ImageView getPlayerCard1() {
+
+    ImageView getPlayerCard1() {
         return playerCard1;
     }
 
-    protected ImageView getPlayerCard2() {
+    ImageView getPlayerCard2() {
         return playerCard2;
     }
 
-    protected ImageView getBot1Card1() {
+    ImageView getBot1Card1() {
         return bot1Card1;
     }
 
-    protected ImageView getBot1Card2() {
+    ImageView getBot1Card2() {
         return bot1Card2;
     }
 
-    protected ImageView getBot2Card1() {
+    ImageView getBot2Card1() {
         return bot2Card1;
     }
 
-    protected ImageView getBot2Card2() {
+    ImageView getBot2Card2() {
         return bot2Card2;
     }
 
-    protected ImageView getBot3Card1() {
+    ImageView getBot3Card1() {
         return bot3Card1;
     }
 
-    protected ImageView getBot3Card2() {
+    ImageView getBot3Card2() {
         return bot3Card2;
     }
 
-    protected ImageView getBot4Card1() {
+    ImageView getBot4Card1() {
         return bot4Card1;
     }
 
-    protected ImageView getBot4Card2() {
+    ImageView getBot4Card2() {
         return bot4Card2;
     }
 
-    protected ImageView getBot5Card1() {
+    ImageView getBot5Card1() {
         return bot5Card1;
     }
 
-    protected ImageView getBot5Card2() {
+    ImageView getBot5Card2() {
         return bot5Card2;
     }
 
-    protected ImageView getRiverCard1() {
+    ImageView getRiverCard1() {
         return riverCard1;
     }
 
-    protected ImageView getRiverCard2() {
+    ImageView getRiverCard2() {
         return riverCard2;
     }
 
-    protected ImageView getRiverCard3() {
+    ImageView getRiverCard3() {
         return riverCard3;
     }
 
-    protected ImageView getRiverCard4() {
+    ImageView getRiverCard4() {
         return riverCard4;
     }
 
-    protected ImageView getRiverCard5() {
+    ImageView getRiverCard5() {
         return riverCard5;
     }
 
-    protected TextArea getAnnouncerTextArea() {return announcerTextArea;}
+    TextArea getAnnouncerTextArea() {return announcerTextArea;}
 
-    protected String getRaiseText() {return raiseText.getText();}
-
-    protected Label getChipsPlayer() {
+    Label getChipsPlayer() {
         return chipsPlayer;
     }
 
-    protected Label getChipsBot1() {
+    Label getChipsBot1() {
         return chipsBot1;
     }
 
-    protected Label getChipsBot2() {
+    Label getChipsBot2() {
         return chipsBot2;
     }
 
-    protected Label getChipsBot3() {
+    Label getChipsBot3() {
         return chipsBot3;
     }
 
-    protected Label getChipsBot4() {
+    Label getChipsBot4() {
         return chipsBot4;
     }
 
-    protected Label getChipsBot5() {
+    Label getChipsBot5() {
         return chipsBot5;
     }
 
-    protected Label getSmallBlindLabelPlayer() {
+    Label getSmallBlindLabelPlayer() {
         return smallBlindLabelPlayer;
     }
 
-    protected Label getSmallBlindLabelBot1() {
+    Label getSmallBlindLabelBot1() {
         return smallBlindLabelBot1;
     }
 
-    protected Label getSmallBlindLabelBot2() {
+    Label getSmallBlindLabelBot2() {
         return smallBlindLabelBot2;
     }
 
-    protected Label getSmallBlindLabelBot3() {
+    Label getSmallBlindLabelBot3() {
         return smallBlindLabelBot3;
     }
 
-    protected Label getSmallBlindLabelBot4() {
+    Label getSmallBlindLabelBot4() {
         return smallBlindLabelBot4;
     }
 
-    protected Label getSmallBlindLabelBot5() {
+    Label getSmallBlindLabelBot5() {
         return smallBlindLabelBot5;
     }
 
-    protected Label getBigBlindLabelPlayer() {
+    Label getBigBlindLabelPlayer() {
         return bigBlindLabelPlayer;
     }
 
-    protected Label getBigBlindLabelBot1() {
+    Label getBigBlindLabelBot1() {
         return bigBlindLabelBot1;
     }
 
-    protected Label getBigBlindLabelBot2() {
+    Label getBigBlindLabelBot2() {
         return bigBlindLabelBot2;
     }
 
-    protected Label getBigBlindLabelBot3() {
+    Label getBigBlindLabelBot3() {
         return bigBlindLabelBot3;
     }
 
-    protected Label getBigBlindLabelBot4() {
+    Label getBigBlindLabelBot4() {
         return bigBlindLabelBot4;
     }
 
-    protected Label getBigBlindLabelBot5() {
+    Label getBigBlindLabelBot5() {
         return bigBlindLabelBot5;
     }
 
-    protected Label getDealerLabelPlayer() {
+    Label getDealerLabelPlayer() {
         return dealerLabelPlayer;
     }
 
-    protected Label getDealerLabelBot1() {
+    Label getDealerLabelBot1() {
         return dealerLabelBot1;
     }
 
-    protected Label getDealerLabelBot2() {
+    Label getDealerLabelBot2() {
         return dealerLabelBot2;
     }
 
-    protected Label getDealerLabelBot3() {
+    Label getDealerLabelBot3() {
         return dealerLabelBot3;
     }
 
-    protected Label getDealerLabelBot4() {
+    Label getDealerLabelBot4() {
         return dealerLabelBot4;
     }
 
-    protected Label getDealerLabelBot5() {
+    Label getDealerLabelBot5() {
         return dealerLabelBot5;
     }
 
-    protected TextField getPot() {
+    TextField getPot() {
         return potText;
     }
 
-    protected Label getPlayerTimeLimitLabel() {
+    Label getPlayerTimeLimitLabel() {
         return playerTimeLimitLabel;
     }
 
-    protected Label getTimeRemainingLabel() {
+    Label getTimeRemainingLabel() {
         return timeRemainingLabel;
     }
 
-    protected Label getSecondsLabel() {
+    Label getSecondsLabel() {
         return secondsLabel;
     }
 
-    protected LineChart<Number, Number> getLineChart(){
+    LineChart<Number, Number> getLineChart(){
         return lineChart;
     }
 
-    protected Label getWinPercentageLabel(){
+    Label getWinPercentageLabel(){
         return winPercentageLabel;
     }
 
-    protected Label getCheckProbabilityLabel() {
+    Label getCheckProbabilityLabel() {
         return checkProbabilityLabel;
     }
 
-    protected Label getFoldProbabilityLabel() {
+    Label getFoldProbabilityLabel() {
         return foldProbabilityLabel;
     }
 
-    protected Label getRaiseProbabilityLabel() {
+    Label getRaiseProbabilityLabel() {
         return raiseProbabilityLabel;
     }
 
-    protected Circle getPlayerCircle() {
+    Circle getPlayerCircle() {
         return playerCircle;
     }
 
-    protected Circle getBotCircle1() {
+    Circle getBotCircle1() {
         return botCircle1;
     }
 
-    protected Circle getBotCircle2() {
+    Circle getBotCircle2() {
         return botCircle2;
     }
 
-    protected Circle getBotCircle3() {
+    Circle getBotCircle3() {
         return botCircle3;
     }
 
-    protected Circle getBotCircle4() {
+    Circle getBotCircle4() {
         return botCircle4;
     }
 
-    protected Circle getBotCircle5() {
+    Circle getBotCircle5() {
         return botCircle5;
     }
 
-    protected MenuItem getGameSelect(){ return gameSelect; }
+    MenuItem getGameSelect(){ return gameSelect; }
+
+    ImageView getBestHandC1() {
+        return bestHandC1;
+    }
+
+    ImageView getBestHandC2() {
+        return bestHandC2;
+    }
+
+    ImageView getBestHandC3() {
+        return bestHandC3;
+    }
+
+    ImageView getBestHandC4() {
+        return bestHandC4;
+    }
+
+    ImageView getBestHandC5() {
+        return bestHandC5;
+    }
+
+    Label getCurrentBestHandName() {return currentBestHandName;}
 
 }

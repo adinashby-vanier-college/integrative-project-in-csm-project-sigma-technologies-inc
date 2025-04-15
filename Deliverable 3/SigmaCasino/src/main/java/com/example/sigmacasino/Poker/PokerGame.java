@@ -199,6 +199,7 @@ public class PokerGame {
         }
     }
 
+    //Associated the front end player controls to the back end player
     private void associatePlayerCards(PokerController controller,String player){
         switch(player){
             case "Player": card1.add(controller.getPlayerCard1());card2.add(controller.getPlayerCard2());chipLabels.add(controller.chips[0]); playerTurnCircles.add(controller.botTurns[0]);break;

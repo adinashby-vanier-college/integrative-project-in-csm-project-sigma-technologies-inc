@@ -1,6 +1,5 @@
 package com.example.sigmacasino.Poker;
 
-import com.example.sigmacasino.Calculator.Calculator;
 import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 
@@ -11,9 +10,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class PokerCalculator extends Calculator {
+public class PokerCalculator{
     private static final int INITIAL_TRIALS = 50_000;  // Start with this number of trials
-    private static final int MAX_TIME_MILLIS = 1_000; // 1 seconds
+    private static final int MAX_TIME_MILLIS = 1_000; // Around 1 sec max for simulation to finish
     private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
 
     private final List<Card> playerHand;
@@ -21,6 +20,7 @@ public class PokerCalculator extends Calculator {
     private final ArrayList<Card> discardCards = new ArrayList<>();
     private final int numOpponents;
 
+    //Setting up all discarded cards and the number of bots
     public PokerCalculator(List<Card> playerHand, List<Card> communityCards, int numOpponents) {
         discardCards.add(playerHand.get(0));
         discardCards.add(playerHand.get(1));
@@ -29,12 +29,15 @@ public class PokerCalculator extends Calculator {
         this.numOpponents = numOpponents;
     }
 
+    //Simulating possible hands to find out the win rate
     double runSimulation() {
+
+        //Runs the tests in parallel
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
         long startTime = System.currentTimeMillis();
 
         int totalTrials = 0;  // Track actual trials
-        int wins = 0;
+        int wins = 0; //Win amount
 
         while (System.currentTimeMillis() - startTime < MAX_TIME_MILLIS) {
             List<Future<Integer>> futures = new ArrayList<>();
@@ -57,22 +60,24 @@ public class PokerCalculator extends Calculator {
             }
         }
 
+        //Stops simulation
         executor.shutdown();
         double winRate = (double) wins / totalTrials;
         System.out.println("Total Trials Run: " + totalTrials);
         return winRate;
     }
 
+    //Depending on the criteria the algorithm provides the best possible move
     static int[] getMoveDecision(double winRatePercent, double currentBet, double potSize, double playerInvestment, boolean isFirstRound) {
         System.out.println("\n=== NEW DECISION CALCULATION ===");
         System.out.printf("Input params - WinRate: %.2f%%, CurrentBet: %.1f, PotSize: %.1f, PlayerInvestment: %.1f\n",
                 winRatePercent, currentBet, potSize, playerInvestment);
 
-        // Convert win rate percentage (0-100%) to decimal (0.0-1.0)
+        //Convert win rate percentage (0-100%) to decimal (0.0-1.0)
         double winRate = Math.max(0, Math.min(100, winRatePercent)) / 100.0;
         System.out.printf("Converted WinRate: %.2f\n", winRate);
 
-        // Calculate the cost to call and pot odds
+        //Calculate the cost to call and pot odds (to see if it is worth is for the player to continue playing)
         double callCost = Math.max(currentBet - playerInvestment, 0);
         double effectivePotSize = potSize + callCost;
         double potOdds = (callCost == 0) ? 0 : callCost / effectivePotSize; //Doesn't throw an error if dividing by 0
@@ -86,22 +91,22 @@ public class PokerCalculator extends Calculator {
         String decisionCase = "";
 
 
-        // Case 1: No bet to call — you can check or raise
+        //Case 1: No bet to call (check or raise)
         if (callCost == 0) {
             decisionCase = "NO BET TO CALL";
             System.out.println("Case: " + decisionCase);
 
-            // Default: more likely to check unless win rate is high
+            //Default: more likely to check unless win rate is high
             checkProb = 60 + (int)((1 - winRate) * 30);  // 60-90% check
             raiseProb = 100 - checkProb;
 
-            // If win rate > 50%, boost raise chance
+            //If win rate > 50%, boost raise chance
             if (winRate > 0.5) {
                 raiseProb += (int)((winRate - 0.5) * 40);  // boost based on how strong the hand is
                 checkProb = 100 - raiseProb;
             }
 
-            // Ensure there's a clear difference between choices
+            //Ensures there's a clear difference between choices
             if (Math.abs(checkProb - raiseProb) < 10) {
                 System.out.println("Adjusting for minimum 10% difference");
                 if (winRate > 0.5) {
@@ -116,15 +121,14 @@ public class PokerCalculator extends Calculator {
             System.out.printf("Adjusted probs - Check: %d, Raise: %d\n", checkProb, raiseProb);
 
         } else {
-            // Case 2: There is a bet to call
-
+            //Case 2: There is a bet to call
             if (winRate < potOdds - 0.15) {
                 decisionCase = "VERY UNFAVORABLE";
                 System.out.println("Case: " + decisionCase);
 
                 foldProb = 70 + (int)(Math.random() * 20);  // 70-90% fold
 
-                // First round: encourage more play by reducing fold
+                //First round: encourage check by reducing fold
                 if (isFirstRound) {
                     System.out.println("First round: reducing fold probability");
                     foldProb -= 40;
@@ -133,7 +137,7 @@ public class PokerCalculator extends Calculator {
                 checkProb = (int)((1 - winRate) * (100 - foldProb) * 0.7);
                 raiseProb = 100 - foldProb - checkProb;
 
-                // Add bluffing if win rate is very low
+                //Add bluffing if win rate is very low
                 if (winRate < 0.35 && Math.random() < 0.34) {
                     int bluffAmount = 2 + (int)(Math.random() * 6);  // 2% to 8%
                     System.out.printf("BLUFFING! Boosting raise by %d%%\n", bluffAmount);
@@ -142,6 +146,7 @@ public class PokerCalculator extends Calculator {
                 }
 
             } else if (winRate < potOdds) {
+                //Not worth playing
                 decisionCase = "SLIGHTLY UNFAVORABLE";
                 System.out.println("Case: " + decisionCase);
 
@@ -156,6 +161,7 @@ public class PokerCalculator extends Calculator {
                 raiseProb = 100 - foldProb - checkProb;
 
             } else if (winRate < potOdds + 0.2) {
+                //Ok hand
                 decisionCase = "MARGINAL SITUATION";
                 System.out.println("Case: " + decisionCase);
 
@@ -170,6 +176,7 @@ public class PokerCalculator extends Calculator {
                 foldProb = 100 - checkProb - raiseProb;
 
             } else {
+                //Good Hand
                 decisionCase = "STRONG HAND";
                 System.out.println("Case: " + decisionCase);
 
@@ -184,7 +191,7 @@ public class PokerCalculator extends Calculator {
                 foldProb = 100 - raiseProb - checkProb;
             }
 
-            // Ensure one action is clearly favored by >=15%
+            //Ensure one action is clearly favored by >=15% in order to get a proper decision
             System.out.println("Checking for dominant action...");
             int maxProb = Math.max(checkProb, Math.max(foldProb, raiseProb));
             if (maxProb == checkProb && checkProb - Math.max(foldProb, raiseProb) < 15) {
@@ -203,11 +210,10 @@ public class PokerCalculator extends Calculator {
                 if (checkProb > foldProb) checkProb -= 15;
                 else foldProb -= 15;
             }
-
             System.out.printf("Post-dominance probs - Check: %d, Fold: %d, Raise: %d\n", checkProb, foldProb, raiseProb);
         }
 
-        // Normalize to total 100
+        //Normalize the percentages to total to 100
         System.out.println("Making final adjustments...");
         int total = checkProb + foldProb + raiseProb;
         System.out.printf("Current total: %d\n", total);
@@ -228,7 +234,7 @@ public class PokerCalculator extends Calculator {
             }
         }
 
-        // Clamp probabilities to valid range
+        //Clamp probabilities to valid range
         checkProb = Math.max(0, Math.min(100, checkProb));
         foldProb = Math.max(0, Math.min(100, foldProb));
         raiseProb = Math.max(0, Math.min(100, raiseProb));
@@ -240,7 +246,7 @@ public class PokerCalculator extends Calculator {
         return new int[]{checkProb, foldProb, raiseProb};
     }
 
-
+    //Logics behind the simulations
     private int simulateGames(int numTrials) {
         int wins = 0;
 
@@ -250,7 +256,7 @@ public class PokerCalculator extends Calculator {
 
             ArrayList<Card> fullCommunity = new ArrayList<>(communityCards);
             while (fullCommunity.size() < 5) {
-                if (deck.deal()==null) break; // Prevent out-of-cards error
+                if (deck.deal()==null) break; //Prevent out-of-cards error
                 Card card = deck.deal();
                 while (discardCards.contains(card) && !(deck.deal()==null)) {
                     card = deck.deal();
@@ -260,7 +266,7 @@ public class PokerCalculator extends Calculator {
 
             ArrayList<List<Card>> opponentHands = new ArrayList<>();
             for (int j = 0; j < numOpponents; j++) {
-                if (deck.deal() == null) break; // Prevent over-dealing
+                if (deck.deal() == null) break; //Prevent over-dealing
                 opponentHands.add(makeHand(deck));
             }
 
@@ -275,10 +281,10 @@ public class PokerCalculator extends Calculator {
                 wins++;
             }
         }
-
         return wins;
     }
 
+    //Makes a hand for each simulated bot
     private ArrayList<Card> makeHand(Deck deck){
         ArrayList<Card> hand = new ArrayList<>();
         for(int i=0;i<2;i++) {
