@@ -683,5 +683,6 @@ public class PokerController {
         return botCircle5;
     }
 
+    protected MenuItem getGameSelect(){ return gameSelect; }
 
 }

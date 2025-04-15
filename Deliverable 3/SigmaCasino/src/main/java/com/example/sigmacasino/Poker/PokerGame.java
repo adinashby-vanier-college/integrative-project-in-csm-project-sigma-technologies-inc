@@ -351,12 +351,14 @@ public class PokerGame {
             controller.getSpinnerBots().setDisable(true);
             controller.getStartingChipsTextArea().setEditable(false);
             controller.getStartRoundCheckBox().setDisable(true);
+            controller.getGameSelect().disableProperty().set(true);
         }
         else {
             controller.getChoiceBoxBruntCards().setDisable(false);
             controller.getSpinnerBots().setDisable(false);
             controller.getStartingChipsTextArea().setEditable(true);
             controller.getStartRoundCheckBox().setDisable(false);
+            controller.getGameSelect().disableProperty().set(false);
         }
     }
 
