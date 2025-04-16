@@ -55,7 +55,7 @@ public class PokerGame {
     //Sets all the variables up before the game/round starts
     PokerGame(PokerController controller){
         for (ImageView imageView : controller.imageViews) {
-            controller.setImage(imageView);
+            controller.setDefaultImage(imageView);
         }
 
         //Changes UI on the JavaFX Thread
@@ -617,13 +617,18 @@ public class PokerGame {
 
     private void displayBestPlayerHand(PokerController controller, Player player, ArrayList<Card> communityCards){
         ArrayList<Card> allCards = new ArrayList<>();
+        ImageView[] cardDisplays = {controller.getBestHandC1(),controller.getBestHandC2(),controller.getBestHandC3(),controller.getBestHandC4(),controller.getBestHandC5()};
         allCards.add(player.getHand().getCards().get(0));
         allCards.add(player.getHand().getCards().get(1));
         allCards.addAll(communityCards);
-        Platform.runLater(() -> controller.getCurrentBestHandName().setText(getPlayerRankName(HandRanks.bestHand(allCards))));
+        Platform.runLater(() -> {
+            controller.getCurrentBestHandName().setText(getPlayerRankName(HandRanks.bestHand(allCards)));
+            Image[] images =HandRanks.getBestHandImages(allCards);
+            for(int i =0;i<cardDisplays.length;i++){
+                cardDisplays[i].setImage(images[i]);
+            }
+        });
     }
-
-
 
     private void getRoundWinner(PokerController controller){
         String text;

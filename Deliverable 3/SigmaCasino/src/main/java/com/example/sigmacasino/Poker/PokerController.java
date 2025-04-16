@@ -221,7 +221,7 @@ public class PokerController {
 
         //Presets images (remove later)
         for (ImageView imageView : imageViews) {
-            setImage(imageView);
+            setDefaultImage(imageView);
         }
 
         //Initial starting chips
@@ -371,7 +371,7 @@ public class PokerController {
     }
 
     //Sets the initial image of the cards
-     void setImage(ImageView imageView){
+     void setDefaultImage(ImageView imageView){
         File file = new File("src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/back_of_card.png");
         //System.out.println(file.toURI());
         Image image = new Image(file.toURI().toString());

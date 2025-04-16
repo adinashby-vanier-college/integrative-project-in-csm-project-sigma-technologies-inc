@@ -4,7 +4,9 @@ import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Rank;
 import io.lyuda.jcards.Suit;
 import io.lyuda.jcards.game.Player;
+import javafx.scene.image.Image;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -97,6 +99,72 @@ public enum HandRanks{
             }
         }
         return bestRank;
+    }
+
+    static Card[] getBestHand(ArrayList<Card> allCards) {
+        Card[] hand = new Card[5];
+        Card[] bestHand = new Card[5];
+        float bestRank = HandRanks.HIGH_CARD.getValue();
+
+        // Length of total Cards (7)
+        int n = allCards.size();
+
+        // Alpha-Beta-like Pruning in this context
+        // Alpha: Best rank found so far
+        // Beta: We would only proceed if we find a better hand than the current best
+        float alpha = bestRank;
+
+        // All possible hands P(allCards.size(),5)
+        for (int i = 0; i < n - 4; i++) {
+
+            // We can prune this branch if we already have a better hand
+            if (bestRank > alpha) break;
+
+            for (int j = i + 1; j < n - 3; j++) {
+                if (bestRank > alpha) break;
+
+                for (int k = j + 1; k < n - 2; k++) {
+                    if (bestRank > alpha) break;
+
+                    for (int l = k + 1; l < n - 1; l++) {
+                        if (bestRank > alpha) break;
+
+                        for (int m = l + 1; m < n; m++) {
+                            hand[0] = allCards.get(i);
+                            hand[1] = allCards.get(j);
+                            hand[2] = allCards.get(k);
+                            hand[3] = allCards.get(l);
+                            hand[4] = allCards.get(m);
+
+                            // Evaluate the hand rank
+                            float calRank = calculateRank(hand);
+
+                            // Prune if the current hand is not better
+                            if (calRank > bestRank) {
+                                bestRank = calRank;
+                                alpha = bestRank;  // Update alpha to the new best rank
+                                for(int u=0;u<bestHand.length;u++){
+                                    bestHand[i]=hand[i];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return bestHand;
+    }
+
+
+    static Image[] getBestHandImages(ArrayList<Card> allCards){
+          Image[] images = new Image[5];
+          Card[] cards = getBestHand(allCards);
+          for(int i=0;i<images.length;i++)
+          {
+              File file = new File("src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/"+cards[i].getRank().toString().toLowerCase()+"_of_"+cards[i].getSuit().toString().toLowerCase()+".png");
+              images[i]= new Image(file.toURI().toString());
+          }
+          return images;
     }
 
     private static float calculateRank(Card[] hand){
