@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public enum HandRanks{
+
+    //Rank enum values
     HIGH_CARD(1),
     ONE_PAIR(2),
     TWO_PAIR(3),
@@ -32,6 +34,7 @@ public enum HandRanks{
         return this.value;
     }
 
+    //Used to figure out the rank of a individual players hand
     public static int getIndividualHandRank(Player player){
         ArrayList<Rank> cardNames = new ArrayList<>(Arrays.asList(
                 Rank.ACE, Rank.KING, Rank.QUEEN, Rank.JACK, Rank.TEN,
@@ -41,6 +44,8 @@ public enum HandRanks{
         int[] subRankValues = {13,12,11,10,9,8,7,6,5,4,3,2,1};
         Card[] hand = {player.getHand().getCards().get(0), player.getHand().getCards().get(1)};
         Arrays.sort(hand);
+
+        //Places Ace at the end of the array (for sorting purposes)
         if(hand[0].getRank().equals(Rank.ACE)){
             Card temp = hand[0];
             hand[0] = hand[1];
@@ -51,6 +56,7 @@ public enum HandRanks{
         return (subRankValues[cardNames.indexOf(hand[0].getRank())]) + (100*subRankValues[cardNames.indexOf(hand[1].getRank())]);
     }
 
+    //Using alpha-beta pruning, the rank of the best possible hand is calculated
     static float bestHand(ArrayList<Card> allCards) {
         Card[] hand = new Card[5];
         float bestRank = HandRanks.HIGH_CARD.getValue();
@@ -101,6 +107,7 @@ public enum HandRanks{
         return bestRank;
     }
 
+    //Returns an array of the best possible cards to have out of all usable cards
     static Card[] getBestHand(ArrayList<Card> allCards) {
         Card[] hand = new Card[5];
         Card[] bestHand = new Card[5];
@@ -153,7 +160,7 @@ public enum HandRanks{
         return bestHand;
     }
 
-
+    //Converts the best possible cards into images
     static Image[] getBestHandImages(ArrayList<Card> allCards){
           Image[] images = new Image[5];
           Card[] cards = getBestHand(allCards);
@@ -166,6 +173,7 @@ public enum HandRanks{
           return images;
     }
 
+    //Calculates the rank/sub rank of a given 5 card hand
     private static float calculateRank(Card[] hand){
         ArrayList<Rank> cardNames = new ArrayList<>(Arrays.asList(
                 Rank.ACE, Rank.KING, Rank.QUEEN, Rank.JACK, Rank.TEN,
@@ -224,21 +232,21 @@ public enum HandRanks{
                     break;
             }
         }
-        if (pairs==1 && threeOfAKind==1) {
+        if (pairs==1 && threeOfAKind==1) { //Full house
             rank = (FULL_HOUSE.getValue() + subCardRanking(pairedCards,pairedCardValue,3) + (0.01f * subCardRanking(pairedCards,pairedCardValue,2)));
-        } else if(pairs==1){
+        } else if(pairs==1){ //One pair
             rank = ONE_PAIR.getValue() + subCardRanking(pairedCards,pairedCardValue,2);
-        } else if(pairs==2){
+        } else if(pairs==2){ //Two pair
             rank = TWO_PAIR.getValue()+ subCardRanking(pairedCards,pairedCardValue,2);
-        } else if (threeOfAKind==1) {
+        } else if (threeOfAKind==1) { //Three of a kind
             rank = THREE_OF_A_KIND.getValue()+ subCardRanking(pairedCards,pairedCardValue,3);
-        } else if(rank==HIGH_CARD.getValue())
-        {
+        } else if(rank==HIGH_CARD.getValue()) { //High card
             rank = rank + getHighestCard(cardNames,hand);
         }
         return rank;
     }
 
+    //Calculates the sub ranking of pairs, three of a kind, ect.
     private static float subCardRanking(ArrayList<Rank> pairedCards, ArrayList<Integer> pairedCardValue, int lookFor){
         float multiplier = 1.0f;
         float bonusValue = 0.0f;
@@ -304,12 +312,14 @@ public enum HandRanks{
         return bonusValue;
     }
 
+    //Royal Flush
     private static boolean isRoyalFlush(Card[] hand,Suit suit){
         Card[] royalFlushHand = {new Card(Rank.ACE, suit), new Card(Rank.KING, suit), new Card(Rank.QUEEN, suit), new Card(Rank.JACK, suit), new Card(Rank.TEN, suit)};
         Arrays.sort(royalFlushHand);
         return Arrays.equals(hand, royalFlushHand);
     }
 
+    //Retrieves the highest card from a hand
     private static float getHighestCard(ArrayList<Rank> cardNames, Card[] hand){
         int[] subRankValues = {13,12,11,10,9,8,7,6,5,4,3,2,1};
         int max=subRankValues[cardNames.indexOf(hand[0].getRank())];
@@ -323,6 +333,7 @@ public enum HandRanks{
         return (max*0.01f);
     }
 
+    //Straight
     private static boolean isStraight(ArrayList<Rank> cardNames, Card[] hand){
         int[] subRankValues = {13,12,11,10,9,8,7,6,5,4,3,2,1};
         ArrayList<Integer> cardRanks = new ArrayList<>();
@@ -341,6 +352,7 @@ public enum HandRanks{
         return true;
     }
 
+    //Flush
     private static boolean isFlush(Card[] hand, Suit suit){
         for(int i=0;i<hand.length;i++)
         {
