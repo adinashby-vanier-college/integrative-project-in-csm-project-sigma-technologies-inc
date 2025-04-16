@@ -137,13 +137,13 @@ public class PokerController {
     @FXML private ImageView bestHandC5;
     @FXML private Label currentBestHandName;
 
-     XYChart.Series<Number, Number> series;
-     ImageView[] imageViews;
-     Circle[] botTurns;
-     Label[] chips;
-     Label[] dealerLabels;
-     Label[] smallBlindLabels;
-     Label[] bigBlindLabels;
+    XYChart.Series<Number, Number> series;
+    ImageView[] imageViews;
+    Circle[] botTurns;
+    Label[] chips;
+    Label[] dealerLabels;
+    Label[] smallBlindLabels;
+    Label[] bigBlindLabels;
 
     @FXML
     public void initialize() throws IOException {
@@ -158,6 +158,7 @@ public class PokerController {
         PokerGame.getChipLabels().clear();
         PokerGame.getPlayerTurnCircles().clear();
 
+        //Initializing all variables
         imageViews = new ImageView[]{bestHandC1, bestHandC2, bestHandC3, bestHandC4, bestHandC5, riverCard1, riverCard2, riverCard3, riverCard4, riverCard5
                 , playerCard1, playerCard2, bot1Card1, bot1Card2, bot2Card1, bot2Card2, bot3Card1, bot3Card2
                 , bot4Card1, bot4Card2, bot5Card1, bot5Card2};

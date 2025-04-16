@@ -53,6 +53,7 @@ public class PokerGame {
     private final TextArea announcerTextArea;
 
     //Sets all the variables up before the game/round starts
+    //Also sets the order of all the player (important for dealer, big blind and small blind)
     PokerGame(PokerController controller){
         for (ImageView imageView : controller.imageViews) {
             controller.setDefaultImage(imageView);
@@ -184,6 +185,7 @@ public class PokerGame {
         }
     }
 
+    //Changes the dealer,big blind and small blind every round
     private void changeDealer(int botAmount){
         dealerIndex++;
         smallBlindIndex++;
@@ -214,6 +216,7 @@ public class PokerGame {
         }
     }
 
+    //Protocol of the game/Path to be followed
     void playGame(PokerController controller){
         //Restricts users controls during the round
         restrictControls(true, controller);
@@ -291,10 +294,12 @@ public class PokerGame {
         endGame(controller);
     }
 
+    //Resets the graph for the next round
     private void clearGraph(PokerController controller){
         Platform.runLater(() -> controller.series.getData().clear());
     }
 
+    //All players except for one have folded game ends early
     private void earlyWinner(PokerController controller){
         int winnerIndex=0;
         for(int i=0;i<playersFold.size();i++)
@@ -314,6 +319,7 @@ public class PokerGame {
         endGame(controller);
     }
 
+    //Updates graph with a new win rate percentage
     private void updateGraph(int round, PokerController controller) {
         // Run simulation in background
         new Thread(() -> {
@@ -349,7 +355,7 @@ public class PokerGame {
         }).start();
     }
 
-
+    //Restrict the users controls to avoid fatal errors
     private void restrictControls(boolean restrict, PokerController controller)
     {
         if(restrict)
@@ -369,6 +375,7 @@ public class PokerGame {
         }
     }
 
+    //Deals all cards to the players
     private void dealCards(PokerController controller){
         deck = new Deck();
         deck.shuffle();
@@ -378,6 +385,8 @@ public class PokerGame {
                 player.addCard(deck.deal());
             }
         }
+
+        //Displays cards on the GUI
         Platform.runLater(() -> {
             card1.getFirst().setImage(getImage(players.getFirst().getHand().getCards().getFirst()));
             card2.getFirst().setImage(getImage(players.getFirst().getHand().getCards().getLast()));
@@ -386,6 +395,7 @@ public class PokerGame {
         Platform.runLater(() -> announcerTextArea.setText(text));
     }
 
+    //Gets the image of a given card
     private Image getImage(Card card){
         String suit = card.getSuit().toString().toLowerCase();
         String rank = card.getRank().toString().toLowerCase();
@@ -394,6 +404,7 @@ public class PokerGame {
         return new Image(file.toURI().toString());
     }
 
+    //Checks to see if everyone has folded
     private boolean didEveryoneFold(){
         int counter=0;
         for(int i=0;i<playersFold.size();i++){
@@ -405,6 +416,7 @@ public class PokerGame {
         return counter == 1;
     }
 
+    //Betting phase for all players
     private void playerBet(PokerController controller, boolean isFirstRound){
         System.out.println("Bet Follow: "+betFollow);
 
@@ -414,7 +426,7 @@ public class PokerGame {
         if (starter >= players.size()) {
             starter = 0; // Ensure valid start index
         }
-        boolean flag = false ;
+        boolean flag = false; //Used in order to tell the loop to break at a certain player
         String text;
 
         try {
@@ -425,11 +437,11 @@ public class PokerGame {
                     System.out.println("Current: " + i);
                     if (i == players.size()) {
                         System.out.println("In index reset");
-                        i = 0; // Restart at the first player
-                        flag = true; // Now we're in the second pass
+                        i = 0; //Restart at the first player
+                        flag = true; //Now we're in the second pass
                     }
 
-                    // Ensure the loop stops after completing a full cycle
+                    //Ensure the loop stops after completing a full cycle
                     if (players.get(i).equals(players.get(starter)) && flag) {
                         System.out.println("In break");
                         break;
@@ -507,10 +519,11 @@ public class PokerGame {
                                     text = "\nPlayer has chosen to raise by $" + value;
                                     break;
                             }
-                            Platform.runLater(() -> updateChips(potSize, controller));
+                            //Updating UI
                             String finalText = text;
-                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
                             Platform.runLater(() -> {
+                                updateChips(potSize, controller);
+                                announcerTextArea.setText(announcerTextArea.getText() + finalText);
                                 controller.getSecondsLabel().setVisible(false);
                                 controller.getTimeRemainingLabel().setVisible(false);
                                 controller.getPlayerTimeLimitLabel().setVisible(false);
@@ -567,7 +580,6 @@ public class PokerGame {
                                 case 1: // Fold
                                     text = "\n" + players.get(i).getName() + " has chosen to fold";
                                     playersFold.set(i, true);
-                                    playerCirlesGUI.get(i).setFill(Color.GRAY);
                                     break;
 
                                 case 2: // Raise
@@ -591,9 +603,17 @@ public class PokerGame {
                                     break;
                             }
                             Thread.sleep(5000);
-                            Platform.runLater(() -> updateChips(potSize, controller));
+                            if(playersFold.get(i))
+                            {
+                                playerCirlesGUI.get(i).setFill(Color.GRAY);
+                            }
+
+                            //Updates UI
                             String finalText = text;
-                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
+                            Platform.runLater(() -> {
+                                updateChips(potSize, controller);
+                                announcerTextArea.setText(announcerTextArea.getText() + finalText);
+                            });
                             botWinRate=0;
                         }
                         playerTurnCircles.get(i).setVisible(false);
@@ -615,6 +635,7 @@ public class PokerGame {
         System.out.println("Current Bets: "+currentPlayerBets);
     }
 
+    //Shows the player their best possible hand
     private void displayBestPlayerHand(PokerController controller, Player player, ArrayList<Card> communityCards){
         ArrayList<Card> allCards = new ArrayList<>();
         ImageView[] cardDisplays = {controller.getBestHandC1(),controller.getBestHandC2(),controller.getBestHandC3(),controller.getBestHandC4(),controller.getBestHandC5()};
@@ -632,6 +653,7 @@ public class PokerGame {
         });
     }
 
+    //Gets the winner of the round
     private void getRoundWinner(PokerController controller){
         String text;
         int winnerAmount;
@@ -670,7 +692,7 @@ public class PokerGame {
                 }
             }
 
-            winners.clear();
+            winners.clear(); //Clears in order to add the "proper" winner(s)
             winners.addAll(realWinners);  // Update winners list with final winners
             System.out.println("Winners: " + winners);
         }
@@ -690,6 +712,7 @@ public class PokerGame {
         Platform.runLater(() -> updateChips(potSize, controller));
     }
 
+    //Deals the community cards (first round)
     private void dealFlop(PokerController controller) {
         String text;
         String[] strings = {"first","second","third"};
@@ -716,6 +739,7 @@ public class PokerGame {
         });
     }
 
+    //Deals the community cards (After first rounds)
     private void dealPostFlop(PokerController controller,boolean flop) {
         String text;
         riverCards.add(deck.deal());
@@ -725,14 +749,14 @@ public class PokerGame {
                 Platform.runLater(() ->announcerTextArea.setText("A card was burned"));
             }
         }
-        if(flop)
+        if(flop) //Second round
         {
             Platform.runLater(() ->controller.getRiverCard4().setImage(getImage(riverCards.get(3))));
             text = "\nThe fourth river card is a "+riverCards.get(3).getRank().toString().toLowerCase()+" of "+riverCards.get(3).getSuit().toString().toLowerCase();
             String finalText1 = text;
             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText1));
         }
-        else
+        else //Third round
         {
             Platform.runLater(() ->controller.getRiverCard5().setImage(getImage(riverCards.get(4))));
             text = "\nThe fifth river card is a "+riverCards.get(4).getRank().toString().toLowerCase()+" of "+riverCards.get(4).getSuit().toString().toLowerCase();
@@ -741,6 +765,7 @@ public class PokerGame {
         }
     }
 
+    //Automatically places the big blind and small binds minimum chips into the pot
     private void placeBlinds(PokerController controller){
         currentPlayerBets.set(smallBlindIndex, smallBlindAmount);
         currentPlayerBets.set(bigBlindIndex, bigBlindAmount);
@@ -752,6 +777,7 @@ public class PokerGame {
         Platform.runLater(() -> updateChips(potSize, controller));
     }
 
+    //Updates all the players chips
     private void updateChips(int pot, PokerController  controller){
         for(int i=0;i<players.size();i++)
         {
@@ -760,6 +786,7 @@ public class PokerGame {
         controller.getPot().setText(""+pot);
     }
 
+    //Gets all the player rankings
     private void rankings() {
         for (int i = 0; i < players.size(); i++) {
             card1.get(i).setImage(getImage(players.get(i).getHand().getCards().getFirst()));
@@ -772,6 +799,7 @@ public class PokerGame {
         }
     }
 
+    //Using the player rank values the name of the player rank is displayed using the Announcer
     private void playerRankNames() {
         for (Float playerRank : playerRanks) {
             switch (playerRank.intValue()) {
@@ -819,6 +847,7 @@ public class PokerGame {
         }
     }
 
+    //Shows the player rankings on the GUI
     private void displayFinalRankings(){
         for(int i=0;i<players.size();i++)
         {
@@ -827,6 +856,7 @@ public class PokerGame {
         }
     }
 
+    //Clearing up all variables and resetting the game for the next round
     private void endGame(PokerController controller) {
         potSize=0;
         for(int i=0;i<players.size();i++)
@@ -844,7 +874,8 @@ public class PokerGame {
             bigBlindLabels.get(bigBlindIndex).setVisible(false);
         });
     }
-    
+
+    //Getters
     static ArrayList<Integer> getPlayerChips() {
         return playerChips;
     }
