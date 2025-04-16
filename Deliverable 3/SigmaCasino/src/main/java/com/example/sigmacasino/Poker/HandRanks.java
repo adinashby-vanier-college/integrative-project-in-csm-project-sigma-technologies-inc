@@ -143,9 +143,7 @@ public enum HandRanks{
                             if (calRank > bestRank) {
                                 bestRank = calRank;
                                 alpha = bestRank;  // Update alpha to the new best rank
-                                for(int u=0;u<bestHand.length;u++){
-                                    bestHand[i]=hand[i];
-                                }
+                                System.arraycopy(hand, 0, bestHand, 0, bestHand.length); //Retrieving best hand
                             }
                         }
                     }
@@ -159,6 +157,7 @@ public enum HandRanks{
     static Image[] getBestHandImages(ArrayList<Card> allCards){
           Image[] images = new Image[5];
           Card[] cards = getBestHand(allCards);
+          System.out.println("Cards (Inside Second): "+ Arrays.toString(cards));
           for(int i=0;i<images.length;i++)
           {
               File file = new File("src/main/resources/com/example/sigmacasino/Sprites/PNG-cards-1.3/"+cards[i].getRank().toString().toLowerCase()+"_of_"+cards[i].getSuit().toString().toLowerCase()+".png");

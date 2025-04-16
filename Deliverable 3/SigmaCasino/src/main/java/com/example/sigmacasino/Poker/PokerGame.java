@@ -621,7 +621,9 @@ public class PokerGame {
         allCards.add(player.getHand().getCards().get(0));
         allCards.add(player.getHand().getCards().get(1));
         allCards.addAll(communityCards);
+        System.out.println("All Cards (Inside first): "+allCards);
         Platform.runLater(() -> {
+
             controller.getCurrentBestHandName().setText(getPlayerRankName(HandRanks.bestHand(allCards)));
             Image[] images =HandRanks.getBestHandImages(allCards);
             for(int i =0;i<cardDisplays.length;i++){

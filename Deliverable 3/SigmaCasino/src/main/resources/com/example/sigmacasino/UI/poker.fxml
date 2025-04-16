@@ -330,7 +330,7 @@
                                                         <Label text="Current Best Hand" />
                                                         <HBox alignment="CENTER" prefHeight="106.0" prefWidth="392.0" spacing="5.0">
                                                             <children>
-                                                                <Label fx:id="currentBestHandName" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="86.0" />
+                                                                <Label fx:id="currentBestHandName" alignment="CENTER" prefHeight="18.0" prefWidth="86.0" />
                                                                 <ImageView fx:id="bestHandC1" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                                                                 <ImageView fx:id="bestHandC2" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                                                                 <ImageView fx:id="bestHandC3" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
