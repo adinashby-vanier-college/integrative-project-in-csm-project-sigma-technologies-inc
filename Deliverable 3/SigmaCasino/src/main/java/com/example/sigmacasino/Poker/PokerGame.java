@@ -237,6 +237,7 @@ public class PokerGame {
         //First River Flop
         dealFlop(controller);
         updateGraph(1,controller);
+        displayBestPlayerHand(controller,players.getFirst(),riverCards);
 
         //Second Round of Betting
         playerBet(controller,false);
@@ -250,6 +251,7 @@ public class PokerGame {
         //Second River Flop
         dealPostFlop(controller, true);
         updateGraph(2,controller);
+        displayBestPlayerHand(controller,players.getFirst(),riverCards);
 
         //Third Round of Betting
         playerBet(controller,false);
@@ -263,6 +265,7 @@ public class PokerGame {
         //Third River Flop
         dealPostFlop(controller, false);
         updateGraph(3,controller);
+        displayBestPlayerHand(controller,players.getFirst(),riverCards);
 
         //Fourth Round of Betting
         playerBet(controller,false);
@@ -612,6 +615,14 @@ public class PokerGame {
         System.out.println("Current Bets: "+currentPlayerBets);
     }
 
+    private void displayBestPlayerHand(PokerController controller, Player player, ArrayList<Card> communityCards){
+        ArrayList<Card> allCards = new ArrayList<>();
+        allCards.add(player.getHand().getCards().get(0));
+        allCards.add(player.getHand().getCards().get(1));
+        allCards.addAll(communityCards);
+        Platform.runLater(() -> controller.getCurrentBestHandName().setText(getPlayerRankName(HandRanks.bestHand(allCards))));
+    }
+
 
 
     private void getRoundWinner(PokerController controller){
@@ -770,6 +781,35 @@ public class PokerGame {
             }
         }
         System.out.println("\n"+playerRankNames);
+    }
+
+    //Used in the UI Best Hand Rank
+    private String getPlayerRankName(float playerRank) {
+        int rank = (int) playerRank;
+        switch (rank) {
+            case 10:
+                return "Royal Flush";
+            case 9:
+                return "Straight Flush";
+            case 8:
+                return "Four of a Kind";
+            case 7:
+                return "Full House";
+            case 6:
+                return "Flush";
+            case 5:
+                return "Straight";
+            case 4:
+                return "Three of a Kind";
+            case 3:
+                return "Two Pair";
+            case 2:
+                return "One Pair";
+            case 1:
+                return "High Card";
+            default:
+                return "Unknown Rank";
+        }
     }
 
     private void displayFinalRankings(){

@@ -54,14 +54,14 @@ public enum HandRanks{
         float bestRank = HandRanks.HIGH_CARD.getValue();
 
         // Length of total Cards (7)
-        int n = 7;
+        int n = allCards.size();
 
         // Alpha-Beta-like Pruning in this context
         // Alpha: Best rank found so far
         // Beta: We would only proceed if we find a better hand than the current best
         float alpha = bestRank;
 
-        // All possible hands P(7,5)
+        // All possible hands P(allCards.size(),5)
         for (int i = 0; i < n - 4; i++) {
 
             // We can prune this branch if we already have a better hand

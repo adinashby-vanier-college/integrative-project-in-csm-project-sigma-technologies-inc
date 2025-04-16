@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
@@ -330,7 +330,7 @@
                                                         <Label text="Current Best Hand" />
                                                         <HBox alignment="CENTER" prefHeight="106.0" prefWidth="392.0" spacing="5.0">
                                                             <children>
-                                                                <Label fx:id="currentBestHandName" prefHeight="18.0" prefWidth="86.0" text="Three of a kind:" />
+                                                                <Label fx:id="currentBestHandName" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="86.0" />
                                                                 <ImageView fx:id="bestHandC1" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                                                                 <ImageView fx:id="bestHandC2" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                                                                 <ImageView fx:id="bestHandC3" fitHeight="74.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
