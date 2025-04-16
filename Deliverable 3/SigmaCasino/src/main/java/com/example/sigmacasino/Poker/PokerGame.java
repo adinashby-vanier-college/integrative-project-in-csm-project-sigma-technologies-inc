@@ -20,6 +20,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.example.sigmacasino.Poker.HandRanks.bestHand;
 
 public class PokerGame {
+
+    //Initiating Variables
     private final ArrayList<Player> players = new ArrayList<>();
     private static final ArrayList<Integer> playerChips = new ArrayList<>();
     private final ArrayList<Card> riverCards = new ArrayList<>();
@@ -50,16 +52,19 @@ public class PokerGame {
     private boolean earlyWin;
     private final TextArea announcerTextArea;
 
-    protected PokerGame(PokerController controller){
+    //Sets all the variables up before the game/round starts
+    PokerGame(PokerController controller){
         for (ImageView imageView : controller.imageViews) {
             controller.setImage(imageView);
         }
+
+        //Changes UI on the JavaFX Thread
         Platform.runLater(() -> {
             controller.getCheckProbabilityLabel().setText("");
             controller.getFoldProbabilityLabel().setText("");
             controller.getRaiseProbabilityLabel().setText("");
+            controller.getWinPercentageLabel().setText("");
         });
-        Platform.runLater(() ->controller.getWinPercentageLabel().setText(""));
         clearGraph(controller);
         playersFold.clear();
         currentPlayerBets.clear();
@@ -84,8 +89,6 @@ public class PokerGame {
             case "1 Card": burnCards=1;break;
             case "2 Cards": burnCards=2;break;
         }
-
-
         players.add(new Player("Player"));
         playersFold.add(false);
         currentPlayerBets.add(0);
@@ -211,7 +214,7 @@ public class PokerGame {
         }
     }
 
-    protected void playGame(PokerController controller){
+    void playGame(PokerController controller){
         //Restricts users controls during the round
         restrictControls(true, controller);
 
@@ -777,43 +780,6 @@ public class PokerGame {
         }
     }
 
-    protected static ArrayList<Integer> getPlayerChips() {
-        return playerChips;
-    }
-
-    protected static ArrayList<Label> getDealerLabels(){
-        return dealerLabels;
-    }
-
-    protected static ArrayList<Label> getSmallBlindLabels(){
-        return smallBlindLabels;
-    }
-
-    protected static ArrayList<Label> getBigBlindLabels(){
-        return bigBlindLabels;
-    }
-
-    protected static ArrayList<ImageView> getCard1() {
-        return card1;
-    }
-
-    protected static ArrayList<ImageView> getCard2() {
-        return card2;
-    }
-
-    protected static ArrayList<Label> getChipLabels() {
-        return chipLabels;
-    }
-
-    protected static ArrayList<Circle> getPlayerTurnCircles() {
-        return playerTurnCircles;
-    }
-
-    private static void setBotWinRate(int winRate){
-        botWinRate=winRate;
-    }
-
-
     private void endGame(PokerController controller) {
         potSize=0;
         for(int i=0;i<players.size();i++)
@@ -831,4 +797,42 @@ public class PokerGame {
             bigBlindLabels.get(bigBlindIndex).setVisible(false);
         });
     }
+    
+    static ArrayList<Integer> getPlayerChips() {
+        return playerChips;
+    }
+
+    static ArrayList<Label> getDealerLabels(){
+        return dealerLabels;
+    }
+
+    static ArrayList<Label> getSmallBlindLabels(){
+        return smallBlindLabels;
+    }
+
+    static ArrayList<Label> getBigBlindLabels(){
+        return bigBlindLabels;
+    }
+
+    static ArrayList<ImageView> getCard1() {
+        return card1;
+    }
+
+    static ArrayList<ImageView> getCard2() {
+        return card2;
+    }
+
+    static ArrayList<Label> getChipLabels() {
+        return chipLabels;
+    }
+
+    static ArrayList<Circle> getPlayerTurnCircles() {
+        return playerTurnCircles;
+    }
+
+    private static void setBotWinRate(int winRate){
+        botWinRate=winRate;
+    }
+
+    
 }
