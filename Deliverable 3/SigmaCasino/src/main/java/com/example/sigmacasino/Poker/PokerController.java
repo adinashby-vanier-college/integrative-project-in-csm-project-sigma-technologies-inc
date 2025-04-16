@@ -243,7 +243,7 @@ public class PokerController {
             int value;
             try{
                 value = Integer.parseInt(newValue);
-                if(value<=100)
+                if(value<=1000)
                 {
                     throw new Exception();
                 }
@@ -294,13 +294,13 @@ public class PokerController {
         //Retrieves the amount of chips that the player has raised
         raiseText.textProperty().addListener((observable, oldValue, newValue) -> {
             try{
-                int value = Integer.parseInt(newValue);
-                if(value<0)
-                {
-                    throw new Exception();
-                } else if (value>Integer.parseInt(chipsPlayer.getText())) {
-                    raiseText.setText(chipsPlayer.getText());
-                    value=Integer.parseInt(chipsPlayer.getText());
+                if(!newValue.isEmpty()) {
+                    int value = Integer.parseInt(newValue);
+                    if (value < 0) {
+                        throw new Exception();
+                    } else if (value > Integer.parseInt(chipsPlayer.getText())) {
+                        raiseText.setText(chipsPlayer.getText());
+                    }
                 }
             } catch (Exception e) {
                 raiseText.setText(oldValue);
@@ -437,7 +437,12 @@ public class PokerController {
             value = -1;
         } else if (raiseBox.isSelected()) {
             System.out.println(raiseText.getText());
-            value = Integer.parseInt(raiseText.getText());
+            try{
+                value = Integer.parseInt(raiseText.getText());
+            }
+            catch(Exception e){
+                value = 0;
+            }
         } else {
             value = 0;
         }
