@@ -3,6 +3,7 @@ package com.example.sigmacasino.Poker;
 import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 import io.lyuda.jcards.game.Player;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -11,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -387,10 +390,8 @@ public class PokerGame {
         }
 
         //Displays cards on the GUI
-        Platform.runLater(() -> {
-            card1.getFirst().setImage(getImage(players.getFirst().getHand().getCards().getFirst()));
-            card2.getFirst().setImage(getImage(players.getFirst().getHand().getCards().getLast()));
-        });
+        flipCardImage(card1.getFirst(),getImage(players.getFirst().getHand().getCards().getFirst()));
+        flipCardImage(card2.getFirst(),getImage(players.getFirst().getHand().getCards().getLast()));
         String text = "Dealer has dealt all the cards";
         Platform.runLater(() -> announcerTextArea.setText(text));
     }
@@ -732,11 +733,12 @@ public class PokerGame {
                 }
             }
         }
-        Platform.runLater(() -> {
-            controller.getRiverCard1().setImage(getImage(riverCards.getFirst()));
-            controller.getRiverCard2().setImage(getImage(riverCards.get(1)));
-            controller.getRiverCard3().setImage(getImage(riverCards.get(2)));
-        });
+
+        //Card change GUI
+        flipCardImage(controller.getRiverCard1(),getImage(riverCards.getFirst()));
+        flipCardImage(controller.getRiverCard2(),getImage(riverCards.get(1)));
+        flipCardImage(controller.getRiverCard3(),getImage(riverCards.get(2)));
+
     }
 
     //Deals the community cards (After first rounds)
@@ -751,14 +753,14 @@ public class PokerGame {
         }
         if(flop) //Second round
         {
-            Platform.runLater(() ->controller.getRiverCard4().setImage(getImage(riverCards.get(3))));
+            flipCardImage(controller.getRiverCard4(),getImage(riverCards.get(3)));
             text = "\nThe fourth river card is a "+riverCards.get(3).getRank().toString().toLowerCase()+" of "+riverCards.get(3).getSuit().toString().toLowerCase();
             String finalText1 = text;
             Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText1));
         }
         else //Third round
         {
-            Platform.runLater(() ->controller.getRiverCard5().setImage(getImage(riverCards.get(4))));
+            flipCardImage(controller.getRiverCard5(),getImage(riverCards.get(4)));
             text = "\nThe fifth river card is a "+riverCards.get(4).getRank().toString().toLowerCase()+" of "+riverCards.get(4).getSuit().toString().toLowerCase();
             String finalText2 = text;
             Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText2));
@@ -788,9 +790,9 @@ public class PokerGame {
 
     //Gets all the player rankings
     private void rankings() {
-        for (int i = 0; i < players.size(); i++) {
-            card1.get(i).setImage(getImage(players.get(i).getHand().getCards().getFirst()));
-            card2.get(i).setImage(getImage(players.get(i).getHand().getCards().getLast()));
+        for (int i = 1; i < players.size(); i++) {
+            flipCardImage(card1.get(i),getImage(players.get(i).getHand().getCards().getFirst()));
+            flipCardImage(card2.get(i),getImage(players.get(i).getHand().getCards().getLast()));
             System.out.println(players.get(i).getName() + ": " + players.get(i).getHand());
         }
         for (Player player : players) {
@@ -872,6 +874,25 @@ public class PokerGame {
             dealerLabels.get(dealerIndex).setVisible(false);
             smallBlindLabels.get(smallBlindIndex).setVisible(false);
             bigBlindLabels.get(bigBlindIndex).setVisible(false);
+        });
+    }
+
+    //Card animations
+    private void flipCardImage(ImageView imageView, Image image){
+        Platform.runLater(() -> {
+            RotateTransition rotateOut = new RotateTransition(Duration.millis(200), imageView);
+            rotateOut.setAxis(Rotate.Y_AXIS);
+            rotateOut.setFromAngle(0);
+            rotateOut.setToAngle(90);
+            rotateOut.setOnFinished(event -> {
+                imageView.setImage(image);
+                RotateTransition rotateIn = new RotateTransition(Duration.millis(200), imageView);
+                rotateIn.setAxis(Rotate.Y_AXIS);
+                rotateIn.setFromAngle(90);
+                rotateIn.setToAngle(0);
+                rotateIn.play();
+            });
+            rotateOut.play();
         });
     }
 
