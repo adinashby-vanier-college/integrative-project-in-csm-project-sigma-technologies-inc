@@ -313,10 +313,10 @@ public class PokerGame {
             }
         }
         String text;
-        text = "\nEveryone has folded except for "+players.get(winnerIndex).getName()+"\n"+players.get(winnerIndex).getName()+" Wins!";
+        text = "Everyone has folded except for "+players.get(winnerIndex).getName()+"\n"+players.get(winnerIndex).getName()+" Wins!\n";
         String finalText = text;
         playerChips.set(winnerIndex, playerChips.get(winnerIndex)+potSize);
-        Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText));
+        Platform.runLater(() ->announcerTextArea.setText(finalText+announcerTextArea.getText()));
         Platform.runLater(() -> updateChips(potSize, controller));
         restrictControls(false,controller);
         endGame(controller);
@@ -392,8 +392,8 @@ public class PokerGame {
         //Displays cards on the GUI
         flipCardImage(card1.getFirst(),getImage(players.getFirst().getHand().getCards().getFirst()));
         flipCardImage(card2.getFirst(),getImage(players.getFirst().getHand().getCards().getLast()));
-        String text = "Dealer has dealt all the cards";
-        Platform.runLater(() -> announcerTextArea.setText(text));
+        String text = "Dealer has dealt all the cards\n";
+        Platform.runLater(() -> announcerTextArea.setText(text+announcerTextArea.getText()));
     }
 
     //Gets the image of a given card
@@ -467,9 +467,9 @@ public class PokerGame {
                             });
                             long delay = 15;
                             System.out.println("\nPlayer is betting");
-                            text = "\nPlayer's turn to bet...";
+                            text = "Player's turn to bet...\n";
                             String finalText2 = text;
-                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText2));
+                            Platform.runLater(() -> announcerTextArea.setText(finalText2+announcerTextArea.getText()));
                             new Thread(() -> {
                                 try {
                                     for (long j = delay; j >= 0; j--) {
@@ -488,9 +488,9 @@ public class PokerGame {
                                 case 0: // Check/Call
                                     System.out.println("\nPlayer Follow: "+playerFollow);
                                     if (playerFollow == 0) {
-                                        text = "\nPlayer has chosen to check";
+                                        text = "Player has chosen to check\n";
                                     } else {
-                                        text = "\nPlayer has chosen to call $" + playerFollow;
+                                        text = "Player has chosen to call $" + playerFollow+"\n";
                                     }
 
                                     // Ensure player doesn't bet more than they have
@@ -501,7 +501,7 @@ public class PokerGame {
                                     break;
 
                                 case -1: // Fold
-                                    text = "\nPlayer has chosen to fold";
+                                    text = "Player has chosen to fold\n";
                                     playersFold.set(i, true);
                                     playerCirlesGUI.get(i).setFill(Color.GRAY);
                                     break;
@@ -517,14 +517,14 @@ public class PokerGame {
                                     System.out.println("\nBet Follow: "+betFollow);
                                     potSize += totalBet;
                                     starter = i; // New raiser becomes the new "starter" for betting round
-                                    text = "\nPlayer has chosen to raise by $" + value;
+                                    text = "Player has chosen to raise by $" + value+"\n";
                                     break;
                             }
                             //Updating UI
                             String finalText = text;
                             Platform.runLater(() -> {
                                 updateChips(potSize, controller);
-                                announcerTextArea.setText(announcerTextArea.getText() + finalText);
+                                announcerTextArea.setText(finalText + announcerTextArea.getText());
                                 controller.getSecondsLabel().setVisible(false);
                                 controller.getTimeRemainingLabel().setVisible(false);
                                 controller.getPlayerTimeLimitLabel().setVisible(false);
@@ -536,9 +536,9 @@ public class PokerGame {
                         } else { // Bot's turn
                             botWinRate=0;
                             System.out.println("\n" + players.get(i).getName() + " is betting");
-                            text = "\n" + players.get(i).getName() + "'s turn to bet...";
+                            text = players.get(i).getName() + "'s turn to bet...\n";
                             String finalText1 = text;
-                            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText1));
+                            Platform.runLater(() -> announcerTextArea.setText(finalText1 + announcerTextArea.getText()));
 
                             // Run simulation in background
                             int finalI = i;
@@ -568,9 +568,9 @@ public class PokerGame {
                             switch(index){
                                 case 0: // Check/Call
                                     if (botFollow == 0) {
-                                        text = "\n" + players.get(i).getName() + " has chosen to check";
+                                        text = players.get(i).getName() + " has chosen to check\n";
                                     } else {
-                                        text = "\n" + players.get(i).getName() + " has chosen to call $" + botFollow;
+                                        text = players.get(i).getName() + " has chosen to call $" + botFollow+"\n";
                                     }
                                     botFollow = Math.min(botFollow, playerChips.get(i));
                                     playerChips.set(i, playerChips.get(i) - botFollow);
@@ -579,7 +579,7 @@ public class PokerGame {
                                     break;
 
                                 case 1: // Fold
-                                    text = "\n" + players.get(i).getName() + " has chosen to fold";
+                                    text = players.get(i).getName() + " has chosen to fold\n";
                                     playersFold.set(i, true);
                                     break;
 
@@ -596,10 +596,10 @@ public class PokerGame {
                                         System.out.println("\nBet Follow: "+betFollow);
                                         potSize += totalBet;
                                         starter = i;
-                                        text = "\n" + players.get(i).getName() + " has chosen to raise by $" + raiseAmount;
+                                        text = players.get(i).getName() + " has chosen to raise by $" + raiseAmount+"\n";
                                     }
                                     else{
-                                        text = "\n" + players.get(i).getName() + " has chosen to check";
+                                        text = players.get(i).getName() + " has chosen to check\n";
                                     }
                                     break;
                             }
@@ -613,7 +613,7 @@ public class PokerGame {
                             String finalText = text;
                             Platform.runLater(() -> {
                                 updateChips(potSize, controller);
-                                announcerTextArea.setText(announcerTextArea.getText() + finalText);
+                                announcerTextArea.setText(finalText + announcerTextArea.getText());
                             });
                             botWinRate=0;
                         }
@@ -703,10 +703,10 @@ public class PokerGame {
 
         // Distribute the pot to each winner
         for (Integer winner : winners) {
-            text = "\n" + players.get(winner).getName() + " Wins!";
+            text = players.get(winner).getName() + " Wins!\n";
             String finalText = text;
             playerChips.set(winner, playerChips.get(winner) + winnerAmount);
-            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText() + finalText));
+            Platform.runLater(() -> announcerTextArea.setText(finalText + announcerTextArea.getText()));
         }
 
         // Update the chips display after the round
@@ -721,15 +721,15 @@ public class PokerGame {
         for(int i=0;i<3;i++)
         {
             riverCards.add(deck.deal());
-            text = "\nThe "+strings[i]+" river card is a "+riverCards.get(i).getRank().toString().toLowerCase()+" of "+riverCards.get(i).getSuit().toString().toLowerCase();
+            text = "The "+strings[i]+" river card is a "+riverCards.get(i).getRank().toString().toLowerCase()+" of "+riverCards.get(i).getSuit().toString().toLowerCase()+"\n";
             String finalText = text;
-            Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText));
+            Platform.runLater(() ->announcerTextArea.setText(finalText + announcerTextArea.getText()));
             if(burnCards>0)
             {
                 for(int j=0;j<burnCards;j++)
                 {
                     deck.deal();
-                    Platform.runLater(() ->announcerTextArea.setText("A card was burned"));
+                    Platform.runLater(() ->announcerTextArea.setText("A card was burned\n" + announcerTextArea.getText()));
                 }
             }
         }
@@ -748,22 +748,22 @@ public class PokerGame {
         if (burnCards > 0) {
             for (int j = 0; j < burnCards; j++) {
                 deck.deal();
-                Platform.runLater(() ->announcerTextArea.setText("A card was burned"));
+                Platform.runLater(() ->announcerTextArea.setText("A card was burned\n" + announcerTextArea.getText()));
             }
         }
         if(flop) //Second round
         {
             flipCardImage(controller.getRiverCard4(),getImage(riverCards.get(3)));
-            text = "\nThe fourth river card is a "+riverCards.get(3).getRank().toString().toLowerCase()+" of "+riverCards.get(3).getSuit().toString().toLowerCase();
+            text = "The fourth river card is a "+riverCards.get(3).getRank().toString().toLowerCase()+" of "+riverCards.get(3).getSuit().toString().toLowerCase() + "\n";
             String finalText1 = text;
-            Platform.runLater(() -> announcerTextArea.setText(announcerTextArea.getText()+ finalText1));
+            Platform.runLater(() -> announcerTextArea.setText(finalText1 + announcerTextArea.getText()));
         }
         else //Third round
         {
             flipCardImage(controller.getRiverCard5(),getImage(riverCards.get(4)));
-            text = "\nThe fifth river card is a "+riverCards.get(4).getRank().toString().toLowerCase()+" of "+riverCards.get(4).getSuit().toString().toLowerCase();
+            text = "The fifth river card is a "+riverCards.get(4).getRank().toString().toLowerCase()+" of "+riverCards.get(4).getSuit().toString().toLowerCase()+"\n";
             String finalText2 = text;
-            Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+ finalText2));
+            Platform.runLater(() ->announcerTextArea.setText(finalText2+announcerTextArea.getText()));
         }
     }
 
@@ -853,8 +853,8 @@ public class PokerGame {
     private void displayFinalRankings(){
         for(int i=0;i<players.size();i++)
         {
-            String text = "\n"+players.get(i).getName()+" has "+ playerRankNames.get(i);
-            Platform.runLater(() ->announcerTextArea.setText(announcerTextArea.getText()+text));
+            String text = players.get(i).getName()+" has "+ playerRankNames.get(i)+"\n";
+            Platform.runLater(() ->announcerTextArea.setText(text + announcerTextArea.getText()));
         }
     }
 
