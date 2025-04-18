@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Poker;
 
+import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -136,6 +138,8 @@ public class PokerController {
     @FXML private ImageView bestHandC4;
     @FXML private ImageView bestHandC5;
     @FXML private Label currentBestHandName;
+
+    @FXML private MenuItem pokerRulesMenuItem;
 
     XYChart.Series<Number, Number> series;
     ImageView[] imageViews;
@@ -344,6 +348,22 @@ public class PokerController {
                 stage.close();
             } catch (Exception e) {
                 throw new RuntimeException(e);
+            }
+        });
+
+        //Shows the poker rules menu
+        pokerRulesMenuItem.setOnAction(event ->{
+            try {
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/PokerRules.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setTitle("Rules/Guide");
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setResizable(false);
+                stage.showAndWait();
+            } catch (Exception e) {
+                System.out.println("Error switching to rules");
             }
         });
 
