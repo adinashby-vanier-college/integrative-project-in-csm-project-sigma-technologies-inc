@@ -363,11 +363,13 @@ public class PokerGame {
     {
         if(restrict)
         {
+            announcerTextArea.clear();
             controller.getChoiceBoxBruntCards().setDisable(true);
             controller.getSpinnerBots().setDisable(true);
             controller.getStartingChipsTextArea().setEditable(false);
             controller.getStartRoundCheckBox().setDisable(true);
             controller.getGameSelect().disableProperty().set(true);
+            controller.getPokerRulesMenuItem().disableProperty().set(true);
         }
         else {
             controller.getChoiceBoxBruntCards().setDisable(false);
@@ -375,6 +377,7 @@ public class PokerGame {
             controller.getStartingChipsTextArea().setEditable(true);
             controller.getStartRoundCheckBox().setDisable(false);
             controller.getGameSelect().disableProperty().set(false);
+            controller.getPokerRulesMenuItem().disableProperty().set(false);
         }
     }
 

@@ -742,4 +742,5 @@ public class PokerController {
 
     Label getCurrentBestHandName() {return currentBestHandName;}
 
+    MenuItem getPokerRulesMenuItem() { return pokerRulesMenuItem; }
 }
