@@ -2,10 +2,11 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Menus.GameSelectorController">
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Menus.GameSelectorController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -17,12 +18,12 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Options">
               <items>
-                <MenuItem mnemonicParsing="false" text="Options" onAction="#onOptionsClick"/>
+                <MenuItem mnemonicParsing="false" onAction="#onOptionsClick" text="Options" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" onAction="#onAboutClick"/>
+              <MenuItem mnemonicParsing="false" onAction="#onAboutClick" text="About" />
             </items>
           </Menu>
         </menus>
@@ -66,10 +67,24 @@
       </VBox>
    </right>
    <bottom>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="604.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="dicesIV" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="(T.B.D.) Mines and Dice" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="minesIV" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mines" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="205.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="dicesIV" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dice" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" right="10.0" />
