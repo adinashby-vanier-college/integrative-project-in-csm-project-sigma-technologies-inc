@@ -429,7 +429,7 @@ public class PokerController {
     }
 
     //Method for changing the FXML file of the stage
-     void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
+    void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
         System.out.println("Fxml: " + getClass().getResource((fxmlFile)));
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         if (controller != null) {

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Roulette.RouletteController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Roulette.RouletteController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-                <MenuItem visible="false" mnemonicParsing="false" text="Return" onAction="#onReturnClick"/>
+              <MenuItem fx:id="gameSelectionMenuItem" mnemonicParsing="false" onAction="#onGameSelectionMenuItemClick" text="Game Selection" />
+                <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#onQuitMenuItemClick" text="Quit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" onAction="#onAboutClick"/>
+              <MenuItem mnemonicParsing="false" onAction="#onAboutClick" text="About" />
             </items>
           </Menu>
         </menus>
@@ -28,12 +28,12 @@
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="148.0">
                <children>
                   <Label layoutX="4.0" layoutY="14.0" text="House edge (%):" />
-                  <Button layoutX="35.0" layoutY="150.0" mnemonicParsing="false" text="Best Play/Tips" onAction="#onTipsClick"/>
+                  <Button layoutX="35.0" layoutY="150.0" mnemonicParsing="false" onAction="#onTipsClick" text="Best Play/Tips" />
                   <Label layoutX="14.0" layoutY="115.0" text="Win ($):" />
-                   <Label fx:id="tracker" layoutX="4.0" layoutY="35.0" wrapText="true" prefWidth="140" prefHeight="80" text=""/>
-                  <TextField editable="false" layoutX="96.0" layoutY="10.0" prefHeight="0.0" prefWidth="50.0" text="5.26 (or 7.89)"/>
+                   <Label fx:id="tracker" layoutX="4.0" layoutY="35.0" prefHeight="80" prefWidth="140" text="" wrapText="true" />
+                  <TextField editable="false" layoutX="96.0" layoutY="10.0" prefHeight="0.0" prefWidth="50.0" text="5.26 (or 7.89)" />
                   <TextField editable="false" layoutX="96.0" layoutY="111.0" prefHeight="0.0" prefWidth="50.0" />
-                  <Button layoutX="54.0" layoutY="185.0" mnemonicParsing="false" text="Spin" onAction="#onSpinClick"/>
+                  <Button layoutX="54.0" layoutY="185.0" mnemonicParsing="false" onAction="#onSpinClick" text="Spin" />
                </children>
             </AnchorPane>
         </content>
