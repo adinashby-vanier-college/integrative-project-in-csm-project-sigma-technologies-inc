@@ -28,6 +28,12 @@ public class Hand {
         }
         animateCard(card);
     }
+    public BlackJackCard getUpCard() {
+        if (cards.size() > 0 && cards.get(0) instanceof BlackJackCard) {
+            return (BlackJackCard) cards.get(0);
+        }
+        return null;
+    }
 
     private void animateCard(BlackJackCard card) {
         card.setTranslateX(-200);

@@ -8,12 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0875b1ff-96f6-4834-b4ae-11f722c1b290" name="Changes" comment="Blackjack logic">
-      <change beforePath="$PROJECT_DIR$/../../.idea/integrative-project-in-csm-project-sigma-technologies-inc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/integrative-project-in-csm-project-sigma-technologies-inc.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/UI/blackjack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/UI/blackjack.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/gameLogic/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/gameLogic/Hand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +65,7 @@
     "Application.Driver.executor": "Run",
     "Application.HelloApplication.executor": "Run",
     "Application.PokerCalculator.executor": "Run",
-    "Application.SigmaCasinoMain.executor": "Debug",
+    "Application.SigmaCasinoMain.executor": "Run",
     "Application.Test.executor": "Run",
     "Application.Testing.executor": "Run",
     "Application.test.executor": "Run",
@@ -163,7 +160,7 @@
       <workItem from="1742482076692" duration="3837000" />
       <workItem from="1743012902387" duration="5850000" />
       <workItem from="1743021399942" duration="1853000" />
-      <workItem from="1745245313044" duration="2351000" />
+      <workItem from="1745245313044" duration="3384000" />
     </task>
     <task id="LOCAL-00001" summary="File structure modification, fixed some FXML errors, windows now open properly">
       <option name="closed" value="true" />
@@ -188,8 +185,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
-          <line>58</line>
+          <line>61</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
+          <line>85</line>
+          <properties class="com.example.sigmacasino.Blackjack.controllers.BlackJackController" method="endGame">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

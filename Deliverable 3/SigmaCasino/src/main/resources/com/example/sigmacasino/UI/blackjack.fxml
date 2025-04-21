@@ -31,12 +31,17 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="146.0">
                      <children>
-                        <Label fx:id="optimalPlayLabel" layoutX="27.0" layoutY="185.0" text="OPTIMAL MOVE" textFill="#27a42f">
+                        <Label fx:id="optimalPlayLabel" layoutX="27.0" layoutY="185.0" prefHeight="18.0" prefWidth="95.0" textFill="#27a42f">
                            <font>
                               <Font name="Consolas Bold" size="15.0" />
                            </font>
                         </Label>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#c79dbc" height="43.0" layoutX="19.0" layoutY="173.0" stroke="BLACK" strokeType="INSIDE" width="115.0" />
+                        <Label fx:id="MoveText" layoutX="27.0" layoutY="155.0" text="OPTIMAL MOVE" textFill="#27a42f">
+                           <font>
+                              <Font name="Consolas Bold" size="15.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
             </content>
           </TitledPane>

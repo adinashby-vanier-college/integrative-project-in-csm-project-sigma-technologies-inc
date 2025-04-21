@@ -12,7 +12,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -52,6 +54,7 @@ public class BlackJackController {
         player.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
         checkForBlackJack();
+        updateOptimalPlay();
 
     }
 //Doubledown mechanic
@@ -134,12 +137,30 @@ public class BlackJackController {
         //currentBet[0] = 0;
 
     }
+    private void updateOptimalPlay() {
+        int playerValue = player.valueProperty().get();
+        int dealerUpCard = dealer.getUpCard().value;
+
+        if (playerValue <= 11) {
+            optimalPlayLabel.setText("Hit");
+        } else if (playerValue >= 17) {
+            optimalPlayLabel.setText("Stand");
+        } else {
+            optimalPlayLabel.setText((dealerUpCard >= 7 ? "Hit" : "Stand"));
+        }
+    }
 
 
     @FXML
     private Button playBtn;
     @FXML
     private Button doubleDownButton;
+    @FXML
+    private Label optimalPlayLabel;
+    @FXML
+    private Label houseEdgeLabel;
+    @FXML
+    private LineChart<Number, Number> winRateChart;
     @FXML
     private Button hitBtn;
     @FXML
