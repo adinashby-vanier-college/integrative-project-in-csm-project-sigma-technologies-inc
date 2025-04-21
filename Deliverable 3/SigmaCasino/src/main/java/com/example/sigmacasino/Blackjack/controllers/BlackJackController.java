@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -36,6 +37,9 @@ public class BlackJackController {
     private Hand dealer, player;
 
     private final SimpleBooleanProperty isPlayable = new SimpleBooleanProperty(false);
+    private int roundsPlayed = 0;
+    private int playerWins = 0;
+    private XYChart.Series<Number, Number> winSeries = new XYChart.Series<>();
 
 
 
@@ -101,6 +105,7 @@ public class BlackJackController {
         }
         if(playerValue == 21 && dealerValue != 21) {
             winner = "PLAYER";
+            playerWins++;
         }
         else if(dealerValue == 21 && playerValue != 21){
             winner = "DEALER";
@@ -110,9 +115,11 @@ public class BlackJackController {
         }
         else if(dealerValue >21){
             winner = "PLAYER";
+            playerWins++;
         }
         else if(playerValue > dealerValue){
             winner = "PLAYER";
+            playerWins++;
         }
         else if(dealerValue > playerValue){
             winner = "DEALER";
@@ -135,6 +142,8 @@ public class BlackJackController {
         resultText.setVisible(true);
         betField.clear();
         //currentBet[0] = 0;
+        roundsPlayed++;
+        updateHouseEdge();
 
     }
     private void updateOptimalPlay() {
@@ -148,6 +157,11 @@ public class BlackJackController {
         } else {
             optimalPlayLabel.setText((dealerUpCard >= 7 ? "Hit" : "Stand"));
         }
+    }
+    private void updateHouseEdge() {
+        int losses = roundsPlayed - playerWins;
+        double edge = (losses - playerWins) / (double) roundsPlayed;
+        houseEdgeLabel.setText(String.format("House Edge: %.2f%%", edge*100));
     }
 
 

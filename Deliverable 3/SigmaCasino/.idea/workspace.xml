@@ -10,7 +10,6 @@
     <list default="true" id="0875b1ff-96f6-4834-b4ae-11f722c1b290" name="Changes" comment="Blackjack logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/gameLogic/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/gameLogic/Hand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +159,7 @@
       <workItem from="1742482076692" duration="3837000" />
       <workItem from="1743012902387" duration="5850000" />
       <workItem from="1743021399942" duration="1853000" />
-      <workItem from="1745245313044" duration="3384000" />
+      <workItem from="1745245313044" duration="4371000" />
     </task>
     <task id="LOCAL-00001" summary="File structure modification, fixed some FXML errors, windows now open properly">
       <option name="closed" value="true" />
@@ -185,17 +184,27 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
-          <line>61</line>
+          <line>66</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
+          <line>150</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
+          <line>149</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
-          <line>85</line>
-          <properties class="com.example.sigmacasino.Blackjack.controllers.BlackJackController" method="endGame">
+          <line>148</line>
+          <properties class="com.example.sigmacasino.Blackjack.controllers.BlackJackController" method="updateOptimalPlay">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

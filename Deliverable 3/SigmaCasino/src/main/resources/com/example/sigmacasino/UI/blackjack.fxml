@@ -49,7 +49,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="houseEdgeLabel" layoutX="63.0" layoutY="185.0" text="Label" />
+                        <Label fx:id="houseEdgeLabel" alignment="CENTER" layoutX="12.0" layoutY="185.0" prefHeight="17.0" prefWidth="130.0" textAlignment="CENTER" />
                      </children></AnchorPane>
             </content>
           </TitledPane>
