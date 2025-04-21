@@ -38,13 +38,14 @@ public class BlackJackController {
 
 
     private void startNewGame(){
-
+        currentBet[0] = 0;
         isPlayable.set(true);
         resultText.setText("");
         resultText.setVisible(false);
         deck.refill();
         dealer.reset();
         player.reset();
+        doubleDownButton.setDisable(false);
 
         dealer.takeCard(deck.drawCard());
         dealer.takeCard(deck.drawCard());
@@ -52,6 +53,14 @@ public class BlackJackController {
         player.takeCard(deck.drawCard());
         checkForBlackJack();
 
+    }
+//Doubledown mechanic
+    private void handleDoubleDown() {
+        if (!isPlayable.get()) return;
+        currentBet[0] = (currentBet[0] * 2);
+        player.takeCard(deck.drawCard());
+        doubleDownButton.setDisable(true);
+        endGame();
     }
 //Checks for instant win during card dealing
     private void checkForBlackJack() {
@@ -84,7 +93,7 @@ public class BlackJackController {
             resultText.setText("PLAYER busted! DEALER wins " + currentBet[0] + "$");
             resultText.setVisible(true);
             betField.clear();
-            currentBet[0] = 0;
+            //currentBet[0] = 0;
             return; //stop
         }
         if(playerValue == 21 && dealerValue != 21) {
@@ -109,26 +118,28 @@ public class BlackJackController {
             resultText.setText("Tie: no money has been won");
             resultText.setVisible(true);
             betField.clear();
-            currentBet[0] = 0;
+            //currentBet[0] = 0;
         }
 
         if(resultText.getText().equals("DEALER") || resultText.getText().equals("PLAYER")){
             resultText.setText(winner + " won " + currentBet[0] + "$");
             resultText.setVisible(true);
             betField.clear();
-            currentBet[0] = 0;
+            //currentBet[0] = 0;
         }
 
         resultText.setText(winner + " won " + currentBet[0] + "$");
         resultText.setVisible(true);
         betField.clear();
-        currentBet[0] = 0;
+        //currentBet[0] = 0;
 
     }
 
 
     @FXML
     private Button playBtn;
+    @FXML
+    private Button doubleDownButton;
     @FXML
     private Button hitBtn;
     @FXML
@@ -180,6 +191,7 @@ public class BlackJackController {
     public void initialize()  throws IOException {
 
         currentBet[0] = 0;
+        doubleDownButton.setVisible(true);
         resultText.setVisible(false);
         System.out.println("BlackJack successfully initialized");
         closeMenu.setOnAction(event -> {
@@ -223,6 +235,9 @@ public class BlackJackController {
                 dealer.takeCard(deck.drawCard());
             }
             endGame();
+        });
+        doubleDownButton.setOnAction((ActionEvent event) -> {
+            handleDoubleDown();
         });
         addFive.setOnAction((ActionEvent event) -> {
             currentBet[0] = currentBet[0] + 5;

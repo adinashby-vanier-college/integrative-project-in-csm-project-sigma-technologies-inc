@@ -3,6 +3,7 @@ module com.example.sigmacasino {
     requires javafx.fxml;
     requires jcards;
     requires jdk.compiler;
+    requires javafx.graphics;
     requires java.desktop;
 
     opens com.example.sigmacasino.Blackjack.controllers to javafx.fxml;

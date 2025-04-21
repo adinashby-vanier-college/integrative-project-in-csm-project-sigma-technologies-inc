@@ -14,5 +14,9 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:22.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:22.0.1" level="project" />
     <orderEntry type="library" name="jcards-0.0.6 (2)" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:17.0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:17.0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:17.0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:17.0.6" level="project" />
   </component>
 </module>
