@@ -140,6 +140,7 @@ public class PokerController {
     @FXML private Label currentBestHandName;
 
     @FXML private MenuItem pokerRulesMenuItem;
+    @FXML private MenuItem settingsMenuItem;
 
     XYChart.Series<Number, Number> series;
     ImageView[] imageViews;
@@ -151,7 +152,6 @@ public class PokerController {
 
     @FXML
     public void initialize() throws IOException {
-
         //Clears all PokerGame assets
         PokerGame.getPlayerChips().clear();
         PokerGame.getDealerLabels().clear();
@@ -367,6 +367,15 @@ public class PokerController {
             }
         });
 
+        //Shows the poker settings menu
+        settingsMenuItem.setOnAction(event -> {
+            try {
+                switchToScene(event, "/com/example/sigmacasino/UI/pokerSettings.fxml",null);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         //Check, Fold and Raise event handlers
         checkBox.setOnAction(event -> {
             if(checkBox.isSelected()) {
@@ -429,7 +438,7 @@ public class PokerController {
     }
 
     //Method for changing the FXML file of the stage
-    void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
+    private void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
         System.out.println("Fxml: " + getClass().getResource((fxmlFile)));
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         if (controller != null) {
@@ -743,4 +752,6 @@ public class PokerController {
     Label getCurrentBestHandName() {return currentBestHandName;}
 
     MenuItem getPokerRulesMenuItem() { return pokerRulesMenuItem; }
+
+    MenuItem getSettingsMenuItem() { return settingsMenuItem; }
 }
