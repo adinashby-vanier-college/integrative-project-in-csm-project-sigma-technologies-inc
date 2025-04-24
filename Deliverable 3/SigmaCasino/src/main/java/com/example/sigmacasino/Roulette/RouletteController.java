@@ -63,7 +63,12 @@ public class RouletteController {
         Alert about = new Alert(Alert.AlertType.INFORMATION);
         about.setTitle("About");
         about.setHeaderText("Roulette");
-        about.setContentText("W.I.P.");
+        about.setContentText("Welcome to American Roulette! Essentially you have to bet which " +
+                             "slot a ball will fall in in a spinning roulette wheel. There are" +
+                             " 38 numbered slots, half-red, half-black, including a 0 and 00 w" +
+                             "hich are both green. You can bet a monetary amount on numbers, c" +
+                             "olours, or odds/evens and ranges 1-18. You lose if the ball does" +
+                             " not land in your bet slot.");
         about.showAndWait();
 
     }
@@ -74,7 +79,16 @@ public class RouletteController {
         Alert about = new Alert(Alert.AlertType.INFORMATION);
         about.setTitle("About");
         about.setHeaderText("Tips and Information");
-        about.setContentText("W.I.P.");
+        about.setContentText("Warnings: Hot/Cold number trackers and the concept of cranking or hot streaks for certain" +
+                             " numbers is a gambler's fallacy, since all the roles are independent from each other and " +
+                             "in no way affect each other's probabilities.\n\nThe house edge in American Roulette (which " +
+                             "is slightly higher than in European Roulette due to the 00 (2.70%-1.35%, lower when using" +
+                             " En Prison/La Partage rules) coming to a whopping 5.26% of bet amount which they keep on" +
+                             " average.\n\nHere is the best play: avoid American Roulette in favour of European Roulette " +
+                             "if you can, if not: if your goal is to not lose any money (payout of 1:1) bet evenly for " +
+                             "all options (ex: red/black), for a balanced playstyle: 6 numbers and a property (ex: 13-1" +
+                             "8 and Red), avoid the top line bet (0, 00, 1, 2, 3) and single numbers (very low odds), r" +
+                             "emember the house always wins and hot streaks aren't a thing...");
         about.showAndWait();
 
     }

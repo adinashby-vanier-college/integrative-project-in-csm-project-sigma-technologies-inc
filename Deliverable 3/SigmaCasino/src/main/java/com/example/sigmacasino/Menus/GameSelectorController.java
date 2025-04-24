@@ -171,6 +171,7 @@ public class GameSelectorController {
             Scene secondScene = new Scene(root);
             secondStage.setTitle("Settings");
             secondStage.setScene(secondScene);
+            secondStage.setResizable(false);
             secondStage.showAndWait();
 
         } catch (Exception e) {

@@ -15,6 +15,7 @@ public class SigmaCasinoMain extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Sigma Casino");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
