@@ -63,7 +63,7 @@ public class PokerCalculator{
         //Stops simulation
         executor.shutdown();
         double winRate = (double) wins / totalTrials;
-        System.out.println("Total Trials Run: " + totalTrials);
+        //System.out.println("Total Trials Run: " + totalTrials);
         return winRate;
     }
 

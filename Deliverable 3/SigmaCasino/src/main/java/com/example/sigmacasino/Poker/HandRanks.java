@@ -30,12 +30,12 @@ public enum HandRanks{
         this.value = value;
     }
 
-    public int getValue(){
+    int getValue(){
         return this.value;
     }
 
-    //Used to figure out the rank of a individual players hand
-    public static int getIndividualHandRank(Player player){
+    //Used to figure out the rank of an individual players hand
+    static int getIndividualHandRank(Player player){
         ArrayList<Rank> cardNames = new ArrayList<>(Arrays.asList(
                 Rank.ACE, Rank.KING, Rank.QUEEN, Rank.JACK, Rank.TEN,
                 Rank.NINE, Rank.EIGHT, Rank.SEVEN, Rank.SIX, Rank.FIVE,
@@ -51,8 +51,8 @@ public enum HandRanks{
             hand[0] = hand[1];
             hand[1] = temp;
         }
-        System.out.println(Arrays.toString(hand));
-        System.out.println((subRankValues[cardNames.indexOf(hand[0].getRank())]) + (100*subRankValues[cardNames.indexOf(hand[1].getRank())]));
+        //System.out.println(Arrays.toString(hand));
+        //System.out.println((subRankValues[cardNames.indexOf(hand[0].getRank())]) + (100*subRankValues[cardNames.indexOf(hand[1].getRank())]));
         return (subRankValues[cardNames.indexOf(hand[0].getRank())]) + (100*subRankValues[cardNames.indexOf(hand[1].getRank())]);
     }
 
