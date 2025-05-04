@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.HashMap;
 
 public class AudioManager {
-    
+
     private static final HashMap<String, MediaPlayer> sounds = new HashMap<>();
 
     public static void loadSound(String name, String filePath) {
