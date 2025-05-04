@@ -157,7 +157,7 @@ public class GameSelectorController {
         Alert about = new Alert(Alert.AlertType.INFORMATION);
         about.setTitle("About");
         about.setHeaderText("Game Selector");
-        about.setContentText("W.I.P.");
+        about.setContentText("Click on any game to enter their simulator!");
         about.showAndWait();
 
     }

@@ -85,7 +85,8 @@ public class MainMenuController {
         Alert about = new Alert(Alert.AlertType.INFORMATION);
         about.setTitle("About");
         about.setHeaderText("About");
-        about.setContentText("W.I.P.");
+        about.setContentText("Welcome to Sigma Incorporated's latest technological wonder! Gambling Simulator 25! Simulate, learn and play" +
+                " a selection of the most popular gambling games around! Made in JavaFX and uses the jCards library. (https://github.com/lyudaio/jcards)");
         about.showAndWait();
 
     }
