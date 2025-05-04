@@ -144,8 +144,13 @@ public class BlackJackController {
         //currentBet[0] = 0;
         roundsPlayed++;
         updateHouseEdge();
+        //updateStatistics();
 
     }
+   /* private void updateStatistics() {
+        double winRate = playerWins / (double) roundsPlayed;
+        winSeries.getData().add(new XYChart.Data<>(roundsPlayed, winRate * 100));
+    }*/
     private void updateOptimalPlay() {
         int playerValue = player.valueProperty().get();
         int dealerUpCard = dealer.getUpCard().value;
@@ -238,7 +243,9 @@ public class BlackJackController {
         });
         dealer = new Hand(dealerCards.getChildren());
         player = new Hand(playerCards.getChildren());
-
+        winSeries = new XYChart.Series<>();
+        winRateChart.getData().add(winSeries);
+        winSeries.setName("Player Win %");
 
 
         playBtn.disableProperty().bind(isPlayable);
@@ -261,13 +268,16 @@ public class BlackJackController {
         });
         hitBtn.setOnAction((ActionEvent event) -> {
             player.takeCard(deck.drawCard());
+updateOptimalPlay();
         });
         standBtn.setOnAction((ActionEvent event) -> {
             while(dealer.valueProperty().get()<17){
                 dealer.takeCard(deck.drawCard());
+                updateOptimalPlay();
             }
             if(player.valueProperty().get()==21){
                 dealer.takeCard(deck.drawCard());
+                updateOptimalPlay();
             }
             endGame();
         });
@@ -311,7 +321,9 @@ public class BlackJackController {
 
 
                 Stage stage = new Stage();
-                stage.setScene(new Scene(root));
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(getClass().getResource("/com/example/sigmacasino/UI/blackjack-style.css").toExternalForm());
+                stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -334,6 +346,9 @@ public class BlackJackController {
         }
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setMaximized(false);
+        stage.setHeight(440);
+        stage.setWidth(620);
         stage.show();
     }
     }

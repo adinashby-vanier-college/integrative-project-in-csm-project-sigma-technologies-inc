@@ -325,7 +325,7 @@ public class PokerController {
                         break;
                     }
                 }
-                switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml",null);
+                switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml",null,true);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -370,7 +370,7 @@ public class PokerController {
         //Shows the poker settings menu
         settingsMenuItem.setOnAction(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/pokerSettings.fxml",null);
+                switchToScene(event, "/com/example/sigmacasino/UI/settings.fxml",null,false);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -438,7 +438,7 @@ public class PokerController {
     }
 
     //Method for changing the FXML file of the stage
-    private void switchToScene(Event event, String fxmlFile, Object controller ) throws IOException {
+    private void switchToScene(Event event, String fxmlFile, Object controller, boolean minimize ) throws IOException {
         System.out.println("Fxml: " + getClass().getResource((fxmlFile)));
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         if (controller != null) {
@@ -455,6 +455,12 @@ public class PokerController {
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        if(minimize)
+        {
+            stage.setMaximized(false);
+            stage.setHeight(440);
+            stage.setWidth(620);
+        }
         stage.show();
     }
 

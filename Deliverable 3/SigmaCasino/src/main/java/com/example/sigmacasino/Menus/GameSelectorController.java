@@ -59,7 +59,7 @@ public class GameSelectorController {
 
         pokerIV.setOnMouseClicked(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/poker.fxml", new PokerController(),true);
+                switchToScene(event, "/com/example/sigmacasino/UI/poker.fxml", new PokerController(),true,0,0);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -67,7 +67,7 @@ public class GameSelectorController {
 
         blackjackIV.setOnMouseClicked(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/blackjack.fxml", new BlackJackController(),false);
+                switchToScene(event, "/com/example/sigmacasino/UI/blackjack.fxml", new BlackJackController(),false,580,930);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -76,7 +76,7 @@ public class GameSelectorController {
 
         rouletteIV.setOnMouseClicked(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/roulette.fxml", null,false);
+                switchToScene(event, "/com/example/sigmacasino/UI/roulette.fxml", null,false,440,620);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -84,7 +84,7 @@ public class GameSelectorController {
 
         returnMainMenu.setOnAction(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/main-menu.fxml",null,false);
+                switchToScene(event, "/com/example/sigmacasino/UI/main-menu.fxml",null,false,440,620);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -124,7 +124,7 @@ public class GameSelectorController {
 
     }
 
-    public void switchToScene(Event event, String fxmlFile, Object controller, boolean maximize ) throws IOException {
+    public void switchToScene(Event event, String fxmlFile, Object controller, boolean maximize , int height, int width ) throws IOException {
         System.out.println("Fxml: " + getClass().getResource((fxmlFile)));
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         if (controller != null) {
@@ -144,6 +144,10 @@ public class GameSelectorController {
             stage.show();
             if(maximize){
                 stage.setMaximized(true);
+            }else {
+                stage.setMaximized(false);
+                stage.setHeight(height);
+                stage.setWidth(width);
             }
     }
 
