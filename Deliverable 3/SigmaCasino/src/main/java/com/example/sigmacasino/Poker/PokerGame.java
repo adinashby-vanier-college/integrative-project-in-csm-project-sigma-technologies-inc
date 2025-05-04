@@ -67,6 +67,11 @@ public class PokerGame {
 
         //Souund fx
         AudioManager.loadSound("Shuffle Start", "target/classes/com/example/sigmacasino/Audio/PokerCardShuffleFlip.mp3");
+        AudioManager.loadSound("Card Flip", "target/classes/com/example/sigmacasino/Audio/CardFlip.mp3");
+        AudioManager.loadSound("Check", "target/classes/com/example/sigmacasino/Audio/CheckSound.mp3");
+        AudioManager.loadSound("Fold", "target/classes/com/example/sigmacasino/Audio/FoldSound.mp3");
+        AudioManager.loadSound("Raise", "target/classes/com/example/sigmacasino/Audio/RaiseSound.mp3");
+
 
         //Changes UI on the JavaFX Thread
         Platform.runLater(() -> {
@@ -250,6 +255,7 @@ public class PokerGame {
         }
 
         //First River Flop
+        AudioManager.playSound("Card Flip");
         dealFlop(controller);
         updateGraph(1,controller);
         displayBestPlayerHand(controller,players.getFirst(),riverCards);
@@ -264,6 +270,7 @@ public class PokerGame {
         }
 
         //Second River Flop
+        AudioManager.playSound("Card Flip");
         dealPostFlop(controller, true);
         updateGraph(2,controller);
         displayBestPlayerHand(controller,players.getFirst(),riverCards);
@@ -278,6 +285,7 @@ public class PokerGame {
         }
 
         //Third River Flop
+        AudioManager.playSound("Card Flip");
         dealPostFlop(controller, false);
         updateGraph(3,controller);
         displayBestPlayerHand(controller,players.getFirst(),riverCards);
@@ -292,6 +300,7 @@ public class PokerGame {
         }
 
         //Check Cards Ranks
+        AudioManager.playSound("Card Flip");
         rankings();
         playerRankNames();
         displayFinalRankings();
@@ -502,8 +511,10 @@ public class PokerGame {
                                 case 0: // Check/Call
                                     System.out.println("\nPlayer Follow: "+playerFollow);
                                     if (playerFollow == 0) {
+                                        AudioManager.playSound("Check");
                                         text = "Player has chosen to check\n";
                                     } else {
+                                        AudioManager.playSound("Raise");
                                         text = "Player has chosen to call $" + playerFollow+"\n";
                                     }
 
@@ -515,12 +526,14 @@ public class PokerGame {
                                     break;
 
                                 case -1: // Fold
+                                    AudioManager.playSound("Fold");
                                     text = "Player has chosen to fold\n";
                                     playersFold.set(i, true);
                                     playerCirlesGUI.get(i).setFill(Color.GRAY);
                                     break;
 
                                 default: // Raise
+                                    AudioManager.playSound("Raise");
                                     int totalBet = playerFollow + value;
 
                                     // Ensure player doesn't bet more than they have
@@ -579,11 +592,14 @@ public class PokerGame {
                             }
                             int botFollow = betFollow - currentPlayerBets.get(i);
                             System.out.println("\nBot Follow: "+botFollow);
+                            Thread.sleep(5000);
                             switch(index){
                                 case 0: // Check/Call
                                     if (botFollow == 0) {
+                                        AudioManager.playSound("Check");
                                         text = players.get(i).getName() + " has chosen to check\n";
                                     } else {
+                                        AudioManager.playSound("Raise");
                                         text = players.get(i).getName() + " has chosen to call $" + botFollow+"\n";
                                     }
                                     botFollow = Math.min(botFollow, playerChips.get(i));
@@ -593,11 +609,13 @@ public class PokerGame {
                                     break;
 
                                 case 1: // Fold
+                                    AudioManager.playSound("Fold");
                                     text = players.get(i).getName() + " has chosen to fold\n";
                                     playersFold.set(i, true);
                                     break;
 
                                 case 2: // Raise
+                                    AudioManager.playSound("Raise");
                                     if(playerChips.get(i)!=0) {
                                         int raiseAmount = ThreadLocalRandom.current().nextInt(0, (playerChips.get(i) / 4));
                                         botFollow = betFollow - currentPlayerBets.get(i);
@@ -617,7 +635,6 @@ public class PokerGame {
                                     }
                                     break;
                             }
-                            Thread.sleep(5000);
                             if(playersFold.get(i))
                             {
                                 playerCirlesGUI.get(i).setFill(Color.GRAY);
