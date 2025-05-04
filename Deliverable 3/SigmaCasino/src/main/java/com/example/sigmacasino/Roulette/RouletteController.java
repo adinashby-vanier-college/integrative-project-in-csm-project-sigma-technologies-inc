@@ -31,32 +31,6 @@ public class RouletteController {
         stage.close();
     }
 
-
-//    @FXML
-//    protected void onReturnClick(ActionEvent event) {
-//
-//        //TO FIX LATER + MODIFY LINE 15 OF ROULETTE.FXML
-//        /*
-//        MenuItem menuItem = (MenuItem) event.getSource();
-//
-//        try {
-//
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/game-selector.fxml"));
-//            BorderPane root = loader.load();
-//
-//            Stage stage = (Stage) menuItem.getParentMenu().getParentPopup().getScene().getWindow();
-//
-//            Scene newScene = new Scene(root);
-//            stage.setScene(newScene);
-//
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//
-//        }
-//         */
-//    }
-
     @FXML
     protected void onAboutClick(ActionEvent event) {
 
@@ -83,12 +57,13 @@ public class RouletteController {
                              " numbers is a gambler's fallacy, since all the roles are independent from each other and " +
                              "in no way affect each other's probabilities.\n\nThe house edge in American Roulette (which " +
                              "is slightly higher than in European Roulette due to the 00 (2.70%-1.35%, lower when using" +
-                             " En Prison/La Partage rules) coming to a whopping 5.26% of bet amount which they keep on" +
-                             " average.\n\nHere is the best play: avoid American Roulette in favour of European Roulette " +
-                             "if you can, if not: if your goal is to not lose any money (payout of 1:1) bet evenly for " +
-                             "all options (ex: red/black), for a balanced playstyle: 6 numbers and a property (ex: 13-1" +
-                             "8 and Red), avoid the top line bet (0, 00, 1, 2, 3) and single numbers (very low odds), r" +
-                             "emember the house always wins and hot streaks aren't a thing...");
+                             " En Prison/La Partage rules) coming to a whopping 5.26% (7.89% if you play suboptimally) " +
+                             "of bet amount which they keep on average.\n\nHere is the best play: avoid American Roulet" +
+                             "te in favour of European Roulette if you can, if not: if your goal is to not lose any mon" +
+                             "ey (payout of 1:1) bet evenly for all options (ex: red/black), for a balanced playstyle: " +
+                             "6 numbers and a property (ex: 13-18 and Red), avoid the top line bet (0, 00, 1, 2, 3) and" +
+                             " single numbers (very low odds), remember the house always wins and hot streaks aren't a " +
+                             "thing...");
         about.showAndWait();
 
     }
@@ -96,21 +71,16 @@ public class RouletteController {
     @FXML
     protected void onSpinClick(ActionEvent event) {
 
-        //RNG TO BE REPLACED BY CUSTOM RNG WRAPPER
         Random rng = new Random();
         int number = rng.nextInt(38);
-        if (number == 37) {
-            number = 0;
-        } else if (number == 38) {
-            number = -1;
-        }
-
         String temp;
-        if (number == -1) {
+
+        if (number == 37) {
             temp = "00";
         } else {
             temp = String.valueOf(number);
         }
+
         String list = tracker.getText();
         tracker.setText(temp + ", " + list);
 

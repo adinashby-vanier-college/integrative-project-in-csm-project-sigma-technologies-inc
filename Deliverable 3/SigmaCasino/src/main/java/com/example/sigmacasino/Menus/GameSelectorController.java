@@ -26,7 +26,7 @@ public class GameSelectorController {
     @FXML private ImageView rouletteIV;
     @FXML private ImageView minesIV;
     @FXML private ImageView dicesIV;
-    @FXML private MenuItem closeMenu;
+    @FXML private MenuItem quitMenu;
 
 
     @FXML private MenuItem returnMainMenu;
@@ -90,7 +90,7 @@ public class GameSelectorController {
             }
         });
 
-        closeMenu.setOnAction(event -> {
+        quitMenu.setOnAction(event -> {
             try {
                 Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
                 stage.close();
