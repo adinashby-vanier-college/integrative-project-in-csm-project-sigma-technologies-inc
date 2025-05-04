@@ -18,6 +18,7 @@ public class AuthManager {
         try {
             String hashedPassword = hashPassword(password);
             Files.write(userFile.toPath(), hashedPassword.getBytes());
+            current_username = username;
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,6 +35,7 @@ public class AuthManager {
         try {
             String storedHash = new String(Files.readAllBytes(userFile.toPath()));
             String inputHash = hashPassword(password);
+            current_username = username;
             return storedHash.equals(inputHash);
         } catch (IOException e) {
             e.printStackTrace();
