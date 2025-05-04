@@ -144,8 +144,13 @@ public class BlackJackController {
         //currentBet[0] = 0;
         roundsPlayed++;
         updateHouseEdge();
+        //updateStatistics();
 
     }
+   /* private void updateStatistics() {
+        double winRate = playerWins / (double) roundsPlayed;
+        winSeries.getData().add(new XYChart.Data<>(roundsPlayed, winRate * 100));
+    }*/
     private void updateOptimalPlay() {
         int playerValue = player.valueProperty().get();
         int dealerUpCard = dealer.getUpCard().value;
@@ -238,7 +243,9 @@ public class BlackJackController {
         });
         dealer = new Hand(dealerCards.getChildren());
         player = new Hand(playerCards.getChildren());
-
+        winSeries = new XYChart.Series<>();
+        winRateChart.getData().add(winSeries);
+        winSeries.setName("Player Win %");
 
 
         playBtn.disableProperty().bind(isPlayable);
@@ -261,13 +268,16 @@ public class BlackJackController {
         });
         hitBtn.setOnAction((ActionEvent event) -> {
             player.takeCard(deck.drawCard());
+updateOptimalPlay();
         });
         standBtn.setOnAction((ActionEvent event) -> {
             while(dealer.valueProperty().get()<17){
                 dealer.takeCard(deck.drawCard());
+                updateOptimalPlay();
             }
             if(player.valueProperty().get()==21){
                 dealer.takeCard(deck.drawCard());
+                updateOptimalPlay();
             }
             endGame();
         });
