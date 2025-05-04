@@ -1,0 +1,40 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: linear-gradient(to bottom, #0b4f17, #0f8a2e);
+}
+
+.casino-button {
+    -fx-background-color: linear-gradient(to bottom, #4e342e, #3e2723);
+    -fx-text-fill: #fce4ec;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-color: #bf360c;
+    -fx-border-radius: 10;
+    -fx-padding: 8 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 4, 0.3, 0, 2);
+    -fx-cursor: hand;
+}
+
+.casino-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #6d4c41, #4e342e);
+    -fx-text-fill: #ffffff;
+}
+
+.text-field {
+    -fx-background-color: #fff;
+    -fx-border-color: #999;
+    -fx-border-radius: 4;
+    -fx-padding: 5;
+    -fx-font-weight: bold;
+}
+
+.label {
+    -fx-text-fill: #eeeeee;
+    -fx-font-size: 13px;
+}
+
+#tableBackground {
+    -fx-fill: radial-gradient(center 50% 50%, radius 60%, #009900, #004400);
+    -fx-stroke: #5e2a0c;
+    -fx-stroke-width: 3;
+}
