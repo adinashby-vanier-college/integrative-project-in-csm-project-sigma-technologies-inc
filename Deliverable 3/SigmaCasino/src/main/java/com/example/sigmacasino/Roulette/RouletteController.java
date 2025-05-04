@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
+import com.example.sigmacasino.Calculator.CryptoRandom;
 import java.io.IOException;
 import java.util.Random;
 
@@ -69,9 +70,7 @@ public class RouletteController {
 
     @FXML
     protected void onSpinClick(ActionEvent event) {
-
-        Random rng = new Random();
-        int number = rng.nextInt(38);
+        int number = CryptoRandom.GenerateRandomRangeInt(1,37);
         String temp;
 
         if (number == 37) {
