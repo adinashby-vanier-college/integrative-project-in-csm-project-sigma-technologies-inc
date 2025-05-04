@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Poker;
 
+import com.example.sigmacasino.Audio.AudioManager;
 import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 import io.lyuda.jcards.game.Player;
@@ -58,9 +59,14 @@ public class PokerGame {
     //Sets all the variables up before the game/round starts
     //Also sets the order of all the player (important for dealer, big blind and small blind)
     PokerGame(PokerController controller){
+
+        //Sets default card images
         for (ImageView imageView : controller.imageViews) {
             controller.setDefaultImage(imageView);
         }
+
+        //Souund fx
+        AudioManager.loadSound("Shuffle Start", "target/classes/com/example/sigmacasino/Audio/PokerCardShuffleFlip.mp3");
 
         //Changes UI on the JavaFX Thread
         Platform.runLater(() -> {
@@ -223,6 +229,9 @@ public class PokerGame {
     void playGame(PokerController controller){
         //Restricts users controls during the round
         restrictControls(true, controller);
+
+        //Plays sound
+        AudioManager.playSound("Shuffle Start");
 
         //Gives player Cards (runs on the JavafxThread)
         dealCards(controller);
