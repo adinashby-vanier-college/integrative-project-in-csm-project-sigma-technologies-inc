@@ -1,6 +1,7 @@
 package com.example.sigmacasino.Blackjack.gameLogic;
 import com.example.sigmacasino.Blackjack.gameLogic.BlackJackCard.BRank;
 import com.example.sigmacasino.Blackjack.gameLogic.BlackJackCard.BSuit;
+import com.example.sigmacasino.Calculator.CryptoRandom;
 public class Deck {
 
     private final BlackJackCard[] cards = new BlackJackCard[52];
@@ -19,7 +20,7 @@ public class Deck {
     public BlackJackCard drawCard(){
         BlackJackCard card = null;
         while(card == null){
-            int index = (int)(Math.random()*cards.length);
+            int index = (int)(CryptoRandom.GenerateRandomRangeFloat(0,0.999f)*cards.length);
             card = cards[index];
             cards[index] = null;
         }
