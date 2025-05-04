@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Menus.MainMenuAboutController">
+   <children>
+      <Label layoutX="99.0" layoutY="87.0" text="Welcome to Sigma Incorporated's latest technological wonder!">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="165.0" layoutY="124.0" text="Gambling Simulator 25">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="37.0" layoutY="179.0" text="Simulate, learn and play a selection of the most popular gambling games around!">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="187.0" layoutY="311.0" text="Made in JavaFX and uses the jCards library." />
+      <Hyperlink fx:id="jCards" layoutX="239.0" layoutY="342.0" text="Link To JCards Github" />
+   </children>
+</AnchorPane>

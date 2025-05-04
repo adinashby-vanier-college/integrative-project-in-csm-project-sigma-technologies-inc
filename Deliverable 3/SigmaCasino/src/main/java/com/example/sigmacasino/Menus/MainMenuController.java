@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Menus;
 
+import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -81,13 +83,24 @@ public class MainMenuController {
 
     @FXML
     protected void onAboutClick(ActionEvent event) {
-
-        Alert about = new Alert(Alert.AlertType.INFORMATION);
-        about.setTitle("About");
-        about.setHeaderText("About");
-        about.setContentText("Welcome to Sigma Incorporated's latest technological wonder! Gambling Simulator 25! Simulate, learn and play" +
-                " a selection of the most popular gambling games around! Made in JavaFX and uses the jCards library. (https://github.com/lyudaio/jcards)");
-        about.showAndWait();
+        try {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/MainMenuAbout.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("About");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (Exception e) {
+            System.out.println("Error switching to about");
+        }
+//        Alert about = new Alert(Alert.AlertType.INFORMATION);
+//        about.setTitle("About");
+//        about.setHeaderText("About");
+//        about.setContentText("Welcome to Sigma Incorporated's latest technological wonder! Gambling Simulator 25! Simulate, learn and play" +
+//                " a selection of the most popular gambling games around! Made in JavaFX and uses the jCards library. (https://github.com/lyudaio/jcards)");
+//        about.showAndWait();
 
     }
 
