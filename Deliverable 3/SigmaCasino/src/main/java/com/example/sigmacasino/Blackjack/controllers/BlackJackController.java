@@ -346,6 +346,9 @@ updateOptimalPlay();
         }
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setMaximized(false);
+        stage.setHeight(440);
+        stage.setWidth(620);
         stage.show();
     }
     }
