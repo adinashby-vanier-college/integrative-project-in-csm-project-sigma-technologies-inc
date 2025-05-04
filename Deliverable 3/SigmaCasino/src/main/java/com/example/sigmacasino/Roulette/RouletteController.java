@@ -105,4 +105,9 @@ public class RouletteController {
         stage.show();
     }
 
+    public void onBetsClick(ActionEvent actionEvent) {
+
+
+
+    }
 }
