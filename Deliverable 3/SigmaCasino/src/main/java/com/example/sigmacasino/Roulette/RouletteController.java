@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import com.example.sigmacasino.Calculator.CryptoRandom;
 import java.io.IOException;
@@ -107,7 +108,24 @@ public class RouletteController {
 
     public void onBetsClick(ActionEvent actionEvent) {
 
+        try {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(""));
+            BorderPane root = loader.load();
+
+            Stage secondStage = new Stage();
+            secondStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            Scene secondScene = new Scene(root);
+            secondStage.setTitle("Bets");
+            secondStage.setScene(secondScene);
+            secondStage.setResizable(false);
+            secondStage.showAndWait();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
 
     }
 }
