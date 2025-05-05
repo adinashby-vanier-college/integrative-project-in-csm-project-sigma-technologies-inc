@@ -1,6 +1,7 @@
 package com.example.sigmacasino.Roulette;
 
 import com.example.sigmacasino.Calculator.CryptoRandom;
+import com.example.sigmacasino.Settings.SettingsManager;
 import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -97,8 +98,9 @@ public class RouletteController {
         tracker.setText(temp + ", " + list);
 
         calculateWin(number);
-        playAnimation(number);
-
+        if(SettingsManager.settings.showAnimations) {
+            playAnimation(number);
+        }
     }
 
     // Win amount calculation
