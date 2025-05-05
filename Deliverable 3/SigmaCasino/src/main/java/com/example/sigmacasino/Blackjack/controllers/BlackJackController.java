@@ -65,11 +65,9 @@ public class BlackJackController {
 
         dealer.animateBackImage();
 
-        // Deal cards to the player
         player.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
 
-        // Check for Blackjack
         checkForBlackJack();
         updateOptimalPlay();
 
