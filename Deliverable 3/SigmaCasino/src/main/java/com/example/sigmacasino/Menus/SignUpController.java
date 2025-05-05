@@ -22,6 +22,7 @@ public class SignUpController {
     @FXML private TextField usernameTextField;
     @FXML private TextField passwordTextField;
     @FXML private Button signUpButton;
+    @FXML private Label usernameError;
 
 
     @FXML
@@ -44,7 +45,7 @@ public class SignUpController {
                 }
             }else
             {
-
+                usernameError.setVisible(true);
             }
         });
     }
