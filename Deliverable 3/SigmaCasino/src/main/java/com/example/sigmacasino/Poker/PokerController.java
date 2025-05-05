@@ -1,6 +1,7 @@
 package com.example.sigmacasino.Poker;
 
 import com.example.sigmacasino.Audio.AudioManager;
+import com.example.sigmacasino.Settings.Settings;
 import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -142,6 +143,8 @@ public class PokerController {
 
     @FXML private MenuItem pokerRulesMenuItem;
     @FXML private MenuItem settingsMenuItem;
+
+    @FXML private TitledPane gameStatisticsTiltedPane;
 
     XYChart.Series<Number, Number> series;
     ImageView[] imageViews;
@@ -379,6 +382,15 @@ public class PokerController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setResizable(false);
                 stage.showAndWait();
+
+                if(Settings.isShowUIStats()){
+                    gameStatisticsTiltedPane.setExpanded(true);
+                    gameStatisticsTiltedPane.setCollapsible(true);
+                }else{
+                    gameStatisticsTiltedPane.setExpanded(false);
+                    gameStatisticsTiltedPane.setCollapsible(false);
+                }
+
             } catch (Exception e) {
                 System.out.println("Error switching to rules");
             }
@@ -405,6 +417,11 @@ public class PokerController {
                 checkBox.setSelected(false);
             }
         });
+
+        if(!Settings.isShowUIStats()){
+            gameStatisticsTiltedPane.setExpanded(false);
+            gameStatisticsTiltedPane.setCollapsible(false);
+        }
 
     }
 

@@ -62,7 +62,7 @@ public class RouletteController {
         } catch (Exception e) {
             System.out.println("Error switching to tips and info");
         }
-        
+
 //        Alert about = new Alert(Alert.AlertType.INFORMATION);
 //        about.setTitle("About");
 //        about.setHeaderText("Tips and Information");
