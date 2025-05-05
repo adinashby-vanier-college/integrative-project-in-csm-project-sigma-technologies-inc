@@ -1,6 +1,7 @@
 package com.example.sigmacasino.Poker;
 
 import com.example.sigmacasino.Audio.AudioManager;
+import com.example.sigmacasino.Settings.SettingsManager;
 import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -374,7 +375,7 @@ public class PokerController {
                 stage.setResizable(false);
                 stage.showAndWait();
 
-                if(Settings.isShowUIStats()){
+                if(SettingsManager.settings.isShowUIStats){
                     gameStatisticsTiltedPane.setExpanded(true);
                     gameStatisticsTiltedPane.setCollapsible(true);
                 }else{
@@ -409,7 +410,7 @@ public class PokerController {
             }
         });
 
-        if(!Settings.isShowUIStats()){
+        if(!SettingsManager.settings.isShowUIStats){
             gameStatisticsTiltedPane.setExpanded(false);
             gameStatisticsTiltedPane.setCollapsible(false);
         }

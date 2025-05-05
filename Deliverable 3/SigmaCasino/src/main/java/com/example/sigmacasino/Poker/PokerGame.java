@@ -1,7 +1,7 @@
 package com.example.sigmacasino.Poker;
 
 import com.example.sigmacasino.Audio.AudioManager;
-import com.example.sigmacasino.Settings.Settings;
+import com.example.sigmacasino.Settings.SettingsManager;
 import io.lyuda.jcards.Card;
 import io.lyuda.jcards.Deck;
 import io.lyuda.jcards.game.Player;
@@ -74,11 +74,11 @@ public class PokerGame {
         AudioManager.loadSound("Raise", "target/classes/com/example/sigmacasino/Audio/RaiseSound.mp3");
 
         //Set sound volume
-        AudioManager.setVolume("Shuffle Start", Settings.getSoundLevel());
-        AudioManager.setVolume("Card Flip", Settings.getSoundLevel());
-        AudioManager.setVolume("Check", Settings.getSoundLevel());
-        AudioManager.setVolume("Fold", Settings.getSoundLevel());
-        AudioManager.setVolume("Raise", Settings.getSoundLevel());
+        AudioManager.setVolume("Shuffle Start", SettingsManager.settings.volume);
+        AudioManager.setVolume("Card Flip", SettingsManager.settings.volume);
+        AudioManager.setVolume("Check", SettingsManager.settings.volume);
+        AudioManager.setVolume("Fold", SettingsManager.settings.volume);
+        AudioManager.setVolume("Raise", SettingsManager.settings.volume);
 
         //Changes UI on the JavaFX Thread
         Platform.runLater(() -> {
