@@ -8,9 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0875b1ff-96f6-4834-b4ae-11f722c1b290" name="Changes" comment="Fixed file error">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/gameLogic/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/gameLogic/Hand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/UI/blackjack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/UI/blackjack.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/UI/settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/UI/settings.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,22 +213,22 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
-          <line>94</line>
+          <line>85</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
-          <line>213</line>
+          <line>204</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
-          <line>212</line>
+          <line>203</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java</url>
-          <line>211</line>
+          <line>202</line>
           <properties class="com.example.sigmacasino.Blackjack.controllers.BlackJackController">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

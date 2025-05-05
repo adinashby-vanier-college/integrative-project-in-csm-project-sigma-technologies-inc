@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Menus;
 
+import com.example.sigmacasino.Auth.AuthManager;
 import com.example.sigmacasino.Settings.SettingsManager;
 import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.ActionEvent;
@@ -35,6 +36,7 @@ public class MainMenuController {
         SettingsManager.loadSettings();
         playBtn.setOnAction(event -> {
             try {
+                AuthManager.current_username = "Guest";
                 switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml");
             } catch (IOException e) {
                 throw new RuntimeException(e);

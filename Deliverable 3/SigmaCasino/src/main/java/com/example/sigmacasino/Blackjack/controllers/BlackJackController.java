@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -222,7 +223,9 @@ public class BlackJackController {
     @FXML
     private Rectangle tableBackground;
     @FXML
-
+    private MenuItem gameSelectMenu;
+    @FXML
+    private MenuItem rulesMenu;
 
 
     int[] currentBet = {0};
@@ -237,19 +240,35 @@ public class BlackJackController {
         doubleDownButton.setVisible(true);
         resultText.setVisible(false);
         System.out.println("BlackJack successfully initialized");
-        closeMenu.setOnAction(event -> {
-            try {
-                switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
         dealer = new Hand(dealerCards.getChildren());
         player = new Hand(playerCards.getChildren());
         winSeries = new XYChart.Series<>();
         winRateChart.getData().add(winSeries);
         winSeries.setName("Player Win %");
 
+        gameSelectMenu.setOnAction(event -> {
+            try {
+                switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        rulesMenu.setOnAction(event -> {
+            try {
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/BlackjackRules.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
+                stage.setTitle("Rules/Guide");
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setResizable(false);
+                stage.showAndWait();
+            } catch (Exception e) {
+                System.out.println("Error switching to rules");
+            }
+        });
 
         playBtn.disableProperty().bind(isPlayable);
         hitBtn.disableProperty().bind(isPlayable.not());
