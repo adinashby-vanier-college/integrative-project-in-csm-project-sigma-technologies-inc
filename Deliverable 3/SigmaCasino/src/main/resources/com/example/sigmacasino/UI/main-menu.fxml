@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Menus.MainMenuController">
    <center>
       <ImageView fx:id="mainMenuIV" fitHeight="500.0" fitWidth="550.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
@@ -15,8 +16,10 @@
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="playBtn" mnemonicParsing="false" text="Play" />
-            <Button mnemonicParsing="false" text="About" onAction="#onAboutClick"/>
+            <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
+            <Button fx:id="registerButton" mnemonicParsing="false" text="Register" />
+            <Button fx:id="playBtn" mnemonicParsing="false" text="Play As Guest" />
+            <Button mnemonicParsing="false" onAction="#onAboutClick" text="About" />
          </children>
          <opaqueInsets>
             <Insets />

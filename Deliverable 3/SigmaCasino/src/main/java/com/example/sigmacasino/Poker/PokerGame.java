@@ -66,7 +66,7 @@ public class PokerGame {
             controller.setDefaultImage(imageView);
         }
 
-        //Souund fx
+        //Sound fx
         AudioManager.loadSound("Shuffle Start", "target/classes/com/example/sigmacasino/Audio/PokerCardShuffleFlip.mp3");
         AudioManager.loadSound("Card Flip", "target/classes/com/example/sigmacasino/Audio/CardFlip.mp3");
         AudioManager.loadSound("Check", "target/classes/com/example/sigmacasino/Audio/CheckSound.mp3");

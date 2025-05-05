@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Menus.LoginController">
+   <children>
+      <Label layoutX="231.0" layoutY="44.0" text="Welcome Back">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="183.0" layoutY="113.0" prefHeight="17.0" prefWidth="71.0" text="Username:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="183.0" layoutY="179.0" prefHeight="21.0" prefWidth="71.0" text="Password:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameTextField" layoutX="270.0" layoutY="111.0" />
+      <TextField fx:id="passwordTextField" layoutX="270.0" layoutY="177.0" />
+      <Button fx:id="logInButton" layoutX="274.0" layoutY="256.0" mnemonicParsing="false" text="Login" />
+      <Label fx:id="goBackButton" layoutX="36.0" layoutY="38.0" text="&lt;- Go Back">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
