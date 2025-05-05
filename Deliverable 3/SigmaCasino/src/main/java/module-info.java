@@ -6,7 +6,6 @@ module com.example.sigmacasino {
     requires javafx.graphics;
     requires java.desktop;
     requires javafx.media;
-    requires gson;
     requires com.google.gson;
 
     opens com.example.sigmacasino.Blackjack.controllers to javafx.fxml;
