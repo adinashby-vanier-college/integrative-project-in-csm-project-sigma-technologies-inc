@@ -72,6 +72,7 @@ public class PokerGame {
         AudioManager.loadSound("Check", "target/classes/com/example/sigmacasino/Audio/CheckSound.mp3");
         AudioManager.loadSound("Fold", "target/classes/com/example/sigmacasino/Audio/FoldSound.mp3");
         AudioManager.loadSound("Raise", "target/classes/com/example/sigmacasino/Audio/RaiseSound.mp3");
+        AudioManager.loadSound("Win","target/classes/com/example/sigmacasino/Audio/PokerWin.mp3");
 
         //Set sound volume
         AudioManager.setVolume("Shuffle Start", SettingsManager.settings.volume);
@@ -79,6 +80,7 @@ public class PokerGame {
         AudioManager.setVolume("Check", SettingsManager.settings.volume);
         AudioManager.setVolume("Fold", SettingsManager.settings.volume);
         AudioManager.setVolume("Raise", SettingsManager.settings.volume);
+        AudioManager.setVolume("Win",SettingsManager.settings.volume);
 
         //Changes UI on the JavaFX Thread
         Platform.runLater(() -> {
@@ -343,6 +345,10 @@ public class PokerGame {
         playerChips.set(winnerIndex, playerChips.get(winnerIndex)+potSize);
         Platform.runLater(() ->announcerTextArea.setText(finalText+announcerTextArea.getText()));
         Platform.runLater(() -> updateChips(potSize, controller));
+        if(players.get(winnerIndex).getName().equals("Player"))
+        {
+            AudioManager.playSound("Win");
+        }
         restrictControls(false,controller);
         endGame(controller);
     }
@@ -741,6 +747,10 @@ public class PokerGame {
 
         // Distribute the pot to each winner
         for (Integer winner : winners) {
+            if(players.get(winner).getName().equals("Player"))
+            {
+                AudioManager.playSound("Win");
+            }
             text = players.get(winner).getName() + " Wins!\n";
             String finalText = text;
             playerChips.set(winner, playerChips.get(winner) + winnerAmount);
