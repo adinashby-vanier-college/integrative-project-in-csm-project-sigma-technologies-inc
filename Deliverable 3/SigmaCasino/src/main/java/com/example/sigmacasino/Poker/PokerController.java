@@ -252,25 +252,17 @@ public class PokerController {
             int value;
             try{
                 value = Integer.parseInt(newValue);
-                if(value<=1000)
+                if(value<1000)
                 {
                     throw new Exception();
                 }
+                startingChips.setText(String.valueOf(value));
+                for (Label chip : chips) {
+                    chip.setText(""+value);
+                }
             } catch (Exception e) {
-                value = Integer.parseInt(oldValue);
+                startingChips.setText(String.valueOf(1000));
             }
-            startingChips.setText(String.valueOf(value));
-            for (Label chip : chips) {
-                chip.setText(""+value);
-            }
-            PokerGame.getPlayerChips().clear();
-            PokerGame.getDealerLabels().clear();
-            PokerGame.getSmallBlindLabels().clear();
-            PokerGame.getBigBlindLabels().clear();
-            PokerGame.getCard1().clear();
-            PokerGame.getCard2().clear();
-            PokerGame.getChipLabels().clear();
-            PokerGame.getPlayerTurnCircles().clear();
         });
 
         //Add and remove bots
