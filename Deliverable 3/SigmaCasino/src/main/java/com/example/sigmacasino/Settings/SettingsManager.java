@@ -14,10 +14,11 @@ public class SettingsManager {
 
     public static class Settings {
         public boolean isShowUIStats = true;
+        public boolean showAnimations = true;
         public float volume = 1;
     }
 
-    public static void saveSettings(Settings settings) {
+    public static void saveSettings() {
         try (FileWriter writer = new FileWriter(settings_file)) {
             Gson gson = new Gson();
             gson.toJson(settings, writer);

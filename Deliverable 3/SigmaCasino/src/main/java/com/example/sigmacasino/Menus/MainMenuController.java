@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Menus;
 
+import com.example.sigmacasino.Settings.SettingsManager;
 import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +33,7 @@ public class MainMenuController {
         File image = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/menu.png");
         Image mainMenuI = new Image(image.toURI().toString());
         mainMenuIV.setImage(mainMenuI);
-
+        SettingsManager.loadSettings();
         playBtn.setOnAction(event -> {
             try {
                 switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml");

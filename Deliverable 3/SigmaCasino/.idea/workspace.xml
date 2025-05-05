@@ -7,7 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0875b1ff-96f6-4834-b4ae-11f722c1b290" name="Changes" comment="Blackjack logic" />
+    <list default="true" id="0875b1ff-96f6-4834-b4ae-11f722c1b290" name="Changes" comment="Blackjack logic">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Settings/SettingsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Settings/SettingsManager.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Menus;
 
+import com.example.sigmacasino.Settings.SettingsManager;
 import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,13 +17,19 @@ public class SettingsController {
 
 
     @FXML
-    private void initialize() {
-        soundSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Slider value changed from " + oldValue + " to " + newValue);
-        });
+    private void initialize()
+    {
+        showUICheckBox.setSelected(SettingsManager.settings.isShowUIStats );
+        soundSlider.setValue(SettingsManager.settings.volume);
+        showAnimationsCheckBox.setSelected(SettingsManager.settings.showAnimations);
+
 
         applyButton.setOnAction(event ->{
+            SettingsManager.settings.isShowUIStats = showUICheckBox.isSelected();
+            SettingsManager.settings.volume = (float) soundSlider.getValue();
+            SettingsManager.settings.showAnimations = showAnimationsCheckBox.isSelected();
 
+            SettingsManager.saveSettings();
         });
     }
 
