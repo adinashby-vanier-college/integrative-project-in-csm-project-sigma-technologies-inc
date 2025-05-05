@@ -217,9 +217,12 @@ public class BlackJackController {
     @FXML
     private Button removeFive;
     @FXML
-            private MenuItem optionsMenu;
+    private MenuItem optionsMenu;
     @FXML
-            private Rectangle tableBackground;
+    private Rectangle tableBackground;
+    @FXML
+    private MenuItem quitGame;
+
 
 
     int[] currentBet = {0};
@@ -268,7 +271,7 @@ public class BlackJackController {
         });
         hitBtn.setOnAction((ActionEvent event) -> {
             player.takeCard(deck.drawCard());
-updateOptimalPlay();
+            updateOptimalPlay();
         });
         standBtn.setOnAction((ActionEvent event) -> {
             while(dealer.valueProperty().get()<17){
@@ -307,6 +310,15 @@ updateOptimalPlay();
             }
             betField.setText(Integer.toString(currentBet[0]));
 
+        });
+
+        quitGame.setOnAction(actionEvent -> {
+            try{
+                Stage stage = (Stage) ((MenuItem) actionEvent.getSource()).getParentPopup().getOwnerWindow();
+                stage.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
