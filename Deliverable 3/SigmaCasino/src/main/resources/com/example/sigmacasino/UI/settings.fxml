@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Menus.SettingsController">
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Menus.SettingsController">
    <top>
       <Label text="Settings" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -47,11 +47,6 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Slider>
-            <ComboBox prefWidth="150.0" promptText="Easter Eggs">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ComboBox>
          </children>
          <BorderPane.margin>
             <Insets top="20.0" />
