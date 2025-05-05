@@ -9,15 +9,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
+import com.example.sigmacasino.Auth.AuthManager;
 
 import java.io.IOException;
 
 public class SignUpController {
 
     @FXML private Label goBackButton;
+    @FXML private TextField usernameTextField;
+    @FXML private TextField passwordTextField;
+    @FXML private Button signUpButton;
+
 
     @FXML
     private void initialize() {
@@ -26,6 +31,16 @@ public class SignUpController {
                 switchToScene(event, "/com/example/sigmacasino/UI/main-menu.fxml");
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }
+        });
+        signUpButton.setOnAction(event ->{
+            boolean sucess = AuthManager.register(usernameTextField.getText(), passwordTextField.getText());
+            if(sucess)
+            {
+
+            }else
+            {
+
             }
         });
     }

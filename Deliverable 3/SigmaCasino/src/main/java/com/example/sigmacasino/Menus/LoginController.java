@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Menus;
 
+import com.example.sigmacasino.Auth.AuthManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -17,6 +19,9 @@ import java.io.IOException;
 public class LoginController {
 
     @FXML private Label goBackButton;
+    @FXML private TextField usernameTextField;
+    @FXML private TextField passwordTextField;
+    @FXML private Button logInButton;
 
     @FXML
     private void initialize() {
@@ -26,6 +31,16 @@ public class LoginController {
                 switchToScene(event, "/com/example/sigmacasino/UI/main-menu.fxml");
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }
+        });
+        logInButton.setOnAction(event ->{
+            boolean sucess = AuthManager.login(usernameTextField.getText(), passwordTextField.getText());
+            if(sucess)
+            {
+
+            }else
+            {
+
             }
         });
     }
