@@ -18,4 +18,5 @@ module com.example.sigmacasino {
     opens com.example.sigmacasino.Roulette to javafx.fxml;
     exports com.example.sigmacasino.Roulette;
     opens com.example.sigmacasino.Blackjack.gameLogic to javafx.graphics;
+    exports com.example.sigmacasino.Settings to com.google.gson;
 }
