@@ -11,6 +11,7 @@ public class AuthManager {
 
     public static String current_username = "Guest";
 
+    //Creates a new account by hashing the password and save it in files
     public static boolean register(String username, String password) {
         File dir = new File(user_dir);
         if (!dir.exists()) {
@@ -35,6 +36,7 @@ public class AuthManager {
         }
     }
 
+    //Login the user by searching the username and check if the hashes matches
     public static boolean login(String username, String password) {
         File userFile = new File(user_dir, username + ".txt");
         if (!userFile.exists()) {
@@ -60,6 +62,7 @@ public class AuthManager {
         }
     }
 
+    //Hash string using sha 256
     private static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -70,6 +73,7 @@ public class AuthManager {
         }
     }
 
+    //convert bytes to hex for saving as string
     private static String bytesToHex(byte[] bytes) {
         StringBuilder hex = new StringBuilder();
         for (byte b : bytes) {

@@ -12,6 +12,7 @@ public class SettingsManager {
 
     public static Settings settings = new Settings();
 
+    //Serialize the setting class into json and saves it
     public static void saveSettings() {
         try (FileWriter writer = new FileWriter(settings_file)) {
             Gson gson = new Gson();
@@ -21,6 +22,7 @@ public class SettingsManager {
         }
     }
 
+    //Load the json and convert it to the class.
     public static void loadSettings() {
         try (FileReader reader = new FileReader(settings_file)) {
             Gson gson = new Gson();

@@ -7,9 +7,10 @@ import java.io.File;
 import java.util.HashMap;
 
 public class AudioManager {
-    
+
     private static final HashMap<String, MediaPlayer> sounds = new HashMap<>();
 
+    //Load the sound into memory and caching it to reuse.
     public static void loadSound(String name, String filePath) {
         System.out.println(new File(filePath).toURI().toString());
         Media media = new Media(new File(filePath).toURI().toString());
@@ -17,6 +18,7 @@ public class AudioManager {
         sounds.put(name, player);
     }
 
+    //PlayOneShot
     public static void playSound(String name) {
         MediaPlayer player = sounds.get(name);
         if (player == null) {
