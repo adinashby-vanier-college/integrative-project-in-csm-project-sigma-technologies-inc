@@ -6,11 +6,15 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.*?>
-<BorderPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="550.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
     
     <right>
         <Accordion prefWidth="180.0" BorderPane.alignment="CENTER">
@@ -19,15 +23,15 @@
                     <content>
                         <VBox spacing="10.0">
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
                             </padding>
                             <Label text="OPTIMAL MOVE" textFill="#27a42f">
-                                <font><Font name="Consolas Bold" size="15.0" /></font>
+                                <font><Font name="Consolas Bold" size="15.0"/></font>
                             </Label>
                             <StackPane>
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c79dbc" height="43.0" stroke="BLACK" width="115.0" />
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c79dbc" height="43.0" stroke="BLACK" width="115.0"/>
                                 <Label fx:id="optimalPlayLabel" text="STAND" textFill="#27a42f">
-                                    <font><Font name="Consolas Bold" size="15.0" /></font>
+                                    <font><Font name="Consolas Bold" size="15.0"/></font>
                                 </Label>
                             </StackPane>
                         </VBox>
@@ -37,9 +41,9 @@
                     <content>
                         <VBox alignment="CENTER" spacing="10.0">
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
                             </padding>
-                            <Label fx:id="houseEdgeLabel" textAlignment="CENTER" />
+                            <Label fx:id="houseEdgeLabel" textAlignment="CENTER"/>
                         </VBox>
                     </content>
                 </TitledPane>
@@ -47,14 +51,14 @@
                     <content>
                         <VBox spacing="10.0">
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
                             </padding>
                             <LineChart fx:id="winRateChart" prefHeight="120.0" prefWidth="150.0">
                                 <xAxis>
-                                    <CategoryAxis label="Rounds" />
+                                    <CategoryAxis label="Rounds"/>
                                 </xAxis>
                                 <yAxis>
-                                    <NumberAxis label="Win %" />
+                                    <NumberAxis label="Win %"/>
                                 </yAxis>
                             </LineChart>
                         </VBox>
@@ -67,44 +71,46 @@
     <center>
         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Canvas height="465.0" width="680.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9fd1ff" height="388.0" layoutX="91.0" layoutY="39.0" stroke="BLACK" width="580.0" />
-                <Rectangle fx:id="tableBackground" arcHeight="5.0" arcWidth="5.0" fill="#00c800" height="333.0" layoutX="119.0" layoutY="65.0" stroke="#5e2a0c" strokeWidth="3" width="525.0" />
+                <Canvas height="465.0" width="764.0"/>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9fd1ff" height="388.0" layoutX="91.0" layoutY="39.0" stroke="BLACK" width="580.0"/>
+                <Rectangle fx:id="tableBackground" arcHeight="5.0" arcWidth="5.0"
+                           fill="#00c800" stroke="#5e2a0c" strokeWidth="3"
+                           layoutX="119.0" layoutY="65.0" height="333.0" width="525.0"/>
 
                 <Text layoutX="134.0" layoutY="92.0" text="DEALER'S HAND">
-                    <font><Font name="Arial" size="19.0" /></font>
+                    <font><Font name="Arial" size="19.0"/></font>
                 </Text>
                 <Text layoutX="134.0" layoutY="384.0" text="PLAYER'S HAND">
-                    <font><Font name="Arial" size="19.0" /></font>
+                    <font><Font name="Arial" size="19.0"/></font>
                 </Text>
                 <Text layoutX="522.0" layoutY="383.0" text="Points">
-                    <font><Font name="Arial" size="16.0" /></font>
+                    <font><Font name="Arial" size="16.0"/></font>
                 </Text>
                 <Text layoutX="522.0" layoutY="90.0" text="Points">
-                    <font><Font name="Arial" size="16.0" /></font>
+                    <font><Font name="Arial" size="16.0"/></font>
                 </Text>
 
-                <TextField fx:id="dealerPts" layoutX="579.0" layoutY="72.0" prefWidth="48.0" />
-                <TextField fx:id="playerPts" layoutX="579.0" layoutY="365.0" prefWidth="48.0" />
+                <TextField fx:id="dealerPts" layoutX="579.0" layoutY="72.0" prefWidth="48.0"/>
+                <TextField fx:id="playerPts" layoutX="579.0" layoutY="365.0" prefWidth="48.0"/>
 
                 <HBox fx:id="dealerCards" layoutX="134.0" layoutY="97.0" spacing="5.0">
                     <children>
-                        <ImageView fx:id="dealCard1" fitHeight="99.0" fitWidth="68.0" />
-                        <ImageView fx:id="dealCard2" fitHeight="99.0" fitWidth="68.0" />
-                        <ImageView fx:id="dealCard3" fitHeight="99.0" fitWidth="68.0" />
+                        <ImageView fx:id="dealCard1" fitHeight="99.0" fitWidth="68.0"/>
+                        <ImageView fx:id="dealCard2" fitHeight="99.0" fitWidth="68.0"/>
+                        <ImageView fx:id="dealCard3" fitHeight="99.0" fitWidth="68.0"/>
                     </children>
                 </HBox>
 
                 <HBox fx:id="playerCards" layoutX="134.0" layoutY="263.0" spacing="5.0">
                     <children>
-                        <ImageView fx:id="playerCard1" fitHeight="99.0" fitWidth="68.0" />
-                        <ImageView fx:id="playerCard2" fitHeight="99.0" fitWidth="68.0" />
-                        <ImageView fx:id="playerCard3" fitHeight="99.0" fitWidth="68.0" />
+                        <ImageView fx:id="playerCard1" fitHeight="99.0" fitWidth="68.0"/>
+                        <ImageView fx:id="playerCard2" fitHeight="99.0" fitWidth="68.0"/>
+                        <ImageView fx:id="playerCard3" fitHeight="99.0" fitWidth="68.0"/>
                     </children>
                 </HBox>
 
-                <Text fx:id="resultText" layoutX="128.0" layoutY="234.0" text="GAMBLING TIME'S OVER" wrappingWidth="498.01171875">
-                    <font><Font name="Arial Narrow" size="22.0" /></font>
+                <Text fx:id="resultText" layoutX="265.0" layoutY="239.0" text="GAMBLING TIME'S OVER">
+                    <font><Font name="Arial Narrow" size="22.0"/></font>
                 </Text>
             </children>
         </Pane>
@@ -113,29 +119,29 @@
     <bottom>
         <HBox alignment="CENTER" spacing="10.0">
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
             </padding>
             <children>
-                <Button fx:id="playBtn" prefHeight="40" prefWidth="100" styleClass="casino-button" text="Play" />
-                <Button fx:id="hitBtn" prefHeight="40" prefWidth="100" styleClass="casino-button" text="Hit" />
-                <Button fx:id="standBtn" prefHeight="40" prefWidth="100" styleClass="casino-button" text="Stand" />
-                <Button fx:id="doubleDownButton" prefHeight="40" prefWidth="120" styleClass="casino-button" text="Double Down" />
+                <Button fx:id="playBtn" text="Play" styleClass="casino-button" prefHeight="40" prefWidth="100"/>
+                <Button fx:id="hitBtn" text="Hit" styleClass="casino-button" prefHeight="40" prefWidth="100"/>
+                <Button fx:id="standBtn" text="Stand" styleClass="casino-button" prefHeight="40" prefWidth="100"/>
+                <Button fx:id="doubleDownButton" text="Double Down" styleClass="casino-button" prefHeight="40" prefWidth="120"/>
 
                 <HBox spacing="5.0">
                     <children>
-                        <Text text="Current Bet: $" fill="white"/>
-                        <TextField fx:id="betField" prefWidth="80" />
+                        <Text text="Current Bet: $"/>
+                        <TextField fx:id="betField" prefWidth="80"/>
                         <VBox spacing="5.0">
                             <children>
-                                <Button fx:id="addFive" prefWidth="50" styleClass="casino-button" text="+5" />
-                                <Button fx:id="removeFive" prefWidth="50" styleClass="casino-button" text="-5" />
+                                <Button fx:id="addFive" text="+5" styleClass="casino-button" prefWidth="50"/>
+                                <Button fx:id="removeFive" text="-5" styleClass="casino-button" prefWidth="50"/>
                             </children>
                         </VBox>
                     </children>
                 </HBox>
 
-                <Text text="Quick bet using RapiBet™" fill="white">
-                    <font><Font name="System Italic" size="12.0" /></font>
+                <Text text="Quick bet using RapiBet™">
+                    <font><Font name="System Italic" size="12.0"/></font>
                 </Text>
             </children>
         </HBox>
@@ -146,18 +152,17 @@
             <menus>
                 <Menu text="File">
                     <items>
-                        <MenuItem fx:id="closeMenu" text="Game Selection" />
-                  <MenuItem fx:id="quitGame" text="Quit" />
+                        <MenuItem fx:id="closeMenu" text="Game Selection"/>
                     </items>
                 </Menu>
                 <Menu text="Edit">
                     <items>
-                        <MenuItem fx:id="optionsMenu" text="Options" />
+                        <MenuItem fx:id="optionsMenu" text="Options"/>
                     </items>
                 </Menu>
                 <Menu text="Help">
                     <items>
-                        <MenuItem text="About" />
+                        <MenuItem text="About"/>
                     </items>
                 </Menu>
             </menus>

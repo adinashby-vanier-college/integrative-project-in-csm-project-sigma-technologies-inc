@@ -222,7 +222,6 @@ public class BlackJackController {
     @FXML
     private Rectangle tableBackground;
     @FXML
-    private MenuItem quitGame;
 
 
 
@@ -313,7 +312,7 @@ public class BlackJackController {
 
         });
 
-        quitGame.setOnAction(actionEvent -> {
+        closeMenu.setOnAction(actionEvent -> {
             try{
                 Stage stage = (Stage) ((MenuItem) actionEvent.getSource()).getParentPopup().getOwnerWindow();
                 stage.close();

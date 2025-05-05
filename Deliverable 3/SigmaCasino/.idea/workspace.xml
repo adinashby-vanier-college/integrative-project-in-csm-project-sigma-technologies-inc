@@ -9,7 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0875b1ff-96f6-4834-b4ae-11f722c1b290" name="Changes" comment="Blackjack logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Poker/PokerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Poker/PokerGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/UI/blackjack.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sigmacasino/UI/blackjack.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +33,12 @@
     &quot;assignee&quot;: &quot;ComradeMark&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/adinashby-vanier-college/integrative-project-in-csm-project-sigma-technologies-inc.git&quot;,
-    &quot;accountId&quot;: &quot;583fa149-3749-4cbf-b9b9-ac3141bee160&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/adinashby-vanier-college/integrative-project-in-csm-project-sigma-technologies-inc",
+    "accountId": "044ad004-07a0-44be-9d88-f9f3eccd305e"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -69,10 +70,6 @@
     &quot;Application.Testing.executor&quot;: &quot;Run&quot;,
     &quot;Application.com.example.sigmacasino.Blackjack.gameLogic.Test.executor&quot;: &quot;Run&quot;,
     &quot;Application.test.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
@@ -94,11 +91,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\ilesb\Documents\Github\Repos\integrative-project-in-csm-project-sigma-technologies-inc\Deliverable 3\SigmaCasino\lib" />
-    </key>
-  </component>
   <component name="RunManager" selected="Application.SigmaCasinoMain">
     <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.sigmacasino.Menus.Driver" />
@@ -161,6 +153,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -176,6 +176,7 @@
       <workItem from="1743012902387" duration="5850000" />
       <workItem from="1743021399942" duration="1853000" />
       <workItem from="1745245313044" duration="4371000" />
+      <workItem from="1746448871662" duration="334000" />
     </task>
     <task id="LOCAL-00001" summary="File structure modification, fixed some FXML errors, windows now open properly">
       <option name="closed" value="true" />
