@@ -1,6 +1,5 @@
 package com.example.sigmacasino.Blackjack.controllers;
 
-import com.example.sigmacasino.Blackjack.gameLogic.BlackJackCard;
 import com.example.sigmacasino.Blackjack.gameLogic.Deck;
 import com.example.sigmacasino.Blackjack.gameLogic.Hand;
 import com.example.sigmacasino.SigmaCasinoMain;
@@ -55,24 +54,15 @@ public class BlackJackController {
         player.reset();
         doubleDownButton.setDisable(false);
 
-
         dealer.takeCard(deck.drawCard());
-
-
-        BlackJackCard secondCard = deck.drawCard();
-        dealer.takeCard(secondCard);
-
-
-        dealer.animateBackImage();
-
+        dealer.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
-
         checkForBlackJack();
         updateOptimalPlay();
 
     }
-//Doubledown mechanic
+    //Doubledown mechanic
     private void handleDoubleDown() {
         if (!isPlayable.get()) return;
         currentBet[0] = (currentBet[0] * 2);
@@ -80,7 +70,7 @@ public class BlackJackController {
         doubleDownButton.setDisable(true);
         endGame();
     }
-//Checks for instant win during card dealing
+    //Checks for instant win during card dealing
     private void checkForBlackJack() {
         int dealerValue = dealer.valueProperty().get();
         int playerValue = player.valueProperty().get();
@@ -158,10 +148,10 @@ public class BlackJackController {
         //updateStatistics();
 
     }
-   /* private void updateStatistics() {
-        double winRate = playerWins / (double) roundsPlayed;
-        winSeries.getData().add(new XYChart.Data<>(roundsPlayed, winRate * 100));
-    }*/
+    /* private void updateStatistics() {
+         double winRate = playerWins / (double) roundsPlayed;
+         winSeries.getData().add(new XYChart.Data<>(roundsPlayed, winRate * 100));
+     }*/
     private void updateOptimalPlay() {
         int playerValue = player.valueProperty().get();
         int dealerUpCard = dealer.getUpCard().value;
@@ -333,24 +323,24 @@ public class BlackJackController {
     }
 
     private void openOptions() {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/blackjackConfig.fxml"));
-                Parent root = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/blackjackConfig.fxml"));
+            Parent root = loader.load();
 
-                BlackJackConfigController optionsController = loader.getController();
-                tableBackground.fillProperty().bind(optionsController.colorPicker().valueProperty());
+            BlackJackConfigController optionsController = loader.getController();
+            tableBackground.fillProperty().bind(optionsController.colorPicker().valueProperty());
 
 
 
-                Stage stage = new Stage();
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add(getClass().getResource("/com/example/sigmacasino/UI/blackjack-style.css").toExternalForm());
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/example/sigmacasino/UI/blackjack-style.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
 
 
@@ -374,7 +364,4 @@ public class BlackJackController {
         stage.setWidth(620);
         stage.show();
     }
-    }
-
-
-
+}
