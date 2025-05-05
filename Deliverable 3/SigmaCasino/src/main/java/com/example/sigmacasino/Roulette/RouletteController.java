@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Roulette;
 
+import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.example.sigmacasino.Calculator.CryptoRandom;
 import java.io.IOException;
@@ -49,23 +51,34 @@ public class RouletteController {
 
     @FXML
     protected void onTipsClick(ActionEvent event) {
-
-        Alert about = new Alert(Alert.AlertType.INFORMATION);
-        about.setTitle("About");
-        about.setHeaderText("Tips and Information");
-        about.setContentText("Warnings: Hot/Cold number trackers and the concept of cranking or hot streaks for certain" +
-                             " numbers is a gambler's fallacy, since all the roles are independent from each other and " +
-                             "in no way affect each other's probabilities.\n\nThe house edge in American Roulette (which " +
-                             "is slightly higher than in European Roulette due to the 00 (2.70%-1.35%, lower when using" +
-                             " En Prison/La Partage rules) coming to a whopping 5.26% (7.89% if you play suboptimally) " +
-                             "of bet amount which they keep on average.\n\nHere is the best play: avoid American Roulet" +
-                             "te in favour of European Roulette if you can, if not: if your goal is to not lose any mon" +
-                             "ey (payout of 1:1) bet evenly for all options (ex: red/black), for a balanced playstyle: " +
-                             "6 numbers and a property (ex: 13-18 and Red), avoid the top line bet (0, 00, 1, 2, 3) and" +
-                             " single numbers (very low odds), remember the house always wins and hot streaks aren't a " +
-                             "thing...");
-        about.showAndWait();
-
+        try {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/RouletteTipsAndInfo.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Tips and Info");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (Exception e) {
+            System.out.println("Error switching to tips and info");
+        }
+        
+//        Alert about = new Alert(Alert.AlertType.INFORMATION);
+//        about.setTitle("About");
+//        about.setHeaderText("Tips and Information");
+//        about.setContentText("Warnings: Hot/Cold number trackers and the concept of cranking or hot streaks for certain" +
+//                             " numbers is a gambler's fallacy, since all the roles are independent from each other and " +
+//                             "in no way affect each other's probabilities.\n\nThe house edge in American Roulette (which " +
+//                             "is slightly higher than in European Roulette due to the 00 (2.70%-1.35%, lower when using" +
+//                             " En Prison/La Partage rules) coming to a whopping 5.26% (7.89% if you play suboptimally) " +
+//                             "of bet amount which they keep on average.\n\nHere is the best play: avoid American Roulet" +
+//                             "te in favour of European Roulette if you can, if not: if your goal is to not lose any mon" +
+//                             "ey (payout of 1:1) bet evenly for all options (ex: red/black), for a balanced playstyle: " +
+//                             "6 numbers and a property (ex: 13-18 and Red), avoid the top line bet (0, 00, 1, 2, 3) and" +
+//                             " single numbers (very low odds), remember the house always wins and hot streaks aren't a " +
+//                             "thing...");
+//        about.showAndWait();
+//
     }
 
     @FXML
