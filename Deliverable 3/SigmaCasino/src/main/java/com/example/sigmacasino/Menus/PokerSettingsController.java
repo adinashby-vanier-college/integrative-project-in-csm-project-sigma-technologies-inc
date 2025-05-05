@@ -1,6 +1,7 @@
 package com.example.sigmacasino.Menus;
 
 import com.example.sigmacasino.Poker.PokerController;
+import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +44,7 @@ public class PokerSettingsController {
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         }
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
         stage.setScene(scene);
         stage.show();
         if(maximize){

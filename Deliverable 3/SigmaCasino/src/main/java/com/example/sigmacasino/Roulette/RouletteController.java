@@ -2,6 +2,8 @@ package com.example.sigmacasino.Roulette;
 
 import com.example.sigmacasino.Calculator.CryptoRandom;
 import com.example.sigmacasino.SigmaCasinoMain;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,12 +11,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 
@@ -24,6 +30,8 @@ public class RouletteController {
     private Label tracker;
     @FXML
     private TextField winTextField;
+    @FXML
+    private Canvas canvas;
 
     @FXML
     protected void onGameSelectionMenuItemClick(ActionEvent event) throws IOException {
@@ -58,6 +66,7 @@ public class RouletteController {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/RouletteTipsAndInfo.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
             stage.setTitle("Tips and Info");
             stage.setScene(scene);
             stage.setResizable(false);
@@ -89,15 +98,51 @@ public class RouletteController {
 
     protected void calculateWin(int number) {
 
-        int sum = 2 * BetController.bets.get(number);
-        winTextField.setText(String.valueOf(sum));
+        if (!BetController.bets.isEmpty()) {
+
+            int sum = 35 * BetController.bets.get(number);
+            winTextField.setText(String.valueOf(sum));
+
+        }
 
     }
 
+    private double angle = 0;
+    private double speed = 10;
+    final double deceleration = 0.5;
+
     protected void playAnimation(int number) {
 
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Image image = new Image(getClass().getResource("/com/example/sigmacasino/Sprites/wheel.jpg").toExternalForm());
 
+        Timeline timeline = new Timeline();
+        KeyFrame keyframe = new KeyFrame(Duration.millis(16), e -> {
 
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawRotatedImage(gc, image, angle, canvas.getWidth() / 2, canvas.getHeight() / 2);
+            angle += speed;
+            speed = Math.max(speed - deceleration, 0);
+            if (speed == 0) timeline.stop();
+
+        });
+        timeline.getKeyFrames().add(keyframe);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+    }
+
+    private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double px, double py) {
+        gc.save();
+        rotate(gc, angle, px, py);
+        gc.drawImage(image, px - image.getWidth() / 2, py - image.getHeight() / 2);
+        gc.restore();
+    }
+
+    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+        gc.translate(px, py);
+        gc.rotate(angle);
+        gc.translate(-px, -py);
     }
 
     //Method for changing the FXML file of the stage
@@ -117,6 +162,7 @@ public class RouletteController {
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         }
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
@@ -132,6 +178,7 @@ public class RouletteController {
             Stage secondStage = new Stage();
             secondStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             Scene secondScene = new Scene(root);
+            secondScene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
             secondStage.setTitle("Bets");
             secondStage.setScene(secondScene);
             secondStage.setResizable(false);

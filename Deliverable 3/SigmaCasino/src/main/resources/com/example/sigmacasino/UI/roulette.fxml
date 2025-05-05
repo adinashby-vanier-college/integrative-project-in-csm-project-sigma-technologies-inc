@@ -40,7 +40,7 @@
         </TitledPane>
     </left>
     <center>
-        <Canvas height="280.0" width="450.0" BorderPane.alignment="TOP_CENTER" />
+        <Canvas fx:id="canvas" height="280.0" width="450.0" BorderPane.alignment="TOP_CENTER" />
     </center>
     <bottom>
         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" alignment="CENTER_LEFT" spacing="20.0">

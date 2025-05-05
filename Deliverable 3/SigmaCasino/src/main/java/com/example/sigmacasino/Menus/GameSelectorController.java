@@ -2,6 +2,7 @@ package com.example.sigmacasino.Menus;
 
 import com.example.sigmacasino.Blackjack.controllers.BlackJackController;
 import com.example.sigmacasino.Poker.PokerController;
+import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -9,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -114,6 +114,7 @@ public class GameSelectorController {
             Stage stage = (Stage) source.getScene().getWindow();
 
             Scene newScene = new Scene(root);
+            newScene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
             stage.setScene(newScene);
 
         } catch (Exception e) {
@@ -140,6 +141,7 @@ public class GameSelectorController {
                 stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
             }
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
             stage.setScene(scene);
             stage.show();
             if(maximize){
@@ -149,17 +151,6 @@ public class GameSelectorController {
                 stage.setHeight(height);
                 stage.setWidth(width);
             }
-    }
-
-    @FXML
-    protected void onAboutClick(ActionEvent event) {
-
-        Alert about = new Alert(Alert.AlertType.INFORMATION);
-        about.setTitle("About");
-        about.setHeaderText("Game Selector");
-        about.setContentText("Click on any game to enter their simulator!");
-        about.showAndWait();
-
     }
 
     @FXML
@@ -173,6 +164,7 @@ public class GameSelectorController {
             Stage secondStage = new Stage();
             secondStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             Scene secondScene = new Scene(root);
+            secondScene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
             secondStage.setTitle("Settings");
             secondStage.setScene(secondScene);
             secondStage.setResizable(false);

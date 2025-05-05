@@ -72,6 +72,7 @@ public class MainMenuController {
             Stage stage = (Stage) source.getScene().getWindow();
 
             Scene newScene = new Scene(root);
+            newScene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
             stage.setScene(newScene);
 
         } catch (Exception e) {
@@ -95,6 +96,7 @@ public class MainMenuController {
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         }
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -106,6 +108,7 @@ public class MainMenuController {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/MainMenuAbout.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
             stage.setTitle("About");
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);

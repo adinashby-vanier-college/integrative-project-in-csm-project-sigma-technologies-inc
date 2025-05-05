@@ -353,6 +353,7 @@ public class PokerController {
                 Stage stage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/PokerRules.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
                 stage.setTitle("Rules/Guide");
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -369,6 +370,7 @@ public class PokerController {
                 Stage stage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/settings.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
                 stage.setTitle("Settings");
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -471,6 +473,7 @@ public class PokerController {
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         }
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
         stage.setScene(scene);
         if(minimize)
         {

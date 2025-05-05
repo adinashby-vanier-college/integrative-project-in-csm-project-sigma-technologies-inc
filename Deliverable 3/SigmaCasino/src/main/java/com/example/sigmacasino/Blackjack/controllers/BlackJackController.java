@@ -2,6 +2,7 @@ package com.example.sigmacasino.Blackjack.controllers;
 
 import com.example.sigmacasino.Blackjack.gameLogic.Deck;
 import com.example.sigmacasino.Blackjack.gameLogic.Hand;
+import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -357,6 +358,7 @@ public class BlackJackController {
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         }
         scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
         stage.setScene(scene);
         stage.setMaximized(false);
         stage.setHeight(440);

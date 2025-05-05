@@ -1,98 +1,26 @@
 package com.example.sigmacasino.Roulette;
 
 import javafx.event.ActionEvent;
-
-import java.util.ArrayList;
-import java.lang.Math;
-import java.util.Collections;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+
+import java.util.ArrayList;
 
 public class BetController {
 
     @FXML
-    private TextField field00;
-    @FXML
-    private TextField field0;
-    @FXML
-    private TextField field1;
-    @FXML
-    private TextField field2;
-    @FXML
-    private TextField field3;
-    @FXML
-    private TextField field4;
-    @FXML
-    private TextField field5;
-    @FXML
-    private TextField field6;
-    @FXML
-    private TextField field7;
-    @FXML
-    private TextField field8;
-    @FXML
-    private TextField field9;
-    @FXML
-    private TextField field10;
-    @FXML
-    private TextField field11;
-    @FXML
-    private TextField field12;
-    @FXML
-    private TextField field13;
-    @FXML
-    private TextField field14;
-    @FXML
-    private TextField field15;
-    @FXML
-    private TextField field16;
-    @FXML
-    private TextField field17;
-    @FXML
-    private TextField field18;
-    @FXML
-    private TextField field19;
-    @FXML
-    private TextField field20;
-    @FXML
-    private TextField field21;
-    @FXML
-    private TextField field22;
-    @FXML
-    private TextField field23;
-    @FXML
-    private TextField field24;
-    @FXML
-    private TextField field25;
-    @FXML
-    private TextField field26;
-    @FXML
-    private TextField field27;
-    @FXML
-    private TextField field28;
-    @FXML
-    private TextField field29;
-    @FXML
-    private TextField field30;
-    @FXML
-    private TextField field31;
-    @FXML
-    private TextField field32;
-    @FXML
-    private TextField field33;
-    @FXML
-    private TextField field34;
-    @FXML
-    private TextField field35;
-    @FXML
-    private TextField field36;
+    private TextField field00, field0, field1, field2, field3, field4, field5, field6,
+            field7, field8, field9, field10, field11, field12, field13, field14,
+            field15, field16, field17, field18, field19, field20, field21, field22,
+            field23, field24, field25, field26, field27, field28, field29, field30,
+            field31, field32, field33, field34, field35, field36;
 
     public static ArrayList<Integer> bets = new ArrayList<>(38);
 
     public void onBetClick(ActionEvent actionEvent) {
 
-        bets.addAll(Collections.nCopies(38, 0));
+        bets.clear();
+        for (int j = 0; j <= 37; j++) bets.add(0);
 
         try {
 

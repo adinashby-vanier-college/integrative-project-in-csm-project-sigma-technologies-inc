@@ -23,11 +23,6 @@
                                 <MenuItem mnemonicParsing="false" onAction="#onOptionsClick" text="Options" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#onAboutClick" text="About" />
-                            </items>
-                        </Menu>
                     </menus>
                 </MenuBar>
             </top>
@@ -35,7 +30,7 @@
                 <VBox alignment="CENTER" prefHeight="243.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
                         <ImageView fx:id="pokerIV" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Poker" textAlignment="CENTER" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Poker" textAlignment="CENTER" fill="white"/>
                     </children>
                 </VBox>
             </left>
@@ -43,7 +38,7 @@
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <children>
                         <ImageView fx:id="blackjackIV" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Blackjack" textAlignment="CENTER" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Blackjack" textAlignment="CENTER" fill="white"/>
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -54,7 +49,7 @@
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <children>
                         <ImageView fx:id="rouletteIV" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Roulette" textAlignment="CENTER" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Roulette" textAlignment="CENTER" fill="white"/>
                     </children>
                 </VBox>
             </right>
