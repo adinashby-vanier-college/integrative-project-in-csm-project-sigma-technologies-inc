@@ -1,0 +1,51 @@
+package com.example.sigmacasino.Menus;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+
+import java.io.IOException;
+
+public class SignUpController {
+
+    @FXML private Label goBackButton;
+
+    @FXML
+    private void initialize() {
+        goBackButton.setOnMouseClicked(event -> {
+            try {
+                switchToScene(event, "/com/example/sigmacasino/UI/main-menu.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public void switchToScene(MouseEvent event, String fxmlFile) throws IOException {
+        System.out.println("Fxml: "+getClass().getResource((fxmlFile)));
+
+        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+        Stage stage = null;
+        if (event.getSource() instanceof Node) {
+            // If the event source is a Node (ex: Button)
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        } else {
+            // If the event source is not a Node (ex:MenuItem)
+            stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+}

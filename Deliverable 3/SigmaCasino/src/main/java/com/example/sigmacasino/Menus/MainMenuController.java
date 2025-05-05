@@ -23,6 +23,9 @@ public class MainMenuController {
 
     @FXML private ImageView mainMenuIV;
     @FXML private Button playBtn;
+    @FXML private Button loginButton;
+    @FXML private Button registerButton;
+
 
     public void initialize() {
 
@@ -37,7 +40,22 @@ public class MainMenuController {
                 throw new RuntimeException(e);
             }
         });
-        
+
+        loginButton.setOnAction(event -> {
+            try {
+                switchToScene(event, "/com/example/sigmacasino/UI/LoginPage.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        registerButton.setOnAction(event -> {
+            try {
+                switchToScene(event, "/com/example/sigmacasino/UI/SignUpPage.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
    @FXML
