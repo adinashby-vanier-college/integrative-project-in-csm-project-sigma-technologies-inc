@@ -1,0 +1,147 @@
+# Gambling Simulator 25  
+**Version:** 1.0.0  
+
+---
+
+## 👥 Collaborators
+- Mark Moutter  
+- Ares Gabrielyan  
+- Iles Belkessam  
+- Michael Lulic  
+
+---
+
+## 🎯 Purpose  
+The purpose of this project was to develop a realistic gambling simulator that showcases the mechanics behind popular casino games while highlighting the role of probability and strategy.  
+It also serves as an educational tool to explore the risks and decision-making involved in gambling.
+
+---
+
+## 🛠️ Infrastructure & Configuration  
+- **Language:** Java  
+- **External Libraries:** [JCards](https://github.com/lyudaio/jcards)  
+- **Setup:**  
+  - No special configuration required  
+  - Simply download the JAR file and run
+
+---
+
+## 📘 User Guide  
+
+### ♠️ Poker – *Texas Hold'em*
+- **Objective:** Build the best 5-card hand using 2 private cards and 5 community cards.
+
+## 🃏 How to Use
+
+### 🎮 Game Setup
+- **Starting Chips**
+  - Minimum: `1000`
+  - Sets or resets player chips to the chosen amount
+  - **Note:** Cannot be changed between rounds
+
+- **Bot Amount**
+  - Minimum: `1 bot`
+  - Sets how many bot players are in the game
+  - **Note:** Cannot be changed between rounds
+
+- **Burn Cards**
+  - When enabled, burns the selected number of cards after each flip
+  - **Note:** Cannot be changed between rounds
+
+### ▶️ Game Controls
+- **Start Round**
+  - Begins the game with current settings
+
+- **Check / Raise / Fold**
+  - Only one option can be selected at a time
+  - After the 15-second decision timer, the chosen move is automatically made for the player
+
+- **Current Bet**
+  - Only enabled when **Raise** is selected
+  - Allows player to set the raise amount
+
+### 💰 In-Game Information
+- **Pot**
+  - Displays the total number of chips up for grabs in the current round
+
+- **Announcer**
+  - Shows real-time updates and game events
+  - Latest messages appear at the **top** of the feed
+
+- **Game Statistics**
+  - Offers tips and insights during the round
+  - Includes:
+    - **Best Move** suggestion
+    - **Win Percentage** estimate
+
+---
+
+### ♥️ Blackjack  
+- **Objective:** Get as close to 21 as possible without going over.
+ 
+## 🃏 How to Use
+
+### ▶️ Game Controls
+- **Play**
+  - Starts a new round 
+  - Resets the hands and point displays
+
+- **Hit**
+  - Adds one card to the player’s hand
+  - Used to get closer to 21 without busting
+
+- **Stand**
+  - Ends the player’s turn
+  - Dealer draws until they reach at least 17
+
+- **Double Down**
+  - Doubles the current bet
+  - Player receives only one additional card and is then forced to stand
+
+- **Current Bet**
+  - Adjusts the player’s wager before the round begins
+  - Controlled using `+5` and `-5` buttons or entered manually
+
+### 💰 In-Game Information
+- **Dealer’s / Player’s Hand**
+  - Shows dealt cards and live point totals
+  - Updated as cards are drawn or revealed
+
+- **Optimal Move**
+  - Recommends the statistically best decision (Hit or Stand)
+
+- **House Edge**
+  - Displays the casino’s current win advantage as a percentage
+
+- **Statistics**
+  - Win percentage chart based on the number of rounds played
+
+---
+
+### ♣️ Roulette  
+- **Objective:** Bet on the outcome of a spinning wheel. 
+
+
+
+
+
+
+---
+
+### 🧨 Mines  
+- **Objective:** Reveal as many safe tiles as possible without hitting a mine.  
+
+
+
+
+
+
+---
+
+### 🎲 Dices  
+- **Objective:** Bet on the result of a roll between 0 and 100.
+
+
+
+
+---
