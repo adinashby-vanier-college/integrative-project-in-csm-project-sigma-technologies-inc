@@ -37,8 +37,13 @@ public class LoginController {
             boolean sucess = AuthManager.login(usernameTextField.getText(), passwordTextField.getText());
             if(sucess)
             {
-
-            }else
+                try {
+                    switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            else
             {
 
             }
@@ -46,6 +51,23 @@ public class LoginController {
     }
 
     public void switchToScene(MouseEvent event, String fxmlFile) throws IOException {
+        System.out.println("Fxml: "+getClass().getResource((fxmlFile)));
+
+        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+        Stage stage = null;
+        if (event.getSource() instanceof Node) {
+            // If the event source is a Node (ex: Button)
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        } else {
+            // If the event source is not a Node (ex:MenuItem)
+            stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+    public void switchToScene(ActionEvent event, String fxmlFile) throws IOException {
         System.out.println("Fxml: "+getClass().getResource((fxmlFile)));
 
         Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));

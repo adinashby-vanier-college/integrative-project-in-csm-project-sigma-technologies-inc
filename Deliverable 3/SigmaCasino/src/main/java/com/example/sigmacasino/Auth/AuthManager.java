@@ -10,7 +10,12 @@ public class AuthManager {
     public static String current_username = "Guest";
 
     public static boolean register(String username, String password) {
-        File userFile = new File(user_dir, username + ".txt");
+        File dir = new File(user_dir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        File userFile = new File(dir, username + ".txt");
         if (userFile.exists()) {
             return false; // User already exists
         }
