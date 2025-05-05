@@ -29,16 +29,6 @@
                   <Font size="25.0" />
                </font>
             </CheckBox>
-            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="480.0" spacing="20.0">
-               <children>
-                  <Label text="Background Color:">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <ColorPicker fx:id="backgroundColor" />
-               </children>
-            </HBox>
             <Label text="Volume">
                <font>
                   <Font size="25.0" />

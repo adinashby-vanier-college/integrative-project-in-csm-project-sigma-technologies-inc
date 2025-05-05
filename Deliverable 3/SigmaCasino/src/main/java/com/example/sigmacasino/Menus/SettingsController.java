@@ -12,7 +12,6 @@ public class SettingsController {
     @FXML private CheckBox showUICheckBox;
     @FXML private Slider soundSlider;
     @FXML private CheckBox showAnimationsCheckBox;
-    @FXML private ColorPicker backgroundColor;
     @FXML private Button applyButton;
 
 
@@ -23,7 +22,7 @@ public class SettingsController {
         });
 
         applyButton.setOnAction(event ->{
-            
+
         });
     }
 
@@ -37,9 +36,5 @@ public class SettingsController {
 
     public boolean getAnimationValue(){
         return showAnimationsCheckBox.isSelected();
-    }
-
-    public ObjectProperty<Color> getBackgroundColor() {
-        return backgroundColor.valueProperty();
     }
 }
