@@ -35,6 +35,18 @@ public class SignUpController {
             }
         });
         signUpButton.setOnAction(event ->{
+
+            if(usernameTextField.getText().length()<4){
+                usernameError.setText("Username must be more than 4 characters");
+                usernameError.setVisible(true);
+                return;
+            }
+            if(passwordTextField.getText().length()<4){
+                usernameError.setText("Username must be more than 4 characters");
+                usernameError.setVisible(true);
+                return;
+            }
+
             boolean sucess = AuthManager.register(usernameTextField.getText(), passwordTextField.getText());
             if(sucess)
             {
@@ -43,8 +55,10 @@ public class SignUpController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-            }else
+            }
+            else
             {
+                usernameError.setText("This username already exists");
                 usernameError.setVisible(true);
             }
         });
