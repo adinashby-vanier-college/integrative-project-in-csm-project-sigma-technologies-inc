@@ -9,6 +9,9 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 
+import java.io.Console;
+import java.util.Set;
+
 public class SettingsController {
     @FXML private CheckBox showUICheckBox;
     @FXML private Slider soundSlider;
@@ -19,10 +22,10 @@ public class SettingsController {
     @FXML
     private void initialize()
     {
+        SettingsManager.loadSettings();
         showUICheckBox.setSelected(SettingsManager.settings.isShowUIStats );
         soundSlider.setValue(SettingsManager.settings.volume);
         showAnimationsCheckBox.setSelected(SettingsManager.settings.showAnimations);
-
 
         applyButton.setOnAction(event ->{
             SettingsManager.settings.isShowUIStats = showUICheckBox.isSelected();
@@ -31,6 +34,7 @@ public class SettingsController {
 
             SettingsManager.saveSettings();
         });
+        
     }
 
     public boolean getUICheckBoxValue(){

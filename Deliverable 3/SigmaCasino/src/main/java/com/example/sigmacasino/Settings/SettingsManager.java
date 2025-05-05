@@ -12,11 +12,6 @@ public class SettingsManager {
 
     public static Settings settings = new Settings();
 
-    public static class Settings {
-        public boolean isShowUIStats = true;
-        public boolean showAnimations = true;
-        public float volume = 1;
-    }
 
     public static void saveSettings() {
         try (FileWriter writer = new FileWriter(settings_file)) {
@@ -27,13 +22,12 @@ public class SettingsManager {
         }
     }
 
-    public static Settings loadSettings() {
+    public static void loadSettings() {
         try (FileReader reader = new FileReader(settings_file)) {
             Gson gson = new Gson();
-            return gson.fromJson(reader, Settings.class);
+            settings= gson.fromJson(reader, Settings.class);
         } catch (IOException e) {
             System.out.println("No settings file found. Using default settings.");
-            return new Settings();
         }
     }
 
