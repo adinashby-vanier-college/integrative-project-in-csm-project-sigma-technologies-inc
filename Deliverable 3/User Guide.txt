@@ -3,7 +3,7 @@
 
 ---
 
-## 👥 Collaborators
+## Collaborators
 - Mark Moutter  
 - Ares Gabrielyan  
 - Iles Belkessam  
@@ -11,7 +11,7 @@
 
 ---
 
-## 🎯 Purpose  
+## Purpose  
 The purpose of this project was to develop a realistic gambling simulator that showcases the mechanics behind popular casino games while highlighting the role of probability and strategy.  
 It also serves as an educational tool to explore the risks and decision-making involved in gambling.
 
@@ -26,7 +26,7 @@ It also serves as an educational tool to explore the risks and decision-making i
 
 ---
 
-## 📘 User Guide  
+## User Guide  
 
 ### Poker – *Texas Hold'em*
 - **Objective:** Build the best 5-card hand using 2 private cards and 5 community cards.
@@ -147,23 +147,5 @@ It also serves as an educational tool to explore the risks and decision-making i
   - Displays house edge
   - Tracks win values per spin
   - Provides access to tips on probability and strategy
-
----
-
-### Mines  
-- **Objective:** Reveal as many safe tiles as possible without hitting a mine.  
-
-
-
-
-
-
----
-
-### Dices  
-- **Objective:** Bet on the result of a roll between 0 and 100.
-
-
-
 
 ---
