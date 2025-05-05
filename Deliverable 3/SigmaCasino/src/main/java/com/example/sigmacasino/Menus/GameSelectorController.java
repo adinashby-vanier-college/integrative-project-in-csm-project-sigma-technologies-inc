@@ -24,8 +24,8 @@ public class GameSelectorController {
     @FXML private ImageView pokerIV;
     @FXML private ImageView blackjackIV;
     @FXML private ImageView rouletteIV;
-    @FXML private ImageView minesIV;
-    @FXML private ImageView dicesIV;
+//    @FXML private ImageView minesIV;
+//    @FXML private ImageView dicesIV;
     @FXML private MenuItem quitMenu;
 
 
@@ -38,23 +38,23 @@ public class GameSelectorController {
         File poker = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/poker.png");
         File blackjack = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/blackjack.png");
         File roulette = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/roulette.png");
-        File mines = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/mines.png");
-        File dices = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/dices.png");
+//        File mines = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/mines.png");
+//        File dices = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/dices.png");
 
 
 
         Image pokerI = new Image(poker.toURI().toString());
         Image blackjackI = new Image(blackjack.toURI().toString());
         Image rouletteI = new Image(roulette.toURI().toString());
-        Image minesI = new Image(mines.toURI().toString());
-        Image dicesI = new Image(dices.toURI().toString());
+//        Image minesI = new Image(mines.toURI().toString());
+//        Image dicesI = new Image(dices.toURI().toString());
 
 
         pokerIV.setImage(pokerI);
         blackjackIV.setImage(blackjackI);
         rouletteIV.setImage(rouletteI);
-        minesIV.setImage(minesI);
-        dicesIV.setImage(dicesI);
+//        minesIV.setImage(minesI);
+//        dicesIV.setImage(dicesI);
 
 
         pokerIV.setOnMouseClicked(event -> {
