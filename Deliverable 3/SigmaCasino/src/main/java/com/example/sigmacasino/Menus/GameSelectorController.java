@@ -21,6 +21,7 @@ import java.io.IOException;
 
 public class GameSelectorController {
 
+    // Game selection menu
     @FXML private ImageView pokerIV;
     @FXML private ImageView blackjackIV;
     @FXML private ImageView rouletteIV;
@@ -28,10 +29,7 @@ public class GameSelectorController {
 //    @FXML private ImageView dicesIV;
     @FXML private MenuItem quitMenu;
 
-
     @FXML private MenuItem returnMainMenu;
-
-
 
     public void initialize() {
 
@@ -41,21 +39,17 @@ public class GameSelectorController {
 //        File mines = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/mines.png");
 //        File dices = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/dices.png");
 
-
-
         Image pokerI = new Image(poker.toURI().toString());
         Image blackjackI = new Image(blackjack.toURI().toString());
         Image rouletteI = new Image(roulette.toURI().toString());
 //        Image minesI = new Image(mines.toURI().toString());
 //        Image dicesI = new Image(dices.toURI().toString());
 
-
         pokerIV.setImage(pokerI);
         blackjackIV.setImage(blackjackI);
         rouletteIV.setImage(rouletteI);
 //        minesIV.setImage(minesI);
 //        dicesIV.setImage(dicesI);
-
 
         pokerIV.setOnMouseClicked(event -> {
             try {
@@ -153,6 +147,7 @@ public class GameSelectorController {
             }
     }
 
+    // Options menu
     @FXML
     protected void onOptionsClick(ActionEvent event) {
 

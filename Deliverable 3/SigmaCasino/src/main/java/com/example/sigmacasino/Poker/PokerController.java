@@ -1,6 +1,5 @@
 package com.example.sigmacasino.Poker;
 
-import com.example.sigmacasino.Audio.AudioManager;
 import com.example.sigmacasino.Settings.SettingsManager;
 import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.Event;

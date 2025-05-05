@@ -1,16 +1,10 @@
 package com.example.sigmacasino.Menus;
 
 import com.example.sigmacasino.Settings.SettingsManager;
-import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
-import javafx.scene.paint.Color;
-
-import java.io.Console;
-import java.util.Set;
 
 public class SettingsController {
     @FXML private CheckBox showUICheckBox;

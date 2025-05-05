@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -22,11 +21,11 @@ import java.io.IOException;
 
 public class MainMenuController {
 
+    // Main menu
     @FXML private ImageView mainMenuIV;
     @FXML private Button playBtn;
     @FXML private Button loginButton;
     @FXML private Button registerButton;
-
 
     public void initialize() {
 
@@ -102,6 +101,7 @@ public class MainMenuController {
         stage.show();
     }
 
+    // About menu
     @FXML
     protected void onAboutClick(ActionEvent event) {
         try {

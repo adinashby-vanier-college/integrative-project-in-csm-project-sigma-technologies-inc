@@ -1,6 +1,8 @@
 package com.example.sigmacasino.Auth;
-import java.io.*;
-import java.nio.file.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 
 public class AuthManager {

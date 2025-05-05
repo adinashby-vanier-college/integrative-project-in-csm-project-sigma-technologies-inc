@@ -1,6 +1,6 @@
 package com.example.sigmacasino.Menus;
 
-import javafx.beans.binding.Bindings;
+import com.example.sigmacasino.Auth.AuthManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import com.example.sigmacasino.Auth.AuthManager;
 
 import java.io.IOException;
 

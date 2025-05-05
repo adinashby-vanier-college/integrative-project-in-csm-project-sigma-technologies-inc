@@ -17,12 +17,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.image.Image;
-
-import java.lang.Math;
 
 import java.io.IOException;
 
@@ -35,17 +33,20 @@ public class RouletteController {
     @FXML
     private Canvas canvas;
 
+    // Return
     @FXML
     protected void onGameSelectionMenuItemClick(ActionEvent event) throws IOException {
         switchToScene(event, "/com/example/sigmacasino/UI/game-selector.fxml",null);
     }
 
+    // Quit
     @FXML
     protected void onQuitMenuItemClick(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         stage.close();
     }
 
+    // Tutorials
     @FXML
     protected void onAboutClick(ActionEvent event) {
 
@@ -62,6 +63,7 @@ public class RouletteController {
 
     }
 
+    // Tutorials
     @FXML
     protected void onTipsClick(ActionEvent event) {
         try {
@@ -84,6 +86,7 @@ public class RouletteController {
         int number = CryptoRandom.GenerateRandomRangeInt(0,37);
         String temp;
 
+        // 37 returns 00 -> 0-36 + 00 -> 38 slots
         if (number == 37) {
             temp = "00";
         } else {
@@ -98,6 +101,7 @@ public class RouletteController {
 
     }
 
+    // Win amount calculation
     protected void calculateWin(int number) {
 
         if (!BetController.bets.isEmpty()) {
@@ -109,6 +113,7 @@ public class RouletteController {
 
     }
 
+    // Animation player
     private double angle = 0;
     private double speed = 30;
     final double deceleration = 0.5;
@@ -174,6 +179,7 @@ public class RouletteController {
         stage.show();
     }
 
+    // Betting window open
     @FXML
     public void onBetsClick(ActionEvent actionEvent) {
 
