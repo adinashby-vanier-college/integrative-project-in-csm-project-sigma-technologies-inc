@@ -28,12 +28,12 @@ It also serves as an educational tool to explore the risks and decision-making i
 
 ## 📘 User Guide  
 
-### ♠️ Poker – *Texas Hold'em*
+### Poker – *Texas Hold'em*
 - **Objective:** Build the best 5-card hand using 2 private cards and 5 community cards.
 
-## 🃏 How to Use
+## How to Use
 
-### 🎮 Game Setup
+### Game Setup
 - **Starting Chips**
   - Minimum: `1000`
   - Sets or resets player chips to the chosen amount
@@ -48,7 +48,7 @@ It also serves as an educational tool to explore the risks and decision-making i
   - When enabled, burns the selected number of cards after each flip
   - **Note:** Cannot be changed between rounds
 
-### ▶️ Game Controls
+### Game Controls
 - **Start Round**
   - Begins the game with current settings
 
@@ -60,7 +60,7 @@ It also serves as an educational tool to explore the risks and decision-making i
   - Only enabled when **Raise** is selected
   - Allows player to set the raise amount
 
-### 💰 In-Game Information
+### In-Game Information
 - **Pot**
   - Displays the total number of chips up for grabs in the current round
 
@@ -76,12 +76,12 @@ It also serves as an educational tool to explore the risks and decision-making i
 
 ---
 
-### ♥️ Blackjack  
+### Blackjack  
 - **Objective:** Get as close to 21 as possible without going over.
  
-## 🃏 How to Use
+## How to Use
 
-### ▶️ Game Controls
+### Game Controls
 - **Play**
   - Starts a new round 
   - Resets the hands and point displays
@@ -102,7 +102,7 @@ It also serves as an educational tool to explore the risks and decision-making i
   - Adjusts the player’s wager before the round begins
   - Controlled using `+5` and `-5` buttons or entered manually
 
-### 💰 In-Game Information
+### In-Game Information
 - **Dealer’s / Player’s Hand**
   - Shows dealt cards and live point totals
   - Updated as cards are drawn or revealed
@@ -118,17 +118,39 @@ It also serves as an educational tool to explore the risks and decision-making i
 
 ---
 
-### ♣️ Roulette  
+### Roulette  
 - **Objective:** Bet on the outcome of a spinning wheel. 
 
+## How to Use
 
+### Game Controls
+- **Spin**
+  - Spins the roulette wheel and determines the outcome
+  - Winnings are calculated based on current bet type and odds
 
+- **Number Bets**
+  - Opens the betting interface for number selections
+  - Allows choosing individual numbers, groups, or outside bets (e.g., red/black, odd/even)
 
+- **Win ($)**
+  - Displays your current winnings from the most recent spin
 
+- **House Edge (%)**
+  - Shows the casino's statistical advantage (default: 5.26% for American Roulette)
+
+- **Best Play/Tips**
+  - Opens a guide explaining optimal betting strategies and warnings
+  - Helpful for understanding how to play smarter and reduce losses
+
+### In-Game Information
+- **Statistics Panel**
+  - Displays house edge
+  - Tracks win values per spin
+  - Provides access to tips on probability and strategy
 
 ---
 
-### 🧨 Mines  
+### Mines  
 - **Objective:** Reveal as many safe tiles as possible without hitting a mine.  
 
 
@@ -138,7 +160,7 @@ It also serves as an educational tool to explore the risks and decision-making i
 
 ---
 
-### 🎲 Dices  
+### Dices  
 - **Objective:** Bet on the result of a roll between 0 and 100.
 
 
