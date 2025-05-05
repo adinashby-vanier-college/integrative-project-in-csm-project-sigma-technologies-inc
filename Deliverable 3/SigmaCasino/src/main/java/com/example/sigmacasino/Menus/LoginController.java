@@ -17,7 +17,7 @@ public class LoginController {
 
     @FXML private Label goBackButton;
     @FXML private TextField usernameTextField;
-    @FXML private TextField passwordTextField;
+    @FXML private PasswordField passwordTextField;
     @FXML private Button logInButton;
 
     @FXML

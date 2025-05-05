@@ -1,15 +1,13 @@
 package com.example.sigmacasino.Menus;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import com.example.sigmacasino.Auth.AuthManager;
@@ -20,9 +18,10 @@ public class SignUpController {
 
     @FXML private Label goBackButton;
     @FXML private TextField usernameTextField;
-    @FXML private TextField passwordTextField;
+    @FXML private PasswordField passwordTextField;
     @FXML private Button signUpButton;
     @FXML private Label usernameError;
+    @FXML private Label passwordError;
 
 
     @FXML
@@ -36,14 +35,13 @@ public class SignUpController {
         });
         signUpButton.setOnAction(event ->{
 
-            if(usernameTextField.getText().length()<4){
-                usernameError.setText("Username must be more than 4 characters");
+            if(usernameTextField.getText().length()<5){
+                usernameError.setText("Username must be at least 5 characters long");
                 usernameError.setVisible(true);
                 return;
             }
-            if(passwordTextField.getText().length()<4){
-                usernameError.setText("Username must be more than 4 characters");
-                usernameError.setVisible(true);
+            if(passwordTextField.getText().length()<7){
+                passwordError.setVisible(true);
                 return;
             }
 
