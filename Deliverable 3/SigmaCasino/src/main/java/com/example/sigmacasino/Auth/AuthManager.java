@@ -19,15 +19,18 @@ public class AuthManager {
 
         File userFile = new File(dir, username + ".txt");
         if (userFile.exists()) {
+            current_username = "Guest";
             return false; // User already exists
         }
 
         try {
             String hashedPassword = hashPassword(password);
             Files.write(userFile.toPath(), hashedPassword.getBytes());
+            current_username = username;
             return true;
         } catch (IOException e) {
             e.printStackTrace();
+            current_username = "Guest";
             return false;
         }
     }
@@ -41,9 +44,18 @@ public class AuthManager {
         try {
             String storedHash = new String(Files.readAllBytes(userFile.toPath()));
             String inputHash = hashPassword(password);
-            return storedHash.equals(inputHash);
+            boolean result = storedHash.equals(inputHash);
+            if(result)
+            {
+                current_username = username;
+            }else
+            {
+                current_username = "Guest";
+            }
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
+            current_username = "Guest";
             return false;
         }
     }

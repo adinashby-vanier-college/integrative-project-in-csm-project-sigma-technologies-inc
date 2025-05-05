@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Menus;
 
+import com.example.sigmacasino.Auth.AuthManager;
 import com.example.sigmacasino.Blackjack.controllers.BlackJackController;
 import com.example.sigmacasino.Poker.PokerController;
 import com.example.sigmacasino.SigmaCasinoMain;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,10 +30,12 @@ public class GameSelectorController {
 //    @FXML private ImageView minesIV;
 //    @FXML private ImageView dicesIV;
     @FXML private MenuItem quitMenu;
+    @FXML private Label playerName;
 
     @FXML private MenuItem returnMainMenu;
 
     public void initialize() {
+        playerName.setText(AuthManager.current_username);
 
         File poker = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/poker.png");
         File blackjack = new File("src/main/resources/com/example/sigmacasino/Sprites/thumbails/blackjack.png");
