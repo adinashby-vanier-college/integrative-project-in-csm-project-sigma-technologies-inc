@@ -66,7 +66,7 @@
     <center>
         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Canvas height="465.0" width="764.0" />
+                <Canvas height="465.0" width="680.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9fd1ff" height="388.0" layoutX="91.0" layoutY="39.0" stroke="BLACK" width="580.0" />
                 <Rectangle fx:id="tableBackground" arcHeight="5.0" arcWidth="5.0" fill="#00c800" height="333.0" layoutX="119.0" layoutY="65.0" stroke="#5e2a0c" strokeWidth="3" width="525.0" />
 
