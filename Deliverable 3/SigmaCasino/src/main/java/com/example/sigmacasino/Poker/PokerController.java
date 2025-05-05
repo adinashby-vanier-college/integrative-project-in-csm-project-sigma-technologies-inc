@@ -371,9 +371,16 @@ public class PokerController {
         //Shows the poker settings menu
         settingsMenuItem.setOnAction(event -> {
             try {
-                switchToScene(event, "/com/example/sigmacasino/UI/settings.fxml",null,false);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(SigmaCasinoMain.class.getResource("/com/example/sigmacasino/UI/settings.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setTitle("Settings");
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setResizable(false);
+                stage.showAndWait();
+            } catch (Exception e) {
+                System.out.println("Error switching to rules");
             }
         });
 
