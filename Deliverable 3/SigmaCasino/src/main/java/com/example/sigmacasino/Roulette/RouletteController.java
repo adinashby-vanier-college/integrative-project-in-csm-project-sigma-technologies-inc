@@ -14,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import com.example.sigmacasino.Calculator.CryptoRandom;
 import java.io.IOException;
-import java.util.Random;
 
 public class RouletteController {
 
@@ -83,6 +82,8 @@ public class RouletteController {
         String list = tracker.getText();
         tracker.setText(temp + ", " + list);
 
+
+
     }
 
     //Method for changing the FXML file of the stage
@@ -110,7 +111,7 @@ public class RouletteController {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(""));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sigmacasino/UI/bet.fxml"));
             BorderPane root = loader.load();
 
             Stage secondStage = new Stage();
