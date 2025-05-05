@@ -87,8 +87,6 @@ public class BetController {
     private TextField field35;
     @FXML
     private TextField field36;
-    @FXML
-    private TextField field37;
 
     public static ArrayList<Integer> bets = new ArrayList<>(38);
 
@@ -290,7 +288,6 @@ public class BetController {
                     case 37:
                         if (!field00.getText().matches("\\d+") || field00.getText().isBlank()) break;
                         bets.set(37, Math.abs(Integer.parseInt(field00.getText())));
-                        System.out.println(bets.get(37));
                         break;
 
                 }
