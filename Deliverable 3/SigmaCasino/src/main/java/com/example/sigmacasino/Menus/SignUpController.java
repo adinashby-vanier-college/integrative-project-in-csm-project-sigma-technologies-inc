@@ -1,6 +1,7 @@
 package com.example.sigmacasino.Menus;
 
 import com.example.sigmacasino.Auth.AuthManager;
+import com.example.sigmacasino.SigmaCasinoMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,6 +76,7 @@ public class SignUpController {
         }
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
         stage.setResizable(false);
         stage.show();
     }
@@ -91,6 +93,7 @@ public class SignUpController {
             stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         }
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource(SigmaCasinoMain.stylesPath).toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

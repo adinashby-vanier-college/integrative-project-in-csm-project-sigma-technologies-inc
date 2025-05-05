@@ -8,8 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0875b1ff-96f6-4834-b4ae-11f722c1b290" name="Changes" comment="Fixed file error">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/controllers/BlackJackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/gameLogic/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Blackjack/gameLogic/Hand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sigmacasino/Menus/SignUpController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +33,12 @@
     &quot;assignee&quot;: &quot;ComradeMark&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/adinashby-vanier-college/integrative-project-in-csm-project-sigma-technologies-inc",
-    "accountId": "044ad004-07a0-44be-9d88-f9f3eccd305e"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/adinashby-vanier-college/integrative-project-in-csm-project-sigma-technologies-inc&quot;,
+    &quot;accountId&quot;: &quot;044ad004-07a0-44be-9d88-f9f3eccd305e&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
