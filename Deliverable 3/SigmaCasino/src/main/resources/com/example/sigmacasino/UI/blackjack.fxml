@@ -102,7 +102,7 @@
                     </children>
                 </HBox>
 
-                <Text fx:id="resultText" layoutX="265.0" layoutY="239.0" text="GAMBLING TIME'S OVER">
+                <Text fx:id="resultText" layoutX="128.0" layoutY="234.0" text="GAMBLING TIME'S OVER" wrappingWidth="498.01171875">
                     <font><Font name="Arial Narrow" size="22.0" /></font>
                 </Text>
             </children>
