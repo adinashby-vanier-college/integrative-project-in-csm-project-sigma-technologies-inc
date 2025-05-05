@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
 
+import java.lang.Math;
+
 import java.io.IOException;
 
 public class RouletteController {
@@ -108,27 +110,32 @@ public class RouletteController {
     }
 
     private double angle = 0;
-    private double speed = 10;
+    private double speed = 30;
     final double deceleration = 0.5;
 
     protected void playAnimation(int number) {
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        Image image = new Image(getClass().getResource("/com/example/sigmacasino/Sprites/wheel.jpg").toExternalForm());
+        angle = Math.random()*360;
+        speed = 20 + Math.random()*10;
 
-        Timeline timeline = new Timeline();
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Image image = new Image(getClass().getResource("/com/example/sigmacasino/Sprites/wheel.png").toExternalForm(), 200, 200, true, true);
+
+
+        final Timeline[] timeline = new Timeline[1];
+        timeline[0] = new Timeline();
         KeyFrame keyframe = new KeyFrame(Duration.millis(16), e -> {
 
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             drawRotatedImage(gc, image, angle, canvas.getWidth() / 2, canvas.getHeight() / 2);
             angle += speed;
             speed = Math.max(speed - deceleration, 0);
-            if (speed == 0) timeline.stop();
+            if (speed == 0) timeline[0].stop();
 
         });
-        timeline.getKeyFrames().add(keyframe);
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        timeline[0].getKeyFrames().add(keyframe);
+        timeline[0].setCycleCount(Timeline.INDEFINITE);
+        timeline[0].play();
 
     }
 
