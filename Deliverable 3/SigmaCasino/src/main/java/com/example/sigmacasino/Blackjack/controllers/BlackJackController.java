@@ -1,5 +1,6 @@
 package com.example.sigmacasino.Blackjack.controllers;
 
+import com.example.sigmacasino.Blackjack.gameLogic.BlackJackCard;
 import com.example.sigmacasino.Blackjack.gameLogic.Deck;
 import com.example.sigmacasino.Blackjack.gameLogic.Hand;
 import com.example.sigmacasino.SigmaCasinoMain;
@@ -54,10 +55,21 @@ public class BlackJackController {
         player.reset();
         doubleDownButton.setDisable(false);
 
+
         dealer.takeCard(deck.drawCard());
-        dealer.takeCard(deck.drawCard());
+
+
+        BlackJackCard secondCard = deck.drawCard();
+        dealer.takeCard(secondCard);
+
+
+        dealer.animateBackImage();
+
+        // Deal cards to the player
         player.takeCard(deck.drawCard());
         player.takeCard(deck.drawCard());
+
+        // Check for Blackjack
         checkForBlackJack();
         updateOptimalPlay();
 
