@@ -34,7 +34,6 @@ public class SettingsController {
 
             SettingsManager.saveSettings();
         });
-        
     }
 
     public boolean getUICheckBoxValue(){

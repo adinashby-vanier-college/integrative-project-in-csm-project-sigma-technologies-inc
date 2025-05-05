@@ -917,21 +917,25 @@ public class PokerGame {
 
     //Card animations
     private void flipCardImage(ImageView imageView, Image image){
-        Platform.runLater(() -> {
-            RotateTransition rotateOut = new RotateTransition(Duration.millis(220), imageView);
-            rotateOut.setAxis(Rotate.Y_AXIS);
-            rotateOut.setFromAngle(0);
-            rotateOut.setToAngle(90);
-            rotateOut.setOnFinished(event -> {
-                imageView.setImage(image);
-                RotateTransition rotateIn = new RotateTransition(Duration.millis(220), imageView);
-                rotateIn.setAxis(Rotate.Y_AXIS);
-                rotateIn.setFromAngle(90);
-                rotateIn.setToAngle(0);
-                rotateIn.play();
+        if(SettingsManager.settings.showAnimations) {
+            Platform.runLater(() -> {
+                RotateTransition rotateOut = new RotateTransition(Duration.millis(220), imageView);
+                rotateOut.setAxis(Rotate.Y_AXIS);
+                rotateOut.setFromAngle(0);
+                rotateOut.setToAngle(90);
+                rotateOut.setOnFinished(event -> {
+                    imageView.setImage(image);
+                    RotateTransition rotateIn = new RotateTransition(Duration.millis(220), imageView);
+                    rotateIn.setAxis(Rotate.Y_AXIS);
+                    rotateIn.setFromAngle(90);
+                    rotateIn.setToAngle(0);
+                    rotateIn.play();
+                });
+                rotateOut.play();
             });
-            rotateOut.play();
-        });
+        } else{
+            imageView.setImage(image);
+        }
     }
 
     //Getters
