@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="211.0" layoutY="28.0" text="Best Plays and Tips">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="72.0" text="Warning">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="100.0" prefHeight="65.0" prefWidth="508.0" text="Hot/Cold number trackers and the concept of cranking or hot streaks for certain numbers is a gambler's fallacy, since all the roles are independent from each other and in no way affect each other's probabilities." wrapText="true" />
+      <Label layoutX="30.0" layoutY="183.0" prefHeight="65.0" prefWidth="508.0" text="The house edge in American Roulette (which is slightly higher than in European Roulette due to the 00 (2.70%-1.35%, lower when using En Prison/La Partage rules) coming to a whopping 5.26% (7.89% if you play suboptimally) of bet amount which they keep on average." wrapText="true" />
+      <Label layoutX="30.0" layoutY="260.0" text="The Best Play">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="281.0" prefHeight="89.0" prefWidth="519.0" text="Avoid American Roulette in favor of European Roulette if you can, if not: if your goal is to not lose any money (payout of 1:1) bet evenly for all options (ex: red/black), for a balanced playstyle: 6 numbers and a property (ex: 13-18 and Red), avoid the top line bet (0, 00, 1, 2, 3) and single numbers (very low odds), remember the house always wins and hot streaks aren't a thing..." wrapText="true" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Menus.PokerRulesController">
+
+  <children>
+    <AnchorPane prefHeight="400.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label layoutX="16.0" layoutY="19.0" prefHeight="23.0" prefWidth="69.0" text="Objective" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="42.0" lineSpacing="2.0" prefHeight="52.0" prefWidth="524.0" text="Build the best five-card poker hand using your two private cards and five shared community cards. Win by either having the strongest hand at the end or by getting your opponents to fold." wrapText="true" />
+            <Label layoutX="14.0" layoutY="101.0" prefHeight="23.0" prefWidth="43.0" text="Cards">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="124.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="405.0" text="Each player receives two private cards (hole cards) that only they can see. Then, five community cards are placed on the table for all players to use." wrapText="true" />
+            <Label layoutX="16.0" layoutY="172.0" prefHeight="23.0" prefWidth="128.0" text="Community Cards">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="194.0" lineSpacing="2.0" prefHeight="58.0" prefWidth="119.0" text="1) The Flop – 3 Cards 2) The Turn – 1 Card 3) The River – 1 Card" wrapText="true" />
+            <Label layoutX="395.0" layoutY="171.0" prefHeight="21.0" prefWidth="119.0" text="Betting Rounds">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="395.0" layoutY="187.0" lineSpacing="2.0" prefHeight="81.0" prefWidth="119.0" text="1) After the hole cards 2) After the flop          3) After the turn          4) After the river" wrapText="true" />
+            <Label layoutX="160.0" layoutY="173.0" prefHeight="21.0" prefWidth="103.0" text="Player Actions">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="160.0" layoutY="188.0" lineSpacing="2.0" prefHeight="70.0" prefWidth="218.0" text="– Check/Call (match another player's bet) – Fold (give up their hand)                       – Raise (increase the current bet)" wrapText="true" />
+            <Label layoutX="16.0" layoutY="268.0" text="Winning The Game">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="294.0" lineSpacing="2.0" prefHeight="38.0" prefWidth="348.0" text="The pot is won either at showdown (when all cards are revealed), or earlier if all other players fold." wrapText="true" />
+            <Label layoutX="399.0" layoutY="279.0" prefHeight="21.0" prefWidth="112.0" text="Additional Info">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="pokerHandHyperlink" layoutX="397.0" layoutY="302.0" prefHeight="29.0" prefWidth="241.0" text="Poker Hands" />
+            <Hyperlink fx:id="inDepthRulesHyperLink" layoutX="398.0" layoutY="331.0" prefHeight="29.0" prefWidth="241.0" text="In Depth Rules" />
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>

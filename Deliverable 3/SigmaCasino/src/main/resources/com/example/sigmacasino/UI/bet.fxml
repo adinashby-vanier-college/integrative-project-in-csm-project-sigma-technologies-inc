@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:controller="com.example.sigmacasino.Roulette.BetController" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="465.0">
+         <children>
+            <TextField fx:id="field00" layoutX="14.0" layoutY="13.0" prefHeight="25.0" prefWidth="100.0" promptText="00" />
+            <TextField fx:id="field0" layoutX="14.0" layoutY="49.0" prefHeight="25.0" prefWidth="100.0" promptText="0" />
+            <TextField fx:id="field9" layoutX="14.0" layoutY="363.0" prefHeight="25.0" prefWidth="100.0" promptText="9" />
+            <TextField fx:id="field8" layoutX="14.0" layoutY="331.0" prefHeight="25.0" prefWidth="100.0" promptText="8" />
+            <TextField fx:id="field1" layoutX="14.0" layoutY="84.0" prefHeight="25.0" prefWidth="100.0" promptText="1" />
+            <TextField fx:id="field2" layoutX="14.0" layoutY="121.0" prefHeight="25.0" prefWidth="100.0" promptText="2" />
+            <TextField fx:id="field3" layoutX="14.0" layoutY="156.0" prefHeight="25.0" prefWidth="100.0" promptText="3" />
+            <TextField fx:id="field4" layoutX="14.0" layoutY="191.0" prefHeight="25.0" prefWidth="100.0" promptText="4" />
+            <TextField fx:id="field5" layoutX="14.0" layoutY="226.0" prefHeight="25.0" prefWidth="100.0" promptText="5" />
+            <TextField fx:id="field6" layoutX="14.0" layoutY="261.0" prefHeight="25.0" prefWidth="100.0" promptText="6" />
+            <TextField fx:id="field7" layoutX="14.0" layoutY="296.0" prefHeight="25.0" prefWidth="100.0" promptText="7" />
+            <TextField fx:id="field10" layoutX="124.0" layoutY="13.0" prefHeight="25.0" prefWidth="100.0" promptText="10" />
+            <TextField fx:id="field11" layoutX="124.0" layoutY="49.0" prefHeight="25.0" prefWidth="100.0" promptText="11" />
+            <TextField fx:id="field20" layoutX="124.0" layoutY="363.0" prefHeight="25.0" prefWidth="100.0" promptText="20" />
+            <TextField fx:id="field19" layoutX="124.0" layoutY="331.0" prefHeight="25.0" prefWidth="100.0" promptText="19" />
+            <TextField fx:id="field12" layoutX="124.0" layoutY="84.0" prefHeight="25.0" prefWidth="100.0" promptText="12" />
+            <TextField fx:id="field13" layoutX="124.0" layoutY="121.0" prefHeight="25.0" prefWidth="100.0" promptText="13" />
+            <TextField fx:id="field14" layoutX="124.0" layoutY="156.0" prefHeight="25.0" prefWidth="100.0" promptText="14" />
+            <TextField fx:id="field15" layoutX="124.0" layoutY="191.0" prefHeight="25.0" prefWidth="100.0" promptText="15" />
+            <TextField fx:id="field16" layoutX="124.0" layoutY="226.0" prefHeight="25.0" prefWidth="100.0" promptText="16" />
+            <TextField fx:id="field17" layoutX="124.0" layoutY="261.0" prefHeight="25.0" prefWidth="100.0" promptText="17" />
+            <TextField fx:id="field18" layoutX="124.0" layoutY="296.0" prefHeight="25.0" prefWidth="100.0" promptText="18" />
+            <TextField fx:id="field21" layoutX="235.0" layoutY="13.0" prefHeight="25.0" prefWidth="100.0" promptText="21" />
+            <TextField fx:id="field22" layoutX="235.0" layoutY="49.0" prefHeight="25.0" prefWidth="100.0" promptText="22" />
+            <TextField fx:id="field31" layoutX="235.0" layoutY="363.0" prefHeight="25.0" prefWidth="100.0" promptText="31" />
+            <TextField fx:id="field30" layoutX="235.0" layoutY="331.0" prefHeight="25.0" prefWidth="100.0" promptText="30" />
+            <TextField fx:id="field23" layoutX="235.0" layoutY="84.0" prefHeight="25.0" prefWidth="100.0" promptText="23" />
+            <TextField fx:id="field24" layoutX="235.0" layoutY="121.0" prefHeight="25.0" prefWidth="100.0" promptText="24" />
+            <TextField fx:id="field25" layoutX="235.0" layoutY="156.0" prefHeight="25.0" prefWidth="100.0" promptText="25" />
+            <TextField fx:id="field26" layoutX="235.0" layoutY="191.0" prefHeight="25.0" prefWidth="100.0" promptText="26" />
+            <TextField fx:id="field27" layoutX="235.0" layoutY="226.0" prefHeight="25.0" prefWidth="100.0" promptText="27" />
+            <TextField fx:id="field28" layoutX="235.0" layoutY="261.0" prefHeight="25.0" prefWidth="100.0" promptText="28" />
+            <TextField fx:id="field29" layoutX="235.0" layoutY="296.0" prefHeight="25.0" prefWidth="100.0" promptText="29" />
+            <TextField fx:id="field32" layoutX="350.0" layoutY="14.0" prefHeight="25.0" prefWidth="100.0" promptText="32" />
+            <TextField fx:id="field36" layoutX="350.0" layoutY="156.0" prefHeight="25.0" prefWidth="100.0" promptText="36" />
+            <TextField fx:id="field35" layoutX="350.0" layoutY="121.0" prefHeight="25.0" prefWidth="100.0" promptText="35" />
+            <TextField fx:id="field33" layoutX="350.0" layoutY="49.0" prefHeight="25.0" prefWidth="100.0" promptText="33" />
+            <TextField fx:id="field34" layoutX="350.0" layoutY="84.0" prefHeight="25.0" prefWidth="100.0" promptText="34" />
+            <Button fx:id="betButton" layoutX="382.0" layoutY="204.0" mnemonicParsing="false" text="Bet!" onAction="#onBetClick"/>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

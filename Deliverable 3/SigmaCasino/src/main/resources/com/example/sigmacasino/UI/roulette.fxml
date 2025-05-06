@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sigmacasino.Roulette.RouletteController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="gameSelectionMenuItem" mnemonicParsing="false" onAction="#onGameSelectionMenuItemClick" text="Game Selection" />
+                        <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#onQuitMenuItemClick" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onAboutClick" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <left>
+        <TitledPane animated="false" prefHeight="250.0" prefWidth="150.0" text="Statistics" BorderPane.alignment="TOP_CENTER">
+            <content>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="148.0">
+                    <children>
+                        <Label layoutX="4.0" layoutY="14.0" text="House edge (%):" />
+                        <Button layoutX="35.0" layoutY="150.0" mnemonicParsing="false" onAction="#onTipsClick" text="Best Play/Tips" />
+                        <Label layoutX="14.0" layoutY="115.0" text="Win ($):" />
+                        <Label fx:id="tracker" layoutX="4.0" layoutY="35.0" prefHeight="80" prefWidth="140" text="" wrapText="true" />
+                        <TextField editable="false" layoutX="96.0" layoutY="10.0" prefHeight="0.0" prefWidth="50.0" text="5.26" />
+                        <TextField fx:id="winTextField" editable="false" layoutX="96.0" layoutY="111.0" prefHeight="0.0" prefWidth="50.0" text="0"/>
+                        <Button layoutX="54.0" layoutY="185.0" mnemonicParsing="false" onAction="#onSpinClick" text="Spin" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </TitledPane>
+    </left>
+    <center>
+        <Canvas fx:id="canvas" height="280.0" width="450.0" BorderPane.alignment="TOP_CENTER" />
+    </center>
+    <bottom>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" alignment="CENTER_LEFT" spacing="20.0">
+            <padding>
+                <Insets left="20.0" />
+            </padding>
+            <children>
+                <Button text="Number bets" onAction="#onBetsClick" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

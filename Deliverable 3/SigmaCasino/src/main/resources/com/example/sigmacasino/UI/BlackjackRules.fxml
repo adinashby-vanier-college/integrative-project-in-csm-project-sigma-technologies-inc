@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="275.0" layoutY="29.0" text="Rules">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="77.0" prefHeight="69.0" prefWidth="509.0" text="Blackjack is a classic casino card game where the goal is to get a hand value as close to 21 as possible without going over. Players compete against the dealer, not each other. Number cards are worth their face value, face cards are worth 10, and Aces can count as 1 or 11." wrapText="true" />
+      <Label layoutX="46.0" layoutY="161.0" prefHeight="69.0" prefWidth="509.0" text="Each player starts with two cards and decides whether to &quot;hit&quot; (take another card) or &quot;stand&quot; (keep their hand). Other options include &quot;double down&quot; (double the bet and take one more card) or &quot;split&quot; (if the two cards are the same value). The dealer follows fixed rules, usually hitting until they reach 17 or higher." wrapText="true" />
+      <Label layoutX="46.0" layoutY="247.0" prefHeight="69.0" prefWidth="509.0" text="If a player's hand goes over 21, it's a &quot;bust,&quot; and they lose the round. If neither the player nor dealer busts, the higher hand wins. A &quot;blackjack&quot; — an Ace and a 10-point card — is the best possible hand and usually pays out more than a regular win." wrapText="true" />
+   </children>
+</AnchorPane>
