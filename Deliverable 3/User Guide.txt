@@ -17,12 +17,14 @@ It also serves as an educational tool to explore the risks and decision-making i
 
 ---
 
-## 🛠️ Infrastructure & Configuration  
+## Infrastructure & Configuration  
 - **Language:** Java  
 - **External Libraries:** [JCards](https://github.com/lyudaio/jcards)  
 - **Setup:**  
-  - No special configuration required  
-  - Simply download the JAR file and run
+  - Before running the program in an IDE insure that all the external classes are set up
+  - This id done by right clicking on the external jars listed below and clicking Add As Libary
+	-Everything inside the lib folder (.../SigmaCasino/lib)
+	-jcards-0.0.6.jar
 
 ---
 
